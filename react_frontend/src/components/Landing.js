@@ -1,8 +1,10 @@
 import React from "react";
 
 const Landing = () => (
+    <div className="content-innerPage">
+         <h1 align="center"></h1>
+    </div>
 
-    <h1 align="center">Nazeek Website .... In progress .....................</h1>
 );
 
 export default Landing;

@@ -35,10 +35,16 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
      'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.twitter',
-
     # rest cors support
     'corsheaders',
-
+    #color picker
+    'colorful',
+    #Nazeeek Apps
+    'cart',
+    'coupon',
+    'orders',
+    'payment',
+    'shop',
     'user_profile',
 )
 
@@ -161,5 +167,5 @@ CORS_ORIGIN_REGEX_WHITELIST = (
 
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'tmp/emails'
+EMAIL_FILE_PATH = 'emails/emails'
 DEFAULT_FROM_EMAIL = 'admin@admin.com'

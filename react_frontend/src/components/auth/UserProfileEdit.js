@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { reduxForm, Field, propTypes } from "redux-form";
-import { connect } from 'react-redux'
-import { required } from "redux-form-validators"
+import React, {Component} from "react";
+import {Field, propTypes, reduxForm} from "redux-form";
+import {connect} from 'react-redux'
 
-import { renderField, renderTextAreaField, renderError} from "../../utils/renderUtils";
-import { updateUserProfile } from "../../actions/authActions";
+import {renderError, renderField, renderTextAreaField} from "../../utils/renderUtils";
+import {updateUserProfile} from "../../actions/authActions";
 
 class Login extends Component {
 

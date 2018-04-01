@@ -1,5 +1,6 @@
-from django.db import models
+# coding=utf-8
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils.translation import gettext as _
 
 User = get_user_model()

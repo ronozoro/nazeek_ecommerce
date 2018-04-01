@@ -15,7 +15,6 @@ class Login extends Component {
 
     render() {
         const {handleSubmit, error} = this.props;
-
         return (
             <div class="block-register">
                 <div class="row">

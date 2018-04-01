@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 import { SubmissionError } from 'redux-form';
 import history from "../utils/historyUtils";
 import { actions as notifActions } from 'redux-notifications';
@@ -180,7 +180,6 @@ export function activateUserAccount(formValues, dispatch, props) {
 
 export function updateUserProfile(formValues, dispatch, props) {
     const token = getUserToken(store.getState());
-    console.log(formValues)
     return axios.patch(AuthUrls.USER_PROFILE, formValues, {
         headers: {
             authorization: 'Token ' + token
