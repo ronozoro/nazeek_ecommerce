@@ -2,7 +2,6 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -33,21 +32,24 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.twitter',
     # rest cors support
     'corsheaders',
-    #color picker
+    # color picker
     'colorful',
-    #Nazeeek Apps
+    # Nazeeek Apps
     'cart',
     'coupon',
-    'orders',
-    'payment',
-    'shop',
+    'order',
+    'product',
+    'subscribe',
     'user_profile',
+    'wishlist',
 )
-
+BRAINTREE_MERCHANT_ID = ''
+BRAINTREE_PUBLIC = ''
+BRAINTREE_PRIVATE = ''
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,7 +139,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_USERNAME_REQUIRED = False
 LOGOUT_ON_PASSWORD_CHANGE = False
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

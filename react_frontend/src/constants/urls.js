@@ -10,5 +10,5 @@ export const AuthUrls = {
     USER_PROFILE: `${ROOT_URL}rest-auth/user/`
 };
 export const ShopUrls = {
-    SHOP: `${ROOT_URL}shop/products`,
+    SHOP: `${ROOT_URL}api/products`,
 };

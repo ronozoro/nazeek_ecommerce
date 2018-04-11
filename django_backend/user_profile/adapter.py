@@ -1,6 +1,8 @@
-from django.contrib.sites.shortcuts import get_current_site
 from allauth.account.adapter import DefaultAccountAdapter
+from django.contrib.sites.shortcuts import get_current_site
+
 from .models import UserProfile
+
 
 class MyAccountAdapter(DefaultAccountAdapter):
 

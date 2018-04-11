@@ -1,8 +1,22 @@
+from cart.views import (
+    CartAPIView,
+    CheckoutAPIView,
+    CheckoutFinalizeAPIView,
+)
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.generic import TemplateView
-from rest_framework import routers
+from order.views import (OrderListAPIView, OrderRetrieveAPIView, UserAddressCreateAPIView, UserAddressListAPIView,
+                         UserCheckoutAPI)
+from product.views import (
+    APIHomeView,
+    CategoryListAPIView,
+    CategoryRetrieveAPIView,
+    ProductListAPIView,
+    ProductRetrieveAPIView,
 
+)
+from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from user_profile.views import UserViewSet
 
 router = routers.DefaultRouter()
@@ -14,8 +28,27 @@ urlpatterns = [
     # This is used for user reset password
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^shop/', include('shop.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
-    url(r'^api/', include(router.urls)),
+    url(r'^api/$', APIHomeView.as_view(), name='home_api'),
+    # url(r'^api/subscribe/$', SubscribeViewSet.as_view(), name='subscribe_api'),
+    url(r'^api/products/$', ProductListAPIView.as_view(), name='products_api'),
+    url(r'^api/categories/$', CategoryListAPIView.as_view(), name='categories_api'),
+    url(r'^api/categories/(?P<pk>\d+)/$', CategoryRetrieveAPIView.as_view(), name='category_detail_api'),
+    url(r'^api/products/(?P<pk>\d+)/$', ProductRetrieveAPIView.as_view(), name='products_detail_api'),
+    url(r'^api/orders/$', OrderListAPIView.as_view(), name='orders_api'),
+    url(r'^api/orders/(?P<pk>\d+)/$', OrderRetrieveAPIView.as_view(), name='order_detail_api'),
+    url(r'^api/cart/$', CartAPIView.as_view(), name='cart_api'),
+    url(r'^api/checkout/$', CheckoutAPIView.as_view(), name='checkout_api'),
+    url(r'^api/checkout/finalize/$', CheckoutFinalizeAPIView.as_view(), name='checkout_finalize_api'),
+    url(r'^api/auth/token/$', obtain_jwt_token, name='auth_login_api'),
+    url(r'^api/auth/token/refresh/$', refresh_jwt_token, name='refresh_token_api'),
+    url(r'^api/user/address/$', UserAddressListAPIView.as_view(), name='user_address_list_api'),
+    url(r'^api/user/address/create/$', UserAddressCreateAPIView.as_view(), name='user_address_create_api'),
+    url(r'^api/user/checkout/$', UserCheckoutAPI.as_view(), name='user_checkout_api'),
+    url(r'^api/categories/$', CategoryListAPIView.as_view(), name='categories_api'),
+    url(r'^api/categories/(?P<pk>\d+)/$', CategoryRetrieveAPIView.as_view(), name='category_detail_api'),
+    url(r'^api/orders/$', OrderListAPIView.as_view(), name='orders_api'),
+    url(r'^api/orders/(?P<pk>\d+)/$', OrderRetrieveAPIView.as_view(), name='order_detail_api'),
+
 ]

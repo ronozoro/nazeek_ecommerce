@@ -10,6 +10,7 @@ const rootReducer = combineReducers({
     notifs: notifReducer,
     auth: authReducer,
     shop: shopReducer
+
 });
 
 export default rootReducer;

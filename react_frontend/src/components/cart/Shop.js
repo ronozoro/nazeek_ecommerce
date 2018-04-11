@@ -91,7 +91,6 @@ class ShopData extends Component {
 
     renderShop() {
         const products = this.props.products;
-        const product = this.props.product;
         if (products) {
             return (
                 <div className="container">

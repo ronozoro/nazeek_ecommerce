@@ -1,10 +1,9 @@
 # coding=utf-8
-from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
+from rest_framework import serializers
 
 
 class UserSerializer(UserDetailsSerializer):
-
     website = serializers.URLField(source="userprofile.website", allow_blank=True, required=False)
     about = serializers.CharField(source="userprofile.about", allow_blank=True, required=False)
     mobile = serializers.CharField(source="userprofile.mobile", allow_blank=True, required=False)
