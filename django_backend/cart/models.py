@@ -51,7 +51,7 @@ class Cart(models.Model):
     total = models.DecimalField(max_digits=50, decimal_places=2, default=0.00)
     active = models.BooleanField(default=True)
 
-    # discounts
+    # discounts //Related to coupons
     # shipping
 
     def __str__(self):

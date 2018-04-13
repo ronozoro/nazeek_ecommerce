@@ -6,5 +6,8 @@ export const AuthTypes = {
 };
 
 export const ShopTypes = {
-    SHOP: "SHOP",
+    PRODUCTS: "PRODUCTS",
+    CATEGORIES: "CATEGORIES",
+    SELLERS: "SELLERS",
+    BRANDS: "BRANDS",
 };

@@ -1,15 +1,19 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getShopData} from "../../actions/shopActions";
+import {getProducts} from "../../actions/shopActions";
+
+
 class ShopData extends Component {
     static propTypes = {
-        getShopData: PropTypes.func.isRequired,
+        getProducts: PropTypes.func.isRequired,
     };
 
     componentWillMount() {
-        this.props.getShopData();
+        this.props.getProducts();
     }
+
+
 
     renderProducts(object) {
         return (
@@ -23,14 +27,14 @@ class ShopData extends Component {
                     <div className="pro-resCaption">
                         <div className="color-choose">
                             {
-                                object.object.product_images.map(function (image) {
+                                object.object.variation_set.map(function (product) {
                                     var style = {
-                                        backgroundColor: image.color
+                                        backgroundColor: product.color
                                     }
                                     return (
                                         <div>
-                                            <input data-image={image.record} name="product-color"
-                                                   value={image.record} checked="" type="radio"/>
+                                            <input data-image={product.image} name={product.title}
+                                                   value={product.price} checked="" type="radio"/>
                                             <label style={style}>
                                                 <span>
                                                 </span>
@@ -41,8 +45,8 @@ class ShopData extends Component {
                             }
                         </div>
                         <div className="pro-resTxt">
-                            <h2 className="pr-title"><a href="#">{object.object.name}</a></h2>
-                            <p className="pr-shop">{object.object.stock}</p>
+                            <h2 className="pr-title"><a href="#">{object.object.title}</a></h2>
+                            <p className="pr-shop">{object.object.seller_name}</p>
                             <span className="pr-sa">{object.object.price}</span>
                             <ul className="pro-resAction">
                                 <li>
@@ -64,9 +68,9 @@ class ShopData extends Component {
 
     renderFilters() {
         return (
-          <div>
+            <div>
 
-          </div>
+            </div>
         )
     }
 
@@ -138,4 +142,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {getShopData})(ShopData);
+export default connect(mapStateToProps, {getProducts})(ShopData);

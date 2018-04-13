@@ -101,6 +101,8 @@ class ProductSerializer(serializers.ModelSerializer):
     variation_set = VariationSerializer(many=True)
     productimage_set = ProductImageSerializer(many=True)
     image = serializers.SerializerMethodField()
+    brand_name = serializers.CharField(source='brand_id.title')
+    seller_name = serializers.CharField(source='seller_id.title')
 
     class Meta:
         model = Product
@@ -110,7 +112,10 @@ class ProductSerializer(serializers.ModelSerializer):
             "title",
             "brand_id",
             "seller_id",
+            "brand_name",
+            "seller_name",
             "image",
+            'price',
             "variation_set",
             "productimage_set"
         ]
@@ -135,4 +140,22 @@ class CategorySerializer(serializers.ModelSerializer):
             "title",
             "description",
             "product_set",
+        ]
+
+class BrandSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = [
+            "url",
+            "id",
+        ]
+
+class SellerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = [
+            "url",
+            "id",
         ]

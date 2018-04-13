@@ -2,13 +2,29 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-
 class Header extends Component {
 
     static propTypes = {
         authenticated: PropTypes.bool
     };
+     renderCart() {
+        return (
+            <div className="col-md-3 col-sm-3">
+                <div className="clearfix">
+                    <ul className="menu-purches clearfix">
+                        <li className="favorite-btn">
+                            <a href="wishlist.html"><i
+                                className="icon-heart icons"></i><span>0</span></a>
+                        </li>
+                        <li className="cart-purches-btn">
+                            <a href="cart.html"><i className="icon-basket icons"></i><span>0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
+        )
+    }
     renderLinks() {
         if (this.props.authenticated) {
             return (
@@ -62,7 +78,6 @@ class Header extends Component {
 
     renderMiddle() {
         return (
-
                 <div className="header-middle">
                     <div className="container">
                         <div className="row">
@@ -78,23 +93,10 @@ class Header extends Component {
                                             className="icon-magnifier icons" aria-hidden="true"></i></button>
                                 </form>
                             </div>
-                            <div className="col-md-3 col-sm-3">
-                                <div className="clearfix">
-                                    <ul className="menu-purches clearfix">
-                                        <li className="favorite-btn">
-                                            <a href="wishlist.html"><i
-                                                className="icon-heart icons"></i><span>0</span></a>
-                                        </li>
-                                        <li className="cart-purches-btn">
-                                            <a href="cart.html"><i className="icon-basket icons"></i><span>23</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            {this.renderCart()}
                         </div>
                     </div>
                 </div>
-
         );
 
     }
