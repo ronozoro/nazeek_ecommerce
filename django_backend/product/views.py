@@ -4,9 +4,11 @@ from rest_framework.reverse import reverse as api_reverse
 from rest_framework.views import APIView
 
 # Create your views here.
-from .models import Category, Product,ProductSeller,ProductBrand
+from .models import Category, Product, ProductSeller, ProductBrand
 from .pagination import CategoryPagination
-from .serializers import (CategorySerializer, ProductDetailSerializer, ProductSerializer,BrandSerializer,SellerSerializer)
+from .serializers import (CategorySerializer, ProductDetailSerializer, ProductSerializer, BrandSerializer,
+                          SellerSerializer)
+
 
 class APIHomeView(APIView):
     def get(self, request, format=None):
@@ -24,6 +26,9 @@ class APIHomeView(APIView):
             "products": {
                 "count": Product.objects.all().count(),
                 "url": api_reverse("products_api", request=request)
+            },
+            "subscribe": {
+                "url": api_reverse("subscribe_api", request=request)
             },
             "sellers": {
                 "count": ProductSeller.objects.all().count(),
@@ -66,10 +71,10 @@ class ProductListAPIView(generics.ListAPIView):
     ordering_fields = ["title", "id"]
 
 
-
 class ProductRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
+
 
 class SellerListAPIView(generics.ListAPIView):
     queryset = ProductSeller.objects.all()
@@ -80,6 +85,8 @@ class SellerListAPIView(generics.ListAPIView):
     ]
     search_fields = ["title"]
     ordering_fields = ["title", "id"]
+
+
 class BrandListAPIView(generics.ListAPIView):
     queryset = ProductBrand.objects.all()
     serializer_class = BrandSerializer

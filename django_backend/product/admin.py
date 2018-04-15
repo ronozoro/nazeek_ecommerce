@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product, ProductImage, Variation,ProductBrand,ProductSeller
+from .models import Category, Product, ProductImage, Variation, ProductBrand, ProductSeller
 
 
 class ProductImageInline(admin.TabularInline):

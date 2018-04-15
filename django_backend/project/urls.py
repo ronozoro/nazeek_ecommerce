@@ -11,6 +11,7 @@ from product.views import (APIHomeView, BrandListAPIView, CategoryListAPIView, C
                            ProductListAPIView, ProductRetrieveAPIView, SellerListAPIView)
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from subscribe.views import (SubscribeSerializer)
 from user_profile.views import UserViewSet
 
 router = routers.DefaultRouter()
@@ -25,7 +26,7 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
     url(r'^api/$', APIHomeView.as_view(), name='home_api'),
-    # url(r'^api/subscribe/$', SubscribeViewSet.as_view(), name='subscribe_api'),
+    url(r'^api/subscribe/$', SubscribeSerializer.as_view(), name='subscribe_api'),
     url(r'^api/products/$', ProductListAPIView.as_view(), name='products_api'),
     url(r'^api/sellers/$', SellerListAPIView.as_view(), name='sellers_api'),
     url(r'^api/brands/$', BrandListAPIView.as_view(), name='brands_api'),

@@ -142,8 +142,8 @@ class CategorySerializer(serializers.ModelSerializer):
             "product_set",
         ]
 
-class BrandSerializer(serializers.ModelSerializer):
 
+class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
@@ -151,8 +151,8 @@ class BrandSerializer(serializers.ModelSerializer):
             "id",
         ]
 
-class SellerSerializer(serializers.ModelSerializer):
 
+class SellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [

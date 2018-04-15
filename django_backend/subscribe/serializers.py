@@ -1,9 +1,15 @@
 from rest_framework import serializers
+from rest_framework.generics import CreateAPIView
 
 from .models import SignUp
 
 
-class SubscribeSerializer(serializers.HyperlinkedModelSerializer):
+class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignUp
-        fields = ('name', 'parent_id', 'slug')
+        fields = ('email', 'full_name')
+
+
+class SubscribeSerializer(CreateAPIView):
+    model = SignUp
+    serializer_class = SignUpSerializer

@@ -293,7 +293,7 @@ class Header extends Component {
             <header>
                 {this.renderHeaderTop()}
                 {this.renderMiddle()}
-                {/*{this.renderHeaderBottom()}*/}
+                {this.renderHeaderBottom()}
             </header>
 
         )

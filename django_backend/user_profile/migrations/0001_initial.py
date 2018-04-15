@@ -24,7 +24,8 @@ class Migration(migrations.Migration):
                 ('website', models.URLField(blank=True, null=True)),
                 ('about', models.CharField(blank=True, max_length=255, null=True)),
                 (
-                'user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                    'user',
+                    models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'user profile',
