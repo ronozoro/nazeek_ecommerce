@@ -17,7 +17,7 @@ class Header extends Component {
                                 className="icon-heart icons"></i><span>0</span></a>
                         </li>
                         <li className="cart-purches-btn">
-                            <a href="cart.html"><i className="icon-basket icons"></i><span>0</span></a>
+                            <Link to="/cart"><i className="icon-basket icons"></i><span>{this.props.count}</span></Link>
                         </li>
                     </ul>
                 </div>
@@ -302,7 +302,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
     return {
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        count:state.cart.count
     }
 }
 

@@ -1,28 +1,46 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {getProducts} from "../../actions/shopActions";
-
+import { connect } from "react-redux";
+import { getProducts } from "../../actions/shopActions";
+import { setToCart } from '../../actions/cart'
+import { getItemsOfCart } from '../../actions/cart'
+import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
 
 class ShopData extends Component {
     static propTypes = {
         getProducts: PropTypes.func.isRequired,
+        setToCart: PropTypes.func.isRequired,
+        getItemsOfCart: PropTypes.func.isRequired
     };
 
     componentWillMount() {
         this.props.getProducts();
+
+    }
+    componentDidMount() {
+        this.props.getItemsOfCart();
+
     }
 
+    handleClick(product) {
+        this.props.setToCart(product)
+    }
+    handleChange(e, object) {
+        console.log({ x: object.prod, xx: object.varId });
+        this.props.setToCart(object)
 
 
+    }
     renderProducts(object) {
+        var thos = this
         return (
             <div className="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                 <div className="product-result-item">
                     <a href="#" className="pro-resThumb">
                         <img data-image={object.object.id} className="active"
-                             src={'data:image/png;base64, ' + object.object.image}
-                             alt={object.object.name}/>
+                            src={'data:image/png;base64, ' + object.object.image}
+                            alt={object.object.name} />
                     </a>
                     <div className="pro-resCaption">
                         <div className="color-choose">
@@ -31,11 +49,12 @@ class ShopData extends Component {
                                     var style = {
                                         backgroundColor: product.color
                                     }
+
                                     return (
                                         <div>
                                             <input data-image={product.image} name={product.title}
-                                                   value={product.price} checked="" type="radio"/>
-                                            <label style={style}>
+                                                value={product.price} checked="" type="radio" />
+                                            <label onClick={(e) => { thos.handleChange(e, { prod: object, varId: product }) }} style={style}>
                                                 <span>
                                                 </span>
                                             </label>
@@ -51,12 +70,13 @@ class ShopData extends Component {
                             <ul className="pro-resAction">
                                 <li>
                                     <a href="#" className="heart-btn">
-                                        <i className="icon-heart icons"/>
+                                        <i className="icon-heart icons" />
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" className="basket-btn">
-                                        <i className="icon-basket icons"/></a>
+                                        <i className="icon-basket icons" onClick={()=>{this.handleClick(e, {propd:object,varId:1})}} />
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -95,6 +115,7 @@ class ShopData extends Component {
 
     renderShop() {
         const products = this.props.products;
+        console.log(products)
         if (products) {
             return (
                 <div className="container">
@@ -114,7 +135,7 @@ class ShopData extends Component {
                                 {/*<p className="p-results">23 Results</p>*/}
                                 <div className="product-result-list">
                                     <div className="row">
-                                        {products.map((object, i) => this.renderProducts({object}))}
+                                        {products.map((object, i) => this.renderProducts({ object }))}
                                     </div>
                                 </div>
                             </div>
@@ -127,9 +148,11 @@ class ShopData extends Component {
     }
 
     render() {
+        //  localStorage.clear('cart_token')
         return (
             <div>
                 {this.renderShop()}
+
             </div>
         );
     }
@@ -142,4 +165,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {getProducts})(ShopData);
+export default connect(mapStateToProps, { getProducts, setToCart, getItemsOfCart })(ShopData);

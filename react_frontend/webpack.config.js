@@ -41,7 +41,7 @@ const config = {
                             limit: 20000
                         }
                     },
-                    "image-webpack-loader"
+                   
                 ]
             },
             { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

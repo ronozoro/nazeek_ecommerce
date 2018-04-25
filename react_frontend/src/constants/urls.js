@@ -14,4 +14,7 @@ export const ShopUrls = {
     CATEGORIES: `${ROOT_URL}api/categories`,
     BRANDS: `${ROOT_URL}api/brands`,
     SELLERS: `${ROOT_URL}api/sellers`,
-};
+};;
+export const CartUrls={
+    cart:`${ROOT_URL}api/cart/`,
+}

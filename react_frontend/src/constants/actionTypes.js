@@ -11,3 +11,8 @@ export const ShopTypes = {
     SELLERS: "SELLERS",
     BRANDS: "BRANDS",
 };
+export const cartTypes= {
+    SET_TO_CART:"SET_TO_CART",
+    CHANGE_QUANTITY:"CHANGE_QUANTITY",
+    CARTITEMS:"CARTITEMS"
+}; 
