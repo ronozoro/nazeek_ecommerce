@@ -24,6 +24,8 @@ class ShopData extends Component {
     }
 
     handleClick(product) {
+        console.log(product);
+        
         this.props.setToCart(product)
     }
     handleChange(e, object) {
@@ -75,7 +77,7 @@ class ShopData extends Component {
                                 </li>
                                 <li>
                                     <a href="#" className="basket-btn">
-                                        <i className="icon-basket icons" onClick={()=>{this.handleClick(e, {propd:object,varId:1})}} />
+                                        <i className="icon-basket icons" onClick={this.handleClick.bind(this,{prod:object,varId:{id:1}})} />
                                     </a>
                                 </li>
                             </ul>

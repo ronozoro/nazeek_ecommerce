@@ -1,6 +1,6 @@
 
 import {cartTypes} from '../constants/actionTypes';
-export default function(state = {cart:[],count:0,products:[],variation:[],alldata:[]}, action) {
+export default function(state = {cart:[],cartItems:[],count:0,products:[],variation:[],alldata:[]}, action) {
     switch(action.type) {
     
         case cartTypes.SET_TO_CART: 
@@ -17,7 +17,7 @@ export default function(state = {cart:[],count:0,products:[],variation:[],alldat
         case cartTypes.CARTITEMS:
         return {
             ...state,
-            cart: action.items,
+            cartItems: action.items,
             count:action.count,
         }
             return  { 

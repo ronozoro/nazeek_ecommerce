@@ -12,8 +12,8 @@ export class Cart extends React.Component {
         this.handleChange=this.handleChange.bind(this)
 
     }
-    handleChange(event,id){  
-        this.props.changeQuantity({quantity:event.value,id:id})
+    handleChange(event,id,prodId){  
+        this.props.changeQuantity({quantity:event.value,id:id,prodId:prodId})
     }
     render() {
         console.log({p:this.props.alldata,v:this.props.variation});
@@ -53,7 +53,7 @@ export class Cart extends React.Component {
                         </Table.Header>
 
                         <Table.Body >
-                            {this.props.variation.map((item,index)=>{                                
+                            {this.props.cart.map((item,index)=>{                                
                                 return <Table.Row> 
                             {columnsName.map((coulm)=>{
                             if(coulm.id=='item') {
@@ -66,7 +66,7 @@ export class Cart extends React.Component {
                                 if(coulm.id=='quantity') {                                   
                                         return <Table.Cell>
                                         {item[coulm.id] }
-                                        <Input type="number" ref="input" onChange={(e,data)=>{this.handleChange(data,item.item)}}/>
+                                        <Input type="number" ref="input" onChange={(e,data)=>{this.handleChange(data,item.item,item.cart)}}/>
                                      </Table.Cell>                                 
                                    
                                 } 
