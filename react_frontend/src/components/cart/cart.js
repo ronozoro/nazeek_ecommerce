@@ -2,31 +2,41 @@ import * as React from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {changeQuantity} from "../../actions/cart";
+import {checkout} from '../../actions/checkout'
+import {Link} from 'react-router-dom'
 import{ Input,  Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
 import { Button, Checkbox,Image, Icon, Grid } from 'semantic-ui-react'
 export class Cart extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            cartItems:props.cart
         }
         this.handleChange=this.handleChange.bind(this)
 
     }
-    handleChange(event,id,prodId){  
-        this.props.changeQuantity({quantity:event.value,id:id,prodId:prodId})
+    handleChange(quantity,id,prodId){  
+        this.props.changeQuantity({quantity:quantity,id:id,prodId:prodId})
+    }
+    componentWillReceiveProps(nextProps){
+        console.log({nextProps});
+        
+     this.setState({cartItems:nextProps.cart})
+    }
+    handlClick(){
+        this.props.checkout()
     }
     render() {
-        console.log({p:this.props.alldata,v:this.props.variation});
         var thos=this
         const columnsName=[
-            {id:'item',title:'Product'},
-            {id:'id',title:'ProductID'},
+            {id:'product',title:'Product'},
+            {id:'item',title:'ProductId'},
             {id:'quantity',title:'quantity'},
             {id:'price',title:'ItemPrice'},
-            {id:'color',title:'Subtotal'},
-            {id:'title',title:'title'}
+            {id:'color',title:'color'},
+
         ]
-        if(this.props.variation&&this.props.variation.length)
+        if(this.state.cartItems&&this.state.cartItems.length)
         return (
             <div>
 
@@ -42,31 +52,45 @@ export class Cart extends React.Component {
                         <Table.Header>
                             <Table.Row>
                                {columnsName.map((coulm,index)=>{
-                                   if(coulm.id=='item')
-                                   return  <Table.HeaderCell width={5}>{coulm.title}</Table.HeaderCell>
-                               else
                                return  <Table.HeaderCell>{coulm.title}</Table.HeaderCell>
-
                                 })
                                }                               
                             </Table.Row>
                         </Table.Header>
 
                         <Table.Body >
-                            {this.props.cart.map((item,index)=>{                                
+                            {this.state.cartItems.map((item,index)=>{                                
                                 return <Table.Row> 
                             {columnsName.map((coulm)=>{
-                            if(coulm.id=='item') {
-                                return<Table.Cell>                                      
-                                <div style={styles.img}><Image width={150} src={'data:image/png;base64, '+this.props.products[0].object.image} size='tiny' verticalAlign='middle' /></div>
-                                 <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf;dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div>
-                                </Table.Cell>   
+                            if(coulm.id=='product') {
+                                return this.props.products.map(prod=>{
+                                    console.log(prod);                                        
+                                    if(item.product===prod.id){
+                                       return prod.productimage_set.map(I=>{
+                                           console.log({I});                                           
+                                            if(I.product==item.product){
+                                                return<Table.Cell>                                      
+                                                <div style={styles.img}><Image width={150} src={'data:image/png;base64, '+I.image} size='tiny' verticalAlign='middle' /></div>
+                                                 <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf;dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div>
+                                                </Table.Cell> 
+                                            }
+                                        })
+                                    
                                     }
-                                
+                                })
+
+                                  
+                                    }
+                                if(coulm.id=='item') {                                   
+                                        return <Table.Cell>
+                                        {item[coulm.id] }
+                                     </Table.Cell>                                 
+                                   
+                                } 
                                 if(coulm.id=='quantity') {                                   
                                         return <Table.Cell>
                                         {item[coulm.id] }
-                                        <Input type="number" ref="input" onChange={(e,data)=>{this.handleChange(data,item.item,item.cart)}}/>
+                                        <Input type="number" ref="input" onChange={(e,data)=>{this.handleChange(data.value,item.item,item.product)}}/>
                                      </Table.Cell>                                 
                                    
                                 } 
@@ -76,12 +100,21 @@ export class Cart extends React.Component {
                                     </Table.Cell>
                                 } 
                                 if(coulm.id=='color') {
-                                    return<Table.Cell>
-                                       {item[coulm.id]}
-                                    </Table.Cell>
-                                }                                      
+                                   return this.props.products.map(prod=>{
+                                        console.log(prod);                                        
+                                        if(item.product===prod.id){
+                                           return prod.variation_set.map(v=>{
+                                                if(item.item===v.id){
+                                                 return<Table.Cell>
+                                                    {v.color}
+                                                 </Table.Cell>
+                                                }
+                                            })
+                                        
+                                        }
+                                    })
                                    
-
+                                } 
                                     })
                                 }
                                
@@ -105,16 +138,15 @@ export class Cart extends React.Component {
                                     <div><p style={styles.p}>
                                         <Icon name="file text outline" />
                                         TOTAL <span style={{ fontSize: 18 }}>(without delivry fees)</span> : 3435 KD</p>
-
                                     </div>
                                     <br />
-                                    <Button content="Checkout" type="button" style={styles.btn} />
-                                    <Button animated style={styles.btn}>
+                                    <Button content="Checkout" type="button" style={styles.btn} onClick={this.handlClick.bind(this)}/>
+                                   <Link to="shop"> <Button animated style={styles.btn}>
                                         <Button.Content visible>Continue Shopping</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='mail forward' />
                                         </Button.Content>
-                                    </Button>
+                                    </Button></Link>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
@@ -137,9 +169,7 @@ export class Cart extends React.Component {
 const mapStateToProps =(state)=>{
     return {
       cart:state.cart.cart,
-      products:state.cart.products,
-      variation:state.cart.variation,
-      alldata:state.cart.alldata
+      products:state.shop.products,
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -198,4 +228,4 @@ var styles={
     color: '#13bfad',
     }
 }
-export default connect(mapStateToProps, {changeQuantity})(Cart);
+export default connect(mapStateToProps, {changeQuantity,checkout})(Cart);
