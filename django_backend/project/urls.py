@@ -1,7 +1,7 @@
 from cart.views import (
     CartAPIView,
     CheckoutAPIView,
-    CheckoutFinalizeAPIView,
+    CheckoutFinalizeAPIView, CheckoutFinalView,ItemCountView
 )
 from django.conf.urls import include, url
 from django.contrib import admin
@@ -36,6 +36,8 @@ urlpatterns = [
     url(r'^api/orders/$', OrderListAPIView.as_view(), name='orders_api'),
     url(r'^api/orders/(?P<pk>\d+)/$', OrderRetrieveAPIView.as_view(), name='order_detail_api'),
     url(r'^api/cart/$', CartAPIView.as_view(), name='cart_api'),
+    url(r'^cart/count/$', ItemCountView.as_view(), name='item_count'),
+    url(r'^checkout/final/$', CheckoutFinalView.as_view(), name='checkout_final'),
     url(r'^api/checkout/$', CheckoutAPIView.as_view(), name='checkout_api'),
     url(r'^api/checkout/finalize/$', CheckoutFinalizeAPIView.as_view(), name='checkout_finalize_api'),
     url(r'^api/auth/token/$', obtain_jwt_token, name='auth_login_api'),
