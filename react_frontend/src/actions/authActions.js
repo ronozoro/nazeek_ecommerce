@@ -76,12 +76,15 @@ export function getUserProfile() {
     return function(dispatch) {
         const token = getUserToken(store.getState());
         if (token) {
-            axios.get(AuthUrls.USER_PROFILE, {
+          return  axios.get(AuthUrls.USER_PROFILE, {
                 headers: {
                     authorization: 'Token ' + token
                 }
             }).then(response => {
+                console.log({user:response.data});
+                
                 dispatch(setUserProfile(response.data))
+                return response
             }).catch((error) => {
                 // If request is bad...
                 // Show an error to the user

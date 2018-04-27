@@ -19,7 +19,7 @@ class ShopData extends Component {
 
     }
     componentDidMount() {
-        this.props.getItemsOfCart();
+        //this.props.getItemsOfCart();
 
     }
 
