@@ -13,6 +13,7 @@ from .mixins import LoginRequiredMixin
 from .models import Order, UserAddress, UserCheckout
 from .permissions import IsOwnerAndAuth
 from .serializers import OrderDetailSerializer, UserAddressSerializer
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -77,6 +78,7 @@ class UserCheckoutMixin(TokenMixin, object):
         if email and not user:
             user_exists = User.objects.filter(email=email).count()
             if user_exists != 0:
+
                 return self.user_failure(message="This user already exists, please login.")
 
         data = {}
@@ -99,13 +101,13 @@ class UserCheckoutMixin(TokenMixin, object):
 
         if user_checkout:
             data["success"] = True
-            data["braintree_id"] = user_checkout.get_braintree_id
+            # data["braintree_id"] = user_checkout.get_braintree_id
             data["user_checkout_id"] = user_checkout.id
             data["user_checkout_token"] = self.create_token(data)
 
-            del data["braintree_id"]
+            # del data["braintree_id"]
             del data["user_checkout_id"]
-            data["braintree_client_token"] = user_checkout.get_client_token()
+            # data["braintree_client_token"] = user_checkout.get_client_token()
 
         return data
 
@@ -120,6 +122,8 @@ class UserCheckoutAPI(UserCheckoutMixin, APIView):
     def post(self, request, format=None):
         data = {}
         email = request.data.get("email")
+
+        login(request, User.objects.get(email=email),backend='django.contrib.auth.backends.ModelBackend')
         if request.user.is_authenticated():
             if email == request.user.email:
                 data = self.get_checkout_data(user=request.user, email=email)

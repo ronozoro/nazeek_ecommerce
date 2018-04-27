@@ -82,13 +82,11 @@ class CheckoutAPIView(TokenMixin, APIView):
         data = request.data
         serializer = CheckoutSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
-            # print "valid data!!@!@"
             data = serializer.data
             user_checkout_id = data.get("user_checkout_id")
             cart_id = data.get("cart_id")
             billing_address = data.get("billing_address")
             shipping_address = data.get("shipping_address")
-
             user_checkout = UserCheckout.objects.get(id=user_checkout_id)
             cart_obj = Cart.objects.get(id=cart_id)
             s_a = UserAddress.objects.get(id=shipping_address)
