@@ -17,6 +17,7 @@ import Shop from "./cart/Shop";
 import Cart from './cart/cart'
 import Checkout from './cart/checkout'
 import NoMatch from "./NoMatch";
+import AddAddress from "./cart/add-new-addres";
 
 const MainContent = () => (
     <div >
@@ -27,6 +28,7 @@ const MainContent = () => (
             <Route path="/signup" component={Signup}/>
             <Route path="/shop" component={Shop}/>
             <Route path="/cart" component={Cart}/>
+            <Route path="/AddAddress" component={AddAddress}/>
             <Route path="/checkout" component={Checkout}/>
             <Route path="/account/confirm-email/:key" component={AccountActivation}/>
             <Route path="/signup_done" component={SignupDone}/>
