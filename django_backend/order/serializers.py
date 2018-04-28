@@ -9,7 +9,8 @@ from .models import Order, UserAddress
 # nonce is coming through
 # mark cart complete
 # mark order done
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class FinalizedOrderSerializer(TokenMixin, serializers.Serializer):
     order_token = serializers.CharField()
@@ -87,4 +88,12 @@ class UserAddressSerializer(serializers.ModelSerializer):
             "street",
             "city",
             "zipcode",
+        ]
+
+class UserDomain(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            'pk'
         ]
