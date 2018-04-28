@@ -6,7 +6,7 @@ from cart.views import (
 from django.conf.urls import include, url
 from django.contrib import admin
 from order.views import (OrderListAPIView, OrderRetrieveAPIView, UserAddressCreateAPIView, UserAddressListAPIView,
-                         UserCheckoutAPI)
+                         UserCheckoutAPI,UserGetID)
 from product.views import (APIHomeView, BrandListAPIView, CategoryListAPIView, CategoryRetrieveAPIView,
                            ProductListAPIView, ProductRetrieveAPIView, SellerListAPIView)
 from rest_framework import routers
@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^api/auth/token/$', obtain_jwt_token, name='auth_login_api'),
     url(r'^api/auth/token/refresh/$', refresh_jwt_token, name='refresh_token_api'),
     url(r'^api/user/address/$', UserAddressListAPIView.as_view(), name='user_address_list_api'),
+    url(r'^api/user/get/$', UserGetID.as_view(), name='user_token_list_api'),
     url(r'^api/user/address/create/$', UserAddressCreateAPIView.as_view(), name='user_address_create_api'),
     url(r'^api/user/checkout/$', UserCheckoutAPI.as_view(), name='user_checkout_api'),
     url(r'^api/categories/$', CategoryListAPIView.as_view(), name='categories_api'),

@@ -12,8 +12,8 @@ from rest_framework.views import APIView
 from .mixins import LoginRequiredMixin
 from .models import Order, UserAddress, UserCheckout
 from .permissions import IsOwnerAndAuth
-from .serializers import OrderDetailSerializer, UserAddressSerializer
-from django.contrib.auth import authenticate, login
+from .serializers import OrderDetailSerializer, UserAddressSerializer,UserDomain
+from django.contrib.auth import login
 
 # Create your views here.
 
@@ -47,6 +47,22 @@ class UserAddressCreateAPIView(CreateAPIView):
     serializer_class = UserAddressSerializer
 
 
+class UserGetID(TokenMixin, ListAPIView):
+    model=User
+    queryset = User.objects.all()
+    serializer_class = UserDomain
+
+    def get_queryset(self, *args, **kwargs):
+        user_checkout_token = self.request.GET.get("checkout_token")
+        print(user_checkout_token)
+        user_checkout_data = self.parse_token(user_checkout_token)
+        user_checkout_id = user_checkout_data.get("user_checkout_id")
+        if self.request.user.is_authenticated():
+            return self.request.user.pk
+        elif user_checkout_id:
+            return User.objects.filter(id=int(user_checkout_id)).pk
+        else:
+            return []
 class UserAddressListAPIView(TokenMixin, ListAPIView):
     model = UserAddress
     queryset = UserAddress.objects.all()
