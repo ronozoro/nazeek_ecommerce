@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'colorful',
     # Nazeeek Apps
     'cart',
-    'coupon',
     'order',
     'product',
     'user_profile',
