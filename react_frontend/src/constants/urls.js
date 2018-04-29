@@ -18,6 +18,7 @@ export const ShopUrls = {
 export const CartUrls={
     cart:`${ROOT_URL}api/cart/`,
     checkout:`${ROOT_URL}api/user/checkout/`,
-    creatAdress:`${ROOT_URL}user/address/create/`
+    creatAdress:`${ROOT_URL}user/address/create/`,
+    getAdress:`${ROOT_URL}user/address/`
 }
 

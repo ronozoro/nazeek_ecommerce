@@ -2,7 +2,7 @@ import * as React from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { changeQuantity } from "../../actions/cart";
-import { checkout } from '../../actions/checkout'
+import { open } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
 
 import  { Input, Icon, Container,Segment, Divider, List, Table, Rating, Header } from 'semantic-ui-react'
@@ -11,16 +11,20 @@ export class Checkout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            cartItems: props.cart
+            address: props.address||[]
         }
     }
    
     componentWillReceiveProps(nextProps) {
         console.log({ nextProps });
-        this.setState({ cartItems: nextProps.cart })
+        this.setState({ address: nextProps.address })
     }
-  
+    handleClick(){
+        this.props.open()
+    }
     render() {
+        console.log(this.props.address);
+        
         var thos = this
         return (
             <div>
@@ -41,7 +45,7 @@ export class Checkout extends React.Component {
                         </Table.Header>
 
                         <Table.Body >
-                            {this.state.cartItems.map((item, index) => {
+                            {this.state.address.map((item, index) => {
                                 return <Table.Row>
                                     <Table.Cell 
                                     style={{
@@ -64,7 +68,7 @@ export class Checkout extends React.Component {
 
                     <br /><br />
                     <div>
-                        <Button type="button" style={styles.btnAdd}> <Icon name="plus circle" /> Add New Adress </Button>
+                        <Link to="AddAddress"><Button type="button" style={styles.btnAdd} onClick={this.handleClick.bind(this)}> <Icon name="plus circle" /> Add New Adress </Button></Link>
                     </div>
                     <Table
                         fixed
@@ -81,7 +85,7 @@ export class Checkout extends React.Component {
                         </Table.Header>
 
                         <Table.Body >
-                            {this.state.cartItems.map((item, index) => {
+                            {this.state.address.map((item, index) => {
                                 return <Table.Row>
                                     <Table.Cell  style={{
                                         textAlign: 'left'
@@ -146,7 +150,7 @@ export class Checkout extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart.cart,
+        address: state.checkout.addresses,
         
     }
 }
@@ -205,4 +209,4 @@ var styles = {
         color: '#13bfad',
     }
 }
-export default connect(mapStateToProps, {  })(Checkout);
+export default connect(mapStateToProps, {open  })(Checkout);
