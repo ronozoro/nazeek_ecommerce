@@ -61,7 +61,7 @@ class UserGetID(TokenMixin, ListAPIView):
         if self.request.user.is_authenticated():
             return self.request.user.pk
         elif user_checkout_id:
-            return int(user_checkout_id)
+            return User.objects.filter(id=int(user_checkout_id))
         else:
             return []
 
