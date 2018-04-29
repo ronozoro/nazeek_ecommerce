@@ -1,17 +1,16 @@
 from cart.views import (
     CartAPIView,
     CheckoutAPIView,
-    CheckoutFinalizeAPIView, CheckoutFinalView,ItemCountView
+    CheckoutFinalizeAPIView, CheckoutFinalView, ItemCountView
 )
 from django.conf.urls import include, url
 from django.contrib import admin
 from order.views import (OrderListAPIView, OrderRetrieveAPIView, UserAddressCreateAPIView, UserAddressListAPIView,
-                         UserCheckoutAPI,UserGetID)
+                         UserCheckoutAPI, UserGetID)
 from product.views import (APIHomeView, BrandListAPIView, CategoryListAPIView, CategoryRetrieveAPIView,
                            ProductListAPIView, ProductRetrieveAPIView, SellerListAPIView)
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
-from subscribe.views import (SubscribeSerializer)
 from user_profile.views import UserViewSet
 
 router = routers.DefaultRouter()
@@ -19,12 +18,13 @@ router.register(r'user', UserViewSet, )
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include('wishlists.urls')),
+    url(r'^api/newsletter/', include('newsletter.api.urls')),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
     url(r'^api/$', APIHomeView.as_view(), name='home_api'),
-    url(r'^api/subscribe/$', SubscribeSerializer.as_view(), name='subscribe_api'),
     url(r'^api/products/$', ProductListAPIView.as_view(), name='products_api'),
     url(r'^api/sellers/$', SellerListAPIView.as_view(), name='sellers_api'),
     url(r'^api/brands/$', BrandListAPIView.as_view(), name='brands_api'),

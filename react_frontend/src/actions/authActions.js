@@ -24,7 +24,7 @@ export function loginUser(formValues, dispatch, props) {
             // Update state to indicate user is authenticated
             const token = response.data.key;
             dispatch(authLogin(token));
-
+            console.log(token)
             localStorage.setItem("token", token);
 
             // redirect to the route '/'

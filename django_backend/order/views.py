@@ -14,7 +14,8 @@ from .models import Order, UserAddress, UserCheckout
 from .permissions import IsOwnerAndAuth
 from .serializers import OrderDetailSerializer, UserAddressSerializer,UserDomain
 from django.contrib.auth import login
-
+import requests
+import json
 # Create your views here.
 
 User = get_user_model()
@@ -138,14 +139,16 @@ class UserCheckoutAPI(UserCheckoutMixin, APIView):
     def post(self, request, format=None):
         data = {}
         email = request.data.get("email")
-
-        login(request, User.objects.get(email=email),backend='django.contrib.auth.backends.ModelBackend')
-        if request.user.is_authenticated():
-            if email == request.user.email:
-                data = self.get_checkout_data(user=request.user, email=email)
-            else:
-                data = self.get_checkout_data(user=request.user)
-        elif email and not request.user.is_authenticated():
+        token = request.GET.get('token')
+        user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+        user_id = json.loads(user_id.text)
+        try:
+         user_record = User.objects.get(pk=user_id.get('pk'))
+        except:
+            user_record=False
+        if user_record:
+            data = self.get_checkout_data(user=user_record)
+        elif email and not token:
             data = self.get_checkout_data(email=email)
         else:
             data = self.user_failure(message="Make sure you are authenticated or using a valid email.")
