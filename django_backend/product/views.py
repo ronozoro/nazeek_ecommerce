@@ -27,9 +27,7 @@ class APIHomeView(APIView):
                 "count": Product.objects.all().count(),
                 "url": api_reverse("products_api", request=request)
             },
-            "subscribe": {
-                "url": api_reverse("subscribe_api", request=request)
-            },
+
             "sellers": {
                 "count": ProductSeller.objects.all().count(),
                 "url": api_reverse("sellers_api", request=request)

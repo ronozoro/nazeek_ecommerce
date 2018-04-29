@@ -17,6 +17,7 @@ router = routers.DefaultRouter()
 router.register(r'user', UserViewSet, )
 
 urlpatterns = [
+
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('wishlists.urls')),
     url(r'^api/newsletter/', include('newsletter.api.urls')),

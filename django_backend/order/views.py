@@ -138,8 +138,8 @@ class UserCheckoutAPI(UserCheckoutMixin, APIView):
 
     def post(self, request, format=None):
         data = {}
+        token = request.data.get("token")
         email = request.data.get("email")
-        token = request.GET.get('token')
         user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
         user_id = json.loads(user_id.text)
         try:

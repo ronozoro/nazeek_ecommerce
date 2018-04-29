@@ -11,7 +11,6 @@ class WishlistItemList(serializers.RelatedField):
             "id": value.id,
             "wishlist": value.wishlist.id,
             "product": value.product.title,
-
             "product_id": value.product.id,
             "price": value.product.sale_price,
             "quantity": value.quantity
