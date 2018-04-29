@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { close } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
 import {  Button, Header, Modal } from 'semantic-ui-react'
-
+import {addAdress} from '../../actions/checkout'
 import  { Input, Icon, Container,Segment, Divider, Label, Table, Form,Dropdown } from 'semantic-ui-react'
 import {  Checkbox, Image, Grid } from 'semantic-ui-react'
 export class AddAddress extends React.Component {
@@ -14,7 +14,7 @@ export class AddAddress extends React.Component {
             open:props.open,  
             city:"" ,
             area:"",
-            streat:"",
+            street:"",
             avenue:"",
             type:"",
             directions:"",
@@ -33,7 +33,16 @@ export class AddAddress extends React.Component {
   handleSubmit(){
     console.log("sumit");
     console.log(this.state.city,this.state.directions);
+    let model={};
+    model['city']=this.state.city,
+    model['house']=this.state.house,
+    model['street']=this.state.street,
+    model['area']=this.state.area,
+    model['directions']=this.state.directions,
+    model['type']=this.state.type,
+    model['avenue']=this.state.avenue
     
+    this.props.addAdress(model)
 
   }
   handleChange = (e, { name, value }) => {
@@ -74,7 +83,7 @@ export class AddAddress extends React.Component {
              <Label style={styles.label}> Area </Label><Dropdown style={styles.input} fluid name="area"  selection options={countryOptions}onChange={this.handleChange.bind(this)} />
              </Grid.Column>
              <Grid.Column>
-             <Label style={styles.label}> Street </Label><Input  size="big" style={styles.input} name="streat" type="text" onChange={this.handleChange.bind(this)}/>
+             <Label style={styles.label}> Street </Label><Input  size="big" style={styles.input} name="street" type="text" onChange={this.handleChange.bind(this)}/>
              </Grid.Column>
              <Grid.Column>
                  <div>
@@ -136,4 +145,4 @@ var styles = {
     width: 300
    }
 }
-export default connect(mapStateToProps, { close })(AddAddress);
+export default connect(mapStateToProps, { close,addAdress })(AddAddress);

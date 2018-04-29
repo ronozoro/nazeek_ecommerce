@@ -11,19 +11,21 @@ export class Checkout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            address: props.address||[]
+            address: props.address||[],
+            cartItems:props.cartItems
         }
     }
    
     componentWillReceiveProps(nextProps) {
         console.log({ nextProps });
-        this.setState({ address: nextProps.address })
+        this.setState({ address: nextProps.address,cartItems:nextProps.cart })
     }
     handleClick(){
         this.props.open()
     }
+   
     render() {
-        console.log(this.props.address);
+        console.log(this.props.address,this.props.cart);
         
         var thos = this
         return (
@@ -85,7 +87,7 @@ export class Checkout extends React.Component {
                         </Table.Header>
 
                         <Table.Body >
-                            {this.state.address.map((item, index) => {
+                            {this.state.cartItems.map((item, index) => {
                                 return <Table.Row>
                                     <Table.Cell  style={{
                                         textAlign: 'left'
@@ -151,6 +153,7 @@ export class Checkout extends React.Component {
 const mapStateToProps = (state) => {
     return {
         address: state.checkout.addresses,
+        cartItems:state.cart.cart
         
     }
 }

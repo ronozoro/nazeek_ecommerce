@@ -10,6 +10,11 @@ export default function(state = {addresses:[],open:false}, action) {
                 addresses:action.addresses,
 
                 };
+                case actions.ADD_ADDRESS:
+                return{
+                    addresses:action.address,
+
+                };
                 case actions.OPEN:
                 return{
                     ...state,
