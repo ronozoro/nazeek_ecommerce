@@ -121,7 +121,7 @@ class CartAPIView(CartTokenMixin, CartUpdateAPIMixin, APIView):
         if cart_obj == None or not cart_obj.active:
             cart = Cart()
             cart.tax_percentage = 0.075
-            token = self.request.GET.get('token')
+            token = self.request.GET.get('cart_user_token')
             if token:
                 user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
                 user_id = json.loads(user_id.text)
