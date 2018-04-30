@@ -1,6 +1,6 @@
 
 import * as actions from '../actions/checkout'
-export default function(state = {addresses:[],open:false}, action) {
+export default function(state = {addresses:[],open:false,id:0}, action) {
     switch(action.type) {
     
         case actions.CHECKOUT_ADDRESS: 
@@ -11,10 +11,15 @@ export default function(state = {addresses:[],open:false}, action) {
 
                 };
                 case actions.ADD_ADDRESS:
+                console.log("dsdfdfd",action.address);
                 return{
                     addresses:action.address,
-
                 };
+                case actions.USER_ID:
+                return{
+                    ...state,
+                    id:action.id
+                }
                 case actions.OPEN:
                 return{
                     ...state,

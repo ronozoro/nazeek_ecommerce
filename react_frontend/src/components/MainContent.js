@@ -18,7 +18,7 @@ import Cart from './cart/cart'
 import Checkout from './cart/checkout'
 import NoMatch from "./NoMatch";
 import AddAddress from "./cart/add-new-addres";
-
+import Profile from '../components/profile/index'
 const MainContent = () => (
     <div >
         <Switch>
@@ -35,7 +35,8 @@ const MainContent = () => (
             <Route path="/reset_password" component={PasswordReset}/>
             <Route path="/reset_password_done" component={PasswordResetDone}/>
             <Route path="/reset/:uid/:token/" component={PasswordResetConfirm}/>
-            <Route path="/profile" component={RequireAuth(UserProfile)}/>
+            <Route path="/profile" component={Profile}/>
+            <Route path="/userProfile" component={RequireAuth(UserProfile)}/>
             <Route path="/profile_edit" component={RequireAuth(UserProfileEdit)}/>
             <Route path="/change_password" component={RequireAuth(PasswordChange)}/>
             <Route component={NoMatch}/>

@@ -65,50 +65,45 @@ export class AddAddress extends React.Component {
         return (
             <div>
             <Container >
-                {/* <Modal  open={this.state.open} onClose={this.close.bind(this)}>
-          <Modal.Header>Select a Photo</Modal.Header>
-          <Modal.Content > */}
+                <Modal  open={this.state.open} onClose={this.close.bind(this)}>
+          <Modal.Header>Add New Address</Modal.Header>
+          <Modal.Content >
+          
           <Form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
-             <Grid >
-             <Grid.Row columns={1}>
+             <Grid columns={1}>             
              <Grid.Column>
-              <div>
-                  <Label style={styles.label}> City </Label><Input size="big" style={styles.input} type="text" name="city" type="text" onChange={this.handleChange.bind(this)}/>
-             </div>
+                  <Input  label="City" style={styles.input} name="city" type="text" onChange={this.handleChange.bind(this)}/>
              </Grid.Column>
              <Grid.Column>
-                  <Label style={styles.label}> Type</Label><Dropdown style={styles.input} fluid name="type"  selection options={types} onChange={this.handleChange.bind(this)} />
+                  <Dropdown style={styles.menu} button icon='user' name="type" className='icon' labeled placeholder="Type" selection options={types} onChange={this.handleChange.bind(this)} />
              </Grid.Column>
              <Grid.Column>
-             <Label style={styles.label}> Area </Label><Dropdown style={styles.input} fluid name="area"  selection options={countryOptions}onChange={this.handleChange.bind(this)} />
+             <Dropdown   style={styles.menu} button name="area"  icon="marker" className='icon' placeholder="area" labeled selection options={countryOptions}onChange={this.handleChange.bind(this)} />
              </Grid.Column>
              <Grid.Column>
-             <Label style={styles.label}> Street </Label><Input  size="big" style={styles.input} name="street" type="text" onChange={this.handleChange.bind(this)}/>
+             <Input label="Street" style={styles.input}  name="street"  type="text" onChange={this.handleChange.bind(this)}/>
              </Grid.Column>
              <Grid.Column>
-                 <div>
-             <Label style={styles.label}> Jadda/Avenue </Label><Input size="big" style={styles.input} type="text" name="avenue" onChange={this.handleChange.bind(this)}/>
-            </div>
+                 
+             <Input label="Avenue" style={styles.input}  type="text" name="avenue" onChange={this.handleChange.bind(this)}/>
              </Grid.Column>
              <Grid.Column>
-             <Label style={styles.label}> Huose </Label><Input size="big" style={styles.input}  type="text" name="house" onChange={this.handleChange.bind(this)}/>
+              <Input  label="House" style={styles.input} type="text" name="house" onChange={this.handleChange.bind(this)}/>
              </Grid.Column>
              <Grid.Column>
-             <Label style={styles.label}> Extra directions </Label><Input size="big" style={styles.input} type="text" name="directions" onChange={this.handleChange.bind(this)}/>
-             </Grid.Column>
-             <Grid.Column>
-               <Checkbox label='this address is default' />
-             </Grid.Column>
+             <Input   label="Extra directions" style={styles.input} type="text" name="directions" onChange={this.handleChange.bind(this)}/>
+             </Grid.Column>            
+             <Grid.Row>
+             <Button   content="ADD"  primary type="submit" style={{margin:'auto'}} onClick={this.close.bind(this)} />
+
              </Grid.Row>
              </Grid>
-             <Button   content="ADD" type="submit" onClick={this.close.bind(this)} />
+             <br/><br/>
 
              </Form>
-          {/* </Modal.Content>
-          <Modal.Actions>
-            <Button   content="ADD" type="submit" onClick={this.close.bind(this)} />
-          </Modal.Actions>
-        </Modal> */}
+          </Modal.Content>
+         
+        </Modal>
                    
                 </Container>
             </div>
@@ -131,18 +126,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 var styles = {
     form:{
-        textAlign: 'center',
+        // textAlign: 'center',
         border: '1px solid',
         width: 600,
         margin: 'auto'
     },
-   label:{
-       fontSize:16,
-   },
-   input:{
-    display:'inline-block',
+   menu:{
     margin:'7px',
-    width: 300
+    width: 345,
+    height:50  
+ },
+
+   input:{
+    margin:'7px',
+    width: 300,
+    height:50
    }
 }
 export default connect(mapStateToProps, { close,addAdress })(AddAddress);

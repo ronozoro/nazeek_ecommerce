@@ -11,21 +11,22 @@ export class Checkout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            address: props.address||[],
+            addresses: props.addresses.addresses||[],
             cartItems:props.cartItems
         }
     }
    
     componentWillReceiveProps(nextProps) {
         console.log({ nextProps });
-        this.setState({ address: nextProps.address,cartItems:nextProps.cart })
+        this.setState({ address: nextProps.addresses.addresses,cartItems:nextProps.cart })
     }
     handleClick(){
         this.props.open()
     }
    
     render() {
-        console.log(this.props.address,this.props.cart);
+        console.log(this.props.addresses,this.props.cartItems);
+        console.log(this.state.addresses,this.state.cartItems);
         
         var thos = this
         return (
@@ -47,13 +48,13 @@ export class Checkout extends React.Component {
                         </Table.Header>
 
                         <Table.Body >
-                            {this.state.address.map((item, index) => {
+                            {this.state.addresses.map((item, index) => {
                                 return <Table.Row>
                                     <Table.Cell 
                                     style={{
                                         textAlign: 'left'
                                     }}>
-                                        <Icon name='folder' /> node_modules
+                                         <Icon name='marker' /> city:{item.city},streat:{item.street}
                                 </Table.Cell>
                                     <Table.Cell collapsing
                                     style={{
@@ -92,13 +93,16 @@ export class Checkout extends React.Component {
                                     <Table.Cell  style={{
                                         textAlign: 'left'
                                     }}>
-                                        <Icon name='folder' /> node_modules
+                                        {item.item_title}
+                                        Delivery in 3 days thought delivery
                                 </Table.Cell>
                                     <Table.Cell collapsing style={{
                                         textAlign: 'right',
                                         fontSize: 23,
                                         color: '#13bfad'
-                                    }}><Icon name="edit" /> <Icon name="delete" /></Table.Cell>
+                                    }}>
+                                    {item.quantity * item.price}
+                                    </Table.Cell>
                                 </Table.Row>
 
                             })
@@ -152,7 +156,7 @@ export class Checkout extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        address: state.checkout.addresses,
+        addresses: state.checkout.addresses,
         cartItems:state.cart.cart
         
     }

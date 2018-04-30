@@ -51,7 +51,13 @@ function checkItemsOfCart(items, id, varId) {
 }
 function addItem(varId, count) {
     console.log("add");
-    return axios.get('http://127.0.0.1:8000/api/cart/?token="' + localStorage.getItem('cart_token') + '&item=' + varId + '&qty=' + count + '')
+    var cart_user_token;
+    if(localStorage.getItem('token')){
+        cart_user_token=localStorage.getItem('token')
+    }
+    else
+    cart_user_token=""
+    return axios.get('http://127.0.0.1:8000/api/cart/?token="' + localStorage.getItem('cart_token') + '&item=' + varId + '&qty=' + count + '&cart_user_token='+cart_user_token +'')
         .then(response => {
             console.log(response.data);
             dispatch({
