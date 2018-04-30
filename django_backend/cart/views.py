@@ -122,11 +122,12 @@ class CartAPIView(CartTokenMixin, CartUpdateAPIMixin, APIView):
             cart = Cart()
             cart.tax_percentage = 0.075
             token = self.request.GET.get('token')
-            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
-            user_id = json.loads(user_id.text)
-            user_record = User.objects.filter(pk=user_id.get('pk'))
-            if user_record:
-                cart.user = user_record[0]
+            if token:
+                user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+                user_id = json.loads(user_id.text)
+                user_record = User.objects.filter(pk=user_id.get('pk'))
+                if user_record:
+                    cart.user = user_record[0]
             cart.save()
             data = {
                 "cart_id": str(cart.id)
