@@ -1,11 +1,13 @@
 export const CHECKOUT_ADDRESS="CHECKOUT_ADDRESS"
 export const OPEN="OPEN"
 export const CLOSE="CLOSE"
+export const ADD_ADDRESS="ADD_ADDRESS"
 import { CartUrls } from "../constants/urls";
 import axios from 'axios'
 import history from "../utils/historyUtils";
 import {AuthUrls} from '../constants/urls'
 import {getUserProfile} from '../actions/authActions'
+import { cartTypes } from "../constants/actionTypes";
 // function getUserCheckOutToken() {
 //     console.log("get");
 //     axios.get(CartUrls.checkout, {}).then(response => {
@@ -16,7 +18,8 @@ import {getUserProfile} from '../actions/authActions'
 // }
 function setUserCheckoutToken(email) {
     console.log("set");
-   return axios.post('http://127.0.0.1:8000/api/user/checkout/',  {"email": email })
+    var token=localStorage.getItem('token')
+   return axios.post('http://127.0.0.1:8000/api/user/checkout/',  {"email": email ,token:token})
     .then(response => {
         console.log({set:response});        
         localStorage.setItem('user_checkout_token', response.data.user_checkout_token)
@@ -59,6 +62,68 @@ export function checkout(){
        
    history.push("/checkout")
 
+    }
+}
+export function getuserId(){
+    return function(dispatch){
+        return axios.get(CartUrls.userId + '?checkout_token='+ localStorage.getItem('user_checkout_token'))
+        .then(response=>{
+            console.log({finish:response.data[0].id});
+            return response
+        })
+    }
+}
+export function addAdress(model){
+    console.log(model);
+    var  userId;
+    return function(dispatch){
+
+        axios.get(CartUrls.userId + '?checkout_token='+ localStorage.getItem('user_checkout_token'))
+        .then(response=>{
+            console.log({finish:response.data[0].id});
+            userId=response.data[0].id
+        })
+       
+        setTimeout(() => {
+            console.log(userId);
+            axios.post(CartUrls.creatAdress,{ 
+                "user":userId,
+                "type": model.type,
+                "street": model.street,
+                "city": model.city,
+                "zipcode": "1234"}).then(response=>{
+                    console.log({creat:response.data});
+                })
+        }, 500);
+       
+        // setTimeout(() => {
+        //     var getAdd = getAddress()
+        //     getAdd(response=>{
+        //         console.log({add:response});
+        //         dispatch({ 
+        //             type:CHECKOUT_ADDRESS,
+        //             addresses:response
+        //         })
+        //     })      
+        // }, 200);
+
+    }
+
+}
+export function finishCheckout(){
+ return function(){
+    return axios.post(CartUrls.checkoutUrl,model).then(response=>{
+        console.log({finish:response.data});
+        return response.data
+    })
+ }
+}
+export function creatAddress(model){
+    return function(){
+        return axios.post(CartUrls.creatAdress,{model}).then(response=>{
+            console.log({creat:response.data});
+            return response.data
+        })
     }
 }
 export function open(){
