@@ -10,7 +10,10 @@ from order.serializers import FinalizedOrderSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+import requests
+import json
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from .mixins import CartTokenMixin, CartUpdateAPIMixin, TokenMixin
 from .models import Cart
 from .serializers import CartItemSerializer, CheckoutSerializer
@@ -41,34 +44,34 @@ class CheckoutFinalizeAPIView(TokenMixin, APIView):
             order = Order.objects.get(id=order_id)
             if not order.is_complete:
                 order_total = order.order_total
-                nonce = request_data.get("payment_method_nonce")
-                if nonce:
-                    result = braintree.Transaction.sale({
-                        "amount": order_total,
-                        "payment_method_nonce": nonce,
-                        "billing": {
-                            "postal_code": "%s" % (order.billing_address.zipcode),
-
-                        },
-                        "options": {
-                            "submit_for_settlement": True
-                        }
-                    })
-                    success = result.is_success
-                    if success:
-                        # result.transaction.id to order
-                        order.mark_completed(order_id=result.transaction.id)
-                        # order.mark_completed(order_id="abc12344423")
-                        order.cart.is_complete()
-                        response["message"] = "Your order has been completed."
-                        response["final_order_id"] = order.order_id
-                        response["success"] = True
-                    else:
-                        # messages.success(request, "There was a problem with your order.")
-                        error_message = result.message
-                        # error_message = "Error"
-                        response["message"] = error_message
-                        response["success"] = False
+                # nonce = request_data.get("payment_method_nonce")
+                # if nonce:
+                #     result = braintree.Transaction.sale({
+                #         "amount": order_total,
+                #         "payment_method_nonce": nonce,
+                #         "billing": {
+                #             "postal_code": "%s" % (order.billing_address.zipcode),
+                #
+                #         },
+                #         "options": {
+                #             "submit_for_settlement": True
+                #         }
+                #     })
+                #     success = result.is_success
+                #     if success:
+                    # result.transaction.id to order
+                order.mark_completed()
+                # order.mark_completed(order_id="abc12344423")
+                order.cart.is_complete()
+                response["message"] = "Your order has been completed."
+                response["final_order_id"] = order.order_id
+                response["success"] = True
+                    # else:
+                    #     # messages.success(request, "There was a problem with your order.")
+                    #     error_message = result.message
+                    #     # error_message = "Error"
+                    #     response["message"] = error_message
+                    #     response["success"] = False
             else:
                 response["message"] = "Ordered has already been completed."
                 response["success"] = False
@@ -118,8 +121,12 @@ class CartAPIView(CartTokenMixin, CartUpdateAPIMixin, APIView):
         if cart_obj == None or not cart_obj.active:
             cart = Cart()
             cart.tax_percentage = 0.075
-            if self.request.user.is_authenticated():
-                cart.user = self.request.user
+            token = self.request.GET.get('token')
+            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+            user_id = json.loads(user_id.text)
+            user_record = User.objects.filter(pk=user_id.get('pk'))
+            if user_record:
+                cart.user = user_record[0]
             cart.save()
             data = {
                 "cart_id": str(cart.id)

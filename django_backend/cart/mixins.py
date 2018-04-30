@@ -4,15 +4,26 @@ import base64
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-
+import requests
+import json
 from .models import Cart, CartItem, Variation
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class CartUpdateAPIMixin(object):
     def update_cart(self, *args, **kwargs):
         request = self.request
         cart = self.cart
         if cart:
+            token = self.request.GET.get('token')
+            if token:
+                user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+                user_id = json.loads(user_id.text)
+                user_record = User.objects.filter(pk=user_id.get('pk'))
+                if user_record:
+                    cart.user = user_record[0]
+                    cart.save()
             item_id = request.GET.get("item")
             delete_item = request.GET.get("delete", False)
             flash_message = ""

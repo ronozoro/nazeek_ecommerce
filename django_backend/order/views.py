@@ -143,12 +143,9 @@ class UserCheckoutAPI(UserCheckoutMixin, APIView):
         email = request.data.get("email")
         user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
         user_id = json.loads(user_id.text)
-        try:
-         user_record = User.objects.get(pk=user_id.get('pk'))
-        except:
-            user_record=False
+        user_record = User.objects.filter(pk=user_id.get('pk'))
         if user_record:
-            data = self.get_checkout_data(user=user_record)
+            data = self.get_checkout_data(user=user_record[0])
         elif email and not token:
             data = self.get_checkout_data(email=email)
         else:

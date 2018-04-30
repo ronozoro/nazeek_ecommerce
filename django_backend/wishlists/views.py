@@ -23,10 +23,13 @@ class WishlistList(ListCreateAPIView):
             token=request.GET.get('token')
             user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
-            user_record=User.objects.get(pk=user_id.get('pk'))
-            queryset = Wishlist.objects.prefetch_related(
-                'wishlist_items__product'
-            ).get(user=user_record)
+            user_record=User.objects.filter(pk=user_id.get('pk'))
+            if user_record:
+                queryset = Wishlist.objects.prefetch_related(
+                    'wishlist_items__product'
+                ).get(user=user_record[0])
+            else:
+                raise Wishlist.DoesNotExist
             serializer = self.get_serializer(queryset)
             if len(serializer.data.get('wishlist_items', '')) == 0:
                 return Response({"message": "Your Wish List is empty.",
@@ -37,9 +40,9 @@ class WishlistList(ListCreateAPIView):
             token = request.GET.get('token')
             user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
-            user_record = User.objects.get(pk=user_id.get('pk'))
+            user_record = User.objects.filter(pk=user_id.get('pk'))
             serializer = self.get_serializer(data={
-                'user': user_record}
+                'user': user_record[0] if user_record else None}
             )
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
@@ -58,12 +61,12 @@ class WishlistItemList(ListCreateAPIView):
         token = request.GET.get('token')
         user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
         user_id = json.loads(user_id.text)
-        user_record = User.objects.get(pk=user_id.get('pk'))
+        user_record = User.objects.filter(pk=user_id.get('pk'))
         queryset = WishlistItem.objects.select_related(
             'wishlist', 'product'
         ).filter(
-            wishlist__user=user_record
-        )
+            wishlist__user=user_record[0]
+        ) if user_record else None
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -73,8 +76,8 @@ class WishlistItemList(ListCreateAPIView):
             token = request.GET.get('token')
             user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
-            user_record = User.objects.get(pk=user_id.get('pk'))
-            queryset_wishlist = Wishlist.objects.get(user=user_record)
+            user_record = User.objects.filter(pk=user_id.get('pk'))
+            queryset_wishlist = Wishlist.objects.get(user=user_record[0])
             #if the wishlist item exists in the USER's wishlist
             #just increment the quantity
             if queryset_wishlist.wishlist_items.filter(
@@ -108,9 +111,9 @@ class WishlistItemList(ListCreateAPIView):
             token = request.GET.get('token')
             user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
-            user_record = User.objects.get(pk=user_id.get('pk'))
+            user_record = User.objects.filter(pk=user_id.get('pk'))
             serializer_wishlist = WishlistSerializer(
-                data={"user": user_record})
+                data={"user": user_record[0]})
             serializer_wishlist.is_valid(raise_exception=True)
             serializer_wishlist.save()
             serializer = self.get_serializer(data={**request.data,
@@ -149,7 +152,7 @@ def WishlistItemCount(request):
         user_id=json.loads(user_id.text)
         try:
             wishlist_item_count = WishlistItem.objects.filter(
-                wishlist__user=User.objects.get(pk=user_id.get('pk'))
+                wishlist__user=User.objects.filter(pk=user_id.get('pk')[0] if User.objects.filter(pk=user_id.get('pk')) else None)
             ).count()
         except:
             raise Http404
