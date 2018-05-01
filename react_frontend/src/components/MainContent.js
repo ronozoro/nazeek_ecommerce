@@ -19,6 +19,14 @@ import Checkout from './cart/checkout'
 import NoMatch from "./NoMatch";
 import AddAddress from "./cart/add-new-addres";
 import Profile from '../components/profile/index'
+import AddressBook from '../components/profile/address-book'
+import furneture from '../pages/furneture'
+import homedecore from '../pages/homedecore'
+import newv from '../pages/new'
+import outdoor from '../pages/outdoor'
+import servware from '../pages/serveware'
+import wishlist from '../pages/wishlist'
+import sidemenue from '../components/sidemenue'
 const MainContent = () => (
     <div >
         <Switch>
@@ -28,6 +36,7 @@ const MainContent = () => (
             <Route path="/signup" component={Signup}/>
             <Route path="/shop" component={Shop}/>
             <Route path="/cart" component={Cart}/>
+            <Route path="/addressbook" component={AddressBook}/>
             <Route path="/AddAddress" component={AddAddress}/>
             <Route path="/checkout" component={Checkout}/>
             <Route path="/account/confirm-email/:key" component={AccountActivation}/>
@@ -39,6 +48,13 @@ const MainContent = () => (
             <Route path="/userProfile" component={RequireAuth(UserProfile)}/>
             <Route path="/profile_edit" component={RequireAuth(UserProfileEdit)}/>
             <Route path="/change_password" component={RequireAuth(PasswordChange)}/>
+            <Route path="/ferneture" component={furneture}/>
+            <Route path="/homedecore" component={homedecore}/>
+            <Route path="/newv" component={newv}/>
+            <Route path="/wishlist" component={wishlist}/>
+            <Route path="/outdoor" component={outdoor}/>
+            <Route path="/sidemenue" component={sidemenue}/>
+            <Route path="/servware" component={servware}/>
             <Route component={NoMatch}/>
         </Switch>
     </div>

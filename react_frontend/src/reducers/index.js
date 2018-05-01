@@ -6,13 +6,15 @@ import authReducer from "./authReducer";
 import shopReducer from "./shopReducer";
 import cartReducer from './cart'
 import checkoutReducer from './checkout'
+import header from './header'
 const rootReducer = combineReducers({
     form: formReducer,
     notifs: notifReducer,
     auth: authReducer,
     shop: shopReducer,
     cart:cartReducer,
-    checkout:checkoutReducer
+    checkout:checkoutReducer,
+    header:header
 
 });
 

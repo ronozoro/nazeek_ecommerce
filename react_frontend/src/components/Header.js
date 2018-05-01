@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {Grid,GridRow,GridColumn} from 'semantic-ui-react'
 import {connect} from "react-redux";
 class Header extends Component {
 
@@ -13,8 +14,8 @@ class Header extends Component {
                 <div className="clearfix">
                     <ul className="menu-purches clearfix">
                         <li className="favorite-btn">
-                            <a href="wishlist.html"><i
-                                className="icon-heart icons"></i><span>0</span></a>
+                        <Link to="/wishlist"><i
+                                className="icon-heart icons"></i><span>0</span></Link>
                         </li>
                         <li className="cart-purches-btn">
                             <Link to="/cart"><i className="icon-basket icons"></i><span>{this.props.count}</span></Link>
@@ -293,7 +294,27 @@ class Header extends Component {
             <header>
                 {this.renderHeaderTop()}
                 {this.renderMiddle()}
-                {/*{this.renderHeaderBottom()}*/}
+                <Grid>
+                    <GridRow>
+                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'> search by </Link></GridColumn>
+                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/ferneture'>Furniture</Link></GridColumn>
+                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'>Home Decor</Link></GridColumn>
+                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/servware"> Serve ware</Link></GridColumn>
+                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/outdoor">Outdoor</Link></GridColumn>
+                      <GridColumn style={styles.right} width={2}> 
+                          {/* <span style={{backgroundColor: '#f54236',
+                            borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>new</span>
+                            */} <Link style={{color:'white'}} to="/newv">
+                       arrivals</Link></GridColumn>
+                      <GridColumn style={styles.right} width={1}><Link style={{color:'white'}} to='/homedecore'>offers
+                       {/* <span style={{backgroundColor: '#f54236',
+    borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>offers</span> */}
+    </Link></GridColumn>
+                      <GridColumn style={styles.btn} width={3}><Link style={{color:'white'}} to='/homedecore'>design your room</Link></GridColumn>
+                    </GridRow>
+                    
+                </Grid>
+                {/* {this.renderHeaderBottom()} */}
             </header>
 
         )
@@ -307,4 +328,40 @@ function mapStateToProps(state) {
     }
 }
 
+const styles={
+    btn: {
+        display: 'inline-block',
+        color:' #fefefe',
+        fontSize: 16,
+        fontWeight: 900,
+        textTransform: 'uppercase',
+        backgroundColor:' #706f6f',
+        padding: '11 10 9 20',
+        //lineHeight: 28,
+        textAlign: 'center',
+        paddingTop: 10,
+        height: 50,
+
+
+    },
+    right: {
+        display: 'inline-block',
+        color:' #fefefe',
+        fontSize: 16,
+        fontWeight: 700,
+        textTransform: 'uppercase',
+        padding: '11 10 9 20',
+        //lineHeight: 28,
+        textAlign: 'center',
+        paddingTop: 10,
+        backgroundColor: '#13bfad',
+        paddingLeft: 0,
+        paddingRight: 0,
+        height: 50,
+
+
+    },
+    span1:{backgroundColor: '#f54236',
+    borderRadius: 3,padding: '1 5 0',lineHeight: 20}
+}
 export default connect(mapStateToProps)(Header);

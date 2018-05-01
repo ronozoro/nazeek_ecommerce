@@ -18,7 +18,7 @@ export class Checkout extends React.Component {
    
     componentWillReceiveProps(nextProps) {
         console.log({ nextProps });
-        this.setState({ address: nextProps.addresses.addresses,cartItems:nextProps.cart })
+        this.setState({ addresses: nextProps.addresses.addresses,cartItems:nextProps.cart })
     }
     handleClick(){
         this.props.open()
@@ -107,7 +107,7 @@ export class Checkout extends React.Component {
 
                             })
                             }
-                            <Table.Row >
+                            {/* <Table.Row >
                                 <div style={{display:'inline-block'}}><p style={styles.p}>
                                     <Icon name="file text outline" />
                                     TOTAL <span style={{ fontSize: 18 }}>(without delivry fees)</span> : 3435 KD</p>
@@ -115,7 +115,7 @@ export class Checkout extends React.Component {
                                 <div style={{display:'inline-block'}}><Button style={styles.discount}>
                                     30% discount
                                 </Button></div>
-                            </Table.Row>
+                            </Table.Row> */}
                             <Divider />
                         </Table.Body>
                     </Table>
@@ -123,7 +123,7 @@ export class Checkout extends React.Component {
                         <div style={styles.gen}> General Requests</div>
                         <List style={styles.list}>
                         <List.Item > Items : 23424 K.D</List.Item>
-                        <List.Item >Deliver Fees : 23 K.D</List.Item>
+                        {/* <List.Item >Deliver Fees : 23 K.D</List.Item> */}
                         <List.Item >Total Amount : 234234 K.D</List.Item>
                        
                         </List>

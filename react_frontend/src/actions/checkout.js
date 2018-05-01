@@ -110,7 +110,7 @@ export function checkout() {
         }, 600);
         setTimeout(() => {
             history.push("/checkout")
-        }, 10000);
+        }, 6000);
 
     }
 }
