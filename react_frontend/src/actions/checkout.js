@@ -73,7 +73,7 @@ export function checkout() {
                 console.log({ add: response });
                 dispatch({ 
                     type:CHECKOUT_ADDRESS,
-                    addresses:response
+                    addresses:response.addresses
                 })
                 address = response.addresses
             })
@@ -110,7 +110,7 @@ export function checkout() {
         }, 600);
         setTimeout(() => {
             history.push("/checkout")
-        }, 6000);
+        }, 1000);
 
     }
 }
@@ -190,6 +190,7 @@ export function open() {
         dispatch({
             type: OPEN
         })
+        history.push("/AddAddress")
     }
 }
 export function close() {

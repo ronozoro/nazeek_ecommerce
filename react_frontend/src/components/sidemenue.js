@@ -30,23 +30,23 @@ class Sidemenue extends React.Component {
                 </div>
                     <div class="bps-body">
                         <ul>
-                            <li>
-                                <a href="profile.html"><span><i class="icon-grid icons"></i></span>Account Home</a>
+                            <li class="active">
+                            <Link to="/profile"><span><i class="icon-grid icons"></i></span>Account Home</Link>
                             </li>
                             <li>
-                                <a href="profile-info.html"><span><i class="icon-user icons"></i></span>Personal Information</a>
+                            <Link to="/userProfile"><span><i class="icon-user icons"></i></span>Personal Information</Link>
                             </li>
                             <li>
                                 <a href="profile-order.html"><span><i class="icon-doc icons"></i></span>Order History</a>
                             </li>
                             <li>
-                                <a href="address-book.html"><span><i class="icon-notebook icons"></i></span>Address book</a>
+                            <Link to="/addressbook"><span><i class="icon-notebook icons"></i></span>Address book</Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <a href="payment.html"><span><i class="icon-credit-card icons"></i></span>Way of Payments</a>
-                            </li>
-                            <li class="active">
-                                <a href="wishlist.html"><span><i class="icon-heart icons"></i></span>Wishlist</a>
+                            </li> */}
+                            <li >
+                            <Link to="/wishlist"><span><i class="icon-heart icons"></i></span>Wishlist</Link>
                             </li>
                         </ul>
                     </div>

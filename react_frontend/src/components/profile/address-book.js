@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getAddress } from "../../actions/checkout";
 import { open } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
-
+import Sidemenue from '../sidemenue'
 import  { Input, Icon, Container,Segment, Divider, List, Table, Rating, Header } from 'semantic-ui-react'
 import { Button, Checkbox, Image, Grid } from 'semantic-ui-react'
 export class AddressBook extends React.Component {
@@ -14,11 +14,10 @@ export class AddressBook extends React.Component {
             addresses: props.addresses||[],
             shippingAddress:[],
             pillingAddress:[],
-            shippingTemp:[],
-            pillingTemp:[]
+           
         }
     }
-   componentDidMount(){
+   componentWillMount(){
        this.props.getAddress()
    }
     componentWillReceiveProps(nextProps) {
@@ -28,7 +27,6 @@ export class AddressBook extends React.Component {
         this.setState({ addresses: nextProps.addresses })
         for(var i=0;i<nextProps.addresses.length;i++){
             if(nextProps.addresses[i].type === 'shipping'){
-                console.log("jjjj");
                 thos.state.shippingAddress.push(nextProps.addresses[i])
             }
             else {
@@ -51,66 +49,47 @@ export class AddressBook extends React.Component {
         var thos = this
         return (
             <div>
-                <Container textAlign='justified' style={{width:600}}>
-                    {/* <b style={{ fontSize: 23 }}>Address Book</b>
-                    <Divider  style={{background: '#13bfad'}}/> */}
-                    <div>
-                        <h1> shipping address</h1>                    
+                <Container textAlign='justified' style={{margin:40}}>
+
+                <Grid columns={2} >
+                    <Grid.Column width={4}>
+                        <Sidemenue />
+                    </Grid.Column>
+                    <Grid.Column style={{    marginLeft: 31}} width={10}>
+                    <b style={{ fontSize: 23 }}>Address Book</b>
+                    <Divider  style={{background: '#13bfad'}}/>
+                    <Grid columns={2} coulmns="equal" style={{}}>
+                    <Grid.Column width={8}>
                     <List>
+                    <h1 style={styles.h1}> shipping address</h1>                    
                     {this.state.shippingAddress.map(add=>{
-                        return<List.Item>
+                        return<List.Item style={styles.listItem}>
                             city:{add.city},streat:{add.street}
                         </List.Item>
                     })}
                     </List>
-                    </div>
-                    <div>
-                    <h1> pilling address</h1>
-                    
+                    </Grid.Column>
+                    <Grid.Column width={8}>
                     <List>
+                    <h1 style={styles.h1}> pilling address</h1>
                     {this.state.pillingAddress.map(add=>{
                         console.log("ffffff");
-                        
-                        return<List.Item>
+                        return<List.Item style={styles.listItem}>
                             city:{add.city},streat:{add.street}
                         </List.Item>
                     })}
                     </List>
-                    </div>
-                    {/* <Table
-                        fixed
-                        striped
-                        basic='very'
-                        style={styles.table}
-                    >
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell  style={styles.header}> Address Book</Table.HeaderCell>
+                    </Grid.Column>
+                    <Grid.Row>
+                      <Link to="AddAddress"><Button type="button" style={styles.btnAdd} onClick={this.handleClick.bind(this)}> <Icon name="plus circle" /> Add New Adress </Button></Link>
 
-                            </Table.Row>
-                        </Table.Header>
+                    </Grid.Row>
+                    </Grid>
+                    </Grid.Column>
+                    </Grid>
+                    
 
-                        <Table.Body >
-                            {this.state.addresses.map((item, index) => {
-                                return <Table.Row>
-                                    <Table.Cell 
-                                    style={{
-                                        textAlign: 'left'
-                                    }}>
-                                         <Icon name='marker' /> city:{item.city},streat:{item.street}
-                                </Table.Cell>
-                                   
-                                </Table.Row>
-
-                            })
-                            }
-                        </Table.Body>
-                    </Table> */}
-
-                    <br /><br />
-                    <div>
-                        <Link to="AddAddress"><Button type="button" style={styles.btnAdd} onClick={this.handleClick.bind(this)}> <Icon name="plus circle" /> Add New Adress </Button></Link>
-                    </div>
+                    
                    
                     <br/><br/><br/><br/>
                 </Container>
@@ -134,7 +113,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 var styles = {
-    
+    h1:{
+        color: '#13bfad'
+    },
     header: {
         textAlign: 'left',
         borderBottom: '1px solid #13bfad',
@@ -145,10 +126,13 @@ var styles = {
         borderRadius: 37,
         fontSize: 15,
         background: 'white',
-        color: '#13bfad'
+        color: '#13bfad',
+        marginLeft:36
 
     },
-    
+    listItem:{
+        fontSize:20
+    },
     list: {
         fontSize: 19,
         color: '#13bfad'
