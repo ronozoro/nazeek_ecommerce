@@ -7,6 +7,7 @@ import shopReducer from "./shopReducer";
 import cartReducer from './cart'
 import checkoutReducer from './checkout'
 import header from './header'
+import wishList from './wishList'
 const rootReducer = combineReducers({
     form: formReducer,
     notifs: notifReducer,
@@ -14,7 +15,9 @@ const rootReducer = combineReducers({
     shop: shopReducer,
     cart:cartReducer,
     checkout:checkoutReducer,
-    header:header
+    header:header,
+    wishList:wishList
+
 
 });
 

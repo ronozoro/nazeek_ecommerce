@@ -1,21 +1,14 @@
 
-import actions from '../actions/WishlistItemCountActions'
+import * as actions from '../actions/WishlistItemCountActions'
 
-export default function(state = {count}, action) {
+export default function(state = {count:0}, action) {
     switch(action.type) {
     
-        case actions.FETCH_WISHLIST_ITEM_COUNT_SUCCESS: 
-        console.log('reducer');
+        case actions.GETCOUNT: 
+        console.log('count');
             return  { 
                 ...state,
-              count=action.data
                 };
-        case cartTypes.CARTITEMS:
-        return {
-            ...state,
-            cartItems: action.items,
-            count:action.count,
-        }
             return  { 
                 state
             };

@@ -3,11 +3,24 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Grid,GridRow,GridColumn} from 'semantic-ui-react'
 import {connect} from "react-redux";
+import {fetchWishlistItemCount} from '../actions/WishlistItemCountActions'
 class Header extends Component {
-
+constructor(props){
+    super(props);
+    this.state={
+        count:props.count||0
+    }
+}
     static propTypes = {
-        authenticated: PropTypes.bool
+        authenticated: PropTypes.bool,
+        fetchWishlistItemCount:PropTypes.func.isRequired
     };
+    ComponentWillMount(){
+        this.props.fetchWishlistItemCount()
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({count:nextProps.wishlistCount})
+    }
      renderCart() {
         return (
             <div className="col-md-3 col-sm-3">
@@ -15,7 +28,7 @@ class Header extends Component {
                     <ul className="menu-purches clearfix">
                         <li className="favorite-btn">
                         <Link to="/wishlist"><i
-                                className="icon-heart icons"></i><span>0</span></Link>
+                                className="icon-heart icons"></i><span>{this.props.wishlistCount}</span></Link>
                         </li>
                         <li className="cart-purches-btn">
                             <Link to="/cart"><i className="icon-basket icons"></i><span>{this.props.count}</span></Link>
@@ -324,7 +337,8 @@ class Header extends Component {
 function mapStateToProps(state) {
     return {
         authenticated: state.auth.authenticated,
-        count:state.cart.count
+        count:state.cart.count,
+        wishlistCount:state.wishList.count
     }
 }
 
@@ -364,4 +378,4 @@ const styles={
     span1:{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}
 }
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps,{fetchWishlistItemCount})(Header);

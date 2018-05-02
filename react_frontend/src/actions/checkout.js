@@ -43,8 +43,9 @@ export function getAddress() {
     }
 }
 export function checkout() {
-    console.log(localStorage.getItem("user_checkout_token"))
     return function (dispatch) {
+        console.log(localStorage.getItem("token"));
+        
         if (localStorage.getItem("token") === null) {
             history.push("/login")
         }

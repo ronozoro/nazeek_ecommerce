@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getProducts } from "../../actions/shopActions";
 import { setToCart } from '../../actions/cart'
 import { getItemsOfCart } from '../../actions/cart'
+import {addToWishList} from '../../actions/WishlistListActions'
 import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
 import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
 
@@ -33,6 +34,9 @@ class ShopData extends Component {
         this.props.setToCart(object)
 
 
+    }
+    wishListClisk(product){
+     this.props.addToWishList()
     }
     renderProducts(object) {
         var thos = this
@@ -72,7 +76,7 @@ class ShopData extends Component {
                             <ul className="pro-resAction">
                                 <li>
                                     <a href="#" className="heart-btn">
-                                        <i className="icon-heart icons" />
+                                        <i className="icon-heart icons"  onClick={this.wishListClisk.bind(this,object)}/>
                                     </a>
                                 </li>
                                 <li>
@@ -167,4 +171,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getProducts, setToCart, getItemsOfCart })(ShopData);
+export default connect(mapStateToProps, { getProducts, setToCart, getItemsOfCart,addToWishList })(ShopData);

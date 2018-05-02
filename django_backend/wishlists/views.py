@@ -33,23 +33,23 @@ class WishlistList(ListCreateAPIView):
             serializer = self.get_serializer(queryset)
             if len(serializer.data.get('wishlist_items', '')) == 0:
                 return Response({"message": "Your Wish List is empty.",
-                    "wishlist_items": []
+                    "wishlist_items": [],
+                     'whishlist_id':Wishlist.objects.filter(user__pk=user_id.get('pk'))[0].id
                     })
             return Response(serializer.data)
         except Wishlist.DoesNotExist:
             token = request.GET.get('token')
             user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
-            user_record = User.objects.filter(pk=user_id.get('pk'))
+            user_record = User.objects.get(pk=user_id.get('pk'))
             serializer = self.get_serializer(data={
-                'user': user_record[0] if user_record else None}
+                'user':user_id.get('pk')}
             )
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response({'message': "Your Wish List is empty.",
-                "wishlist_items": []}, status=status.HTTP_201_CREATED,
-                headers=headers)
+                             "wishlist_items": [], 'whishlist_id':Wishlist.objects.filter(user__pk=user_id.get('pk'))[0].id}, status=status.HTTP_201_CREATED,headers = headers)
 
 
 class WishlistItemList(ListCreateAPIView):
@@ -152,7 +152,7 @@ def WishlistItemCount(request):
         user_id=json.loads(user_id.text)
         try:
             wishlist_item_count = WishlistItem.objects.filter(
-                wishlist__user=User.objects.filter(pk=user_id.get('pk')[0] if User.objects.filter(pk=user_id.get('pk')) else None)
+                wishlist__user=User.objects.get(pk=user_id.get('pk'))
             ).count()
         except:
             raise Http404
