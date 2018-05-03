@@ -48,6 +48,8 @@ class Product(models.Model):
     seller_id = models.ForeignKey(ProductSeller)
     categories = models.ManyToManyField('Category', blank=True)
     default = models.ForeignKey('Category', related_name='default_category', null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     objects = ProductManager()
 
@@ -84,6 +86,7 @@ class Variation(models.Model):
             return self.sale_price
         else:
             return self.price
+
 
     def get_html_price(self):
         if self.sale_price is not None:

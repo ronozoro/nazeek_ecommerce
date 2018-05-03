@@ -66,7 +66,7 @@ class ProductListAPIView(generics.ListAPIView):
         filters.OrderingFilter,
     ]
     search_fields = ["title", "description"]
-    ordering_fields = ["title", "id"]
+    ordering_fields = ["title", "id",'price','modified_date','created_date']
 
 
 class ProductRetrieveAPIView(generics.RetrieveAPIView):
