@@ -44,7 +44,8 @@ INSTALLED_APPS = (
     'product',
     'user_profile',
     'wishlists',
-    'newsletter'
+    'newsletter',
+    'product_review',
 )
 BRAINTREE_MERCHANT_ID = ''
 BRAINTREE_PUBLIC = ''

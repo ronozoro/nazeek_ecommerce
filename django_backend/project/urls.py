@@ -20,6 +20,7 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('wishlists.urls')),
+    url(r'^api/', include('product_review.urls')),
     url(r'^api/newsletter/', include('newsletter.api.urls')),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^rest-auth/', include('rest_auth.urls')),
