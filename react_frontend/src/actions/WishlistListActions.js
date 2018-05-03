@@ -1,3 +1,6 @@
+export const GETCOUNT ="GETCOUNT"
+export const GETITEMS ="GETITEMS"
+export const GETwISHLISTID="GETwISHLISTID"
 import  types from "../constants/actionTypes";
 import current_url from "../determineUrl";
 import { determineHeaders } from "../determineUrl";
@@ -14,42 +17,77 @@ console.log("creatwish");
     if (localStorage.getItem("token") === null) {
        history.push("/login")
   }
+  //get id,userId,itemList
    return axios.get('http://localhost:8000/api/wishlist/?token='+localStorage.getItem("token")).then(response=>{
-    console.log(response);
-    return response
+    console.log(response.data);
+    dispatch({type:GETwISHLISTID,id:response.data.id})
+    return response.data
   })
   }
 }
 export function addToWishList(product){
-  console.log("addwishlist");
-    return function(dispatch){
+  console.log(product);
+      return function(dispatch){
       if (localStorage.getItem("token") === null) {
          history.push("/login")
     }
+    var wishListId=null,isFound=false
      var wishlist= creatwishList();
      wishlist(response=>{
-       console.log(response);
-       
+       console.log({res:response});
+       wishListId=response.id
      })
-      setTimeout(() => {
-        axios.post('http://localhost:8000/api/wishlistitems/?token='+localStorage.getItem("token"),
+
+    var items=getWishListItems()
+    items(response=>{
+      console.log({items:response});
+      response.items.map(item=>{        
+        if(product.object.id==item.product){
+          console.log(item,product.object.id);
+          
+          isFound=true
+        }
+      })
+    
+    })
+
+      setTimeout(() => {  
+        console.log(isFound);
+          
+        if(isFound===false)    
+       {
+          axios.post('http://localhost:8000/api/wishlistitems/?token='+localStorage.getItem("token"),
         {
-          "wishlist": 2,
-          "product": product.id,
+          "wishlist":wishListId ,
+          "product": product.object.id,
           "quantity": 1
       }).then(response=>{
         console.log(response);
       })
-      }, 200);
-    
     }
+    else{
+      alert(" the product in wishList")
+    }
+      }, 2000);
   }
+}
 
+ export function getWishListItems(){
+  return function(dispatch){
+    return axios.get('http://localhost:8000/api/wishlistitems/?token='+localStorage.getItem("token")).then(response=>{
+    console.log(response.data);
+    dispatch({type:GETITEMS,items:response.data})
+    return response.data
+  })
+  }
+}
 export function fetchWishlistItemCount(){
   console.log("wishcount");
   return function (dispatch){
-    axios.get('http://localhost:8000/api/wishlistitemcount/?token='+ localStorage.getItem('token')).then(response=>{
-   console.log({wis:response});
+   return axios.get('http://localhost:8000/api/wishlistitemcount/?token='+ localStorage.getItem('token')).then(response=>{
+   console.log({wisCount:response.data.item_count});
+   dispatch({type:GETCOUNT,count:response.data.item_count})
+   return response.data
  })
   }
 }
@@ -59,7 +97,7 @@ export function deleteWishlistItem(){
   return function (dispatch){
     axios.get('http://localhost:8000/api/wishlist/'+ wishlistId +'/wishlistitems/'+itemId+'/?token='+ localStorage.getItem('token')).then(response=>{
    console.log({wis:response});
-   dispatch({type:GETCOUNT})
+  //  dispatch({type:GETCOUNT})
  })
   }
 }

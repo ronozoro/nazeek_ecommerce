@@ -25,7 +25,7 @@ import homedecore from '../pages/homedecore'
 import newv from '../pages/new'
 import outdoor from '../pages/outdoor'
 import servware from '../pages/serveware'
-import wishlist from '../pages/wishlist'
+import wishlist from '../components/profile/wishlist'
 import sidemenue from '../components/sidemenue'
 const MainContent = () => (
     <div >

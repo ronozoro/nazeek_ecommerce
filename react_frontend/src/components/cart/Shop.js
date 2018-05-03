@@ -36,7 +36,9 @@ class ShopData extends Component {
 
     }
     wishListClisk(product){
-     this.props.addToWishList()
+        console.log(product);
+        
+     this.props.addToWishList(product)
     }
     renderProducts(object) {
         var thos = this

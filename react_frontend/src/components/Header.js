@@ -3,24 +3,19 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Grid,GridRow,GridColumn} from 'semantic-ui-react'
 import {connect} from "react-redux";
-import {fetchWishlistItemCount} from '../actions/WishlistItemCountActions'
-class Header extends Component {
+import {fetchWishlistItemCount} from '../actions/WishlistListActions'
+ class Header extends Component {
 constructor(props){
     super(props);
     this.state={
-        count:props.count||0
+        count:null
     }
 }
     static propTypes = {
         authenticated: PropTypes.bool,
         fetchWishlistItemCount:PropTypes.func.isRequired
     };
-    ComponentWillMount(){
-        this.props.fetchWishlistItemCount()
-    }
-    componentWillReceiveProps(nextProps){
-        this.setState({count:nextProps.wishlistCount})
-    }
+   
      renderCart() {
         return (
             <div className="col-md-3 col-sm-3">
@@ -302,6 +297,15 @@ constructor(props){
             </div>
         );
     }
+
+    componentDidMount(){
+        console.log("didmount");
+        
+        this.props.fetchWishlistItemCount()
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({count:nextProps.wishlistCount})
+    }
     render() {
         return (
             <header>
@@ -335,6 +339,8 @@ constructor(props){
 }
 
 function mapStateToProps(state) {
+    console.log(state.wishList);
+    
     return {
         authenticated: state.auth.authenticated,
         count:state.cart.count,
