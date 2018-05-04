@@ -24,4 +24,11 @@ export const CartUrls={
     checkoutUrl:`${ROOT_URL}api/checkout/`
 
 }
+export const  wishListUrl={
+    createList:`${ROOT_URL}api/wishlist/`,
+    addtoList:`${ROOT_URL}api/wishlistitems/`,
+    getItems:`${ROOT_URL}api/wishlistitems/`,
+    getCount:`${ROOT_URL}api/wishlistitemcount/`,
+    deleteItem:`${ROOT_URL}api/wishlist/`
+}
 

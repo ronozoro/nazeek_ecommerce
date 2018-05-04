@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Sidemenue from '../sidemenue'
-import {getWishListItems}  from '../../actions/wishlistListActions'
+import {setToCart} from '../../actions/cart'
+import {getWishListItems,deleteWishlistItem}  from '../../actions/wishlistListActions'
 import {Container,Divider, Rating, Menu, Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader, Dropdown, Table, TableBody, TableCell } from 'semantic-ui-react'
 import {Grid,Image} from "semantic-ui-react";
 class wishlist extends React.Component {
@@ -15,6 +16,7 @@ class wishlist extends React.Component {
       }
         static propTypes = {
           getWishListItems: PropTypes.func.isRequired,
+          setToCart:PropTypes.func.isRequired,
         };
         componentWillRecivePrpos(nextProps){
            this.setState({data:nextProps.data})
@@ -23,6 +25,13 @@ class wishlist extends React.Component {
           this.props.getWishListItems()
 
         }
+        handleDelete(item){
+         this.props.deleteWishlistItem(item)
+        }
+        addtoCart(product){
+          console.log(product);
+          this.props.setToCart(product)
+        }
         render(){
           console.log(this.props.wishlistItem,this.props.products);
           const columnsName=[
@@ -30,10 +39,12 @@ class wishlist extends React.Component {
             {id:'item',title:'itemId'},
             {id:'seller_name',title:' shop Name'},
             {id:'price',title:'ItemPrice'},
-           
+            {id:'action',title:''},
 
         ]
-              return <div>
+        if(this.props.wishlistItem&&this.props.products)
+
+              return (<div>
                 <Container>
                   <Grid columns={2}>
                   <Grid.Column width={4}>
@@ -68,19 +79,29 @@ class wishlist extends React.Component {
                                 return this.props.products.map(prod=>{
                                     console.log(prod);                                        
                                     if(item.product===prod.id){
-                                                return<Table.Cell>                                      
+                                                return<Table.Cell collapsing>                                      
                                                 <div style={styles.img}><Image width={150} src={'data:image/png;base64, '+prod.image} size='tiny' verticalAlign='middle' /></div>
-                                                 <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf;dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div>
+                                                 <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf; <br/> dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div>
                                                 </Table.Cell> 
+                                            }
+                                            else{
+                                              return <Table.Cell></Table.Cell>
                                             }
                                         })
                                     
                                     }
                                   else if(col.id === 'item'){
-                                      console.log("equakkkkk",item.id);
+                                   return  this.props.products.map(prod=>{
+                                    if(item.product===prod.id){
                                       return<Table.Cell>                                      
-                                         {item.id}
-                                      </Table.Cell> 
+                                    {item.id}
+                                   </Table.Cell> 
+                                    }
+                                    else{
+                                      return <Table.Cell></Table.Cell>
+                                    }
+                                  }
+                                  )                                     
                                      }
                                     else if(col.id === 'seller_name'){
                                       return this.props.products.map(prod=>{
@@ -88,6 +109,9 @@ class wishlist extends React.Component {
                                           return<Table.Cell>                                      
                                           {prod[col.id]}
                                        </Table.Cell> 
+                                                }
+                                                else{
+                                                  return <Table.Cell></Table.Cell>
                                                 }
                                             })
                                       
@@ -99,19 +123,39 @@ class wishlist extends React.Component {
                                           {prod[col.id]}
                                         </Table.Cell> 
                                                 }
+                                                else{
+                                                  return <Table.Cell></Table.Cell>
+                                                }
                                             })
                                      
                                      }
-                                     else{
-                                       
+                                     else if(col.id=='action'){
+                                      return this.props.products.map(prod=>{
+                                        if(item.product===prod.id){
+                                          return<Table.Cell>                                      
+                                          <Icon style={styles.icon} name='plus cart' onClick={this.addtoCart.bind(this,{prod:{object:prod},varId:{id:1}})}/>
+                                        <Icon style={styles.icon} name='remove circle' onClick={this.handleDelete.bind(this,item)}/>
+                                        </Table.Cell> 
+                                                }
+                                                else{
+                                                  return <Table.Cell></Table.Cell>
+                                                }
+                                            })
+                                     
                                      }
-                                    //  <Table.Cell>                                      
-                                    //      <Icon name='delete'/>
-                                    //     </Table.Cell> 
+                                     else {
 
-                                })
-                         }
-
+                                     }
+                                            })
+                                     
+                                          }
+                            
+                                        {/* <Table.Cell>                                      
+                                        <Icon style={styles.icon} name='plus cart' onClick={this.handleDelete.bind(this,item)}/>
+                                        <Icon style={styles.icon} name='remove circle' onClick={this.handleDelete.bind(this,item)}/>
+                                      </Table.Cell>
+                                        */}
+                                        
                      </Table.Row> 
                             })
                         }
@@ -123,7 +167,12 @@ class wishlist extends React.Component {
 
                   </Grid>
             </Container>
-            </div>
+            </div>)
+            else{
+              return <div style={styles.emptycart}>
+                  this wishList is empty
+              </div>
+          }
         }
       }
 
@@ -142,28 +191,24 @@ class wishlist extends React.Component {
         textAlign: 'center',
         float: 'right'
         },
+        icon:{
+          color: '#13bfad',
+          fontSize: 25
+        },
         emptycart:{
-            textAlign: 'center',
-        fontSize: 25,
-        borderRadius: 13,
-        border: '1px solid',
-        width: 700,
-        margin: 'auto',
-        pading: 20,
-        padding: 20,
-        marginBottom: 30,
-        },
-        contentImg:{
-        // display:'inline-block',
-        // border: '1px solid',
-        // width: 350,
-        // margin: 'auto',
-        // overflow: 'auto',
-       
-        },
+          textAlign: 'center',
+      fontSize: 25,
+      borderRadius: 13,
+      border: '1px solid',
+      width: 700,
+      margin: 'auto',
+      pading: 20,
+      padding: 20,
+      marginBottom: 30,
+      },
         img:{
             // display: 'inline-block',
-            border: '1px solid',
+            //border: '1px solid',
             // bottom: 47,
             // position: 'relative',
             // width: 50,
@@ -172,7 +217,8 @@ class wishlist extends React.Component {
         },
         table:{
         textAlign: 'center',
-        fontSize: 15
+        fontSize: 15,
+        width:850,
         },
         p:{
         float: 'right',
@@ -182,5 +228,5 @@ class wishlist extends React.Component {
         }
     }
     
-    export default connect(mapStateToProps, {getWishListItems})(wishlist);
+    export default connect(mapStateToProps, {getWishListItems,deleteWishlistItem,setToCart})(wishlist);
     // export default wishlist

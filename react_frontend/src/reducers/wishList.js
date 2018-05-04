@@ -1,7 +1,7 @@
 
 import * as actions from '../actions/WishlistListActions'
 
-export default function (state = { count: 0, wishListItem: [], id: null }, action) {
+export default function (state = { count: 0, wishListItem: [], id: null,itemDelete:{} }, action) {
     switch (action.type) {
 
         case actions.GETCOUNT:
@@ -19,6 +19,11 @@ export default function (state = { count: 0, wishListItem: [], id: null }, actio
             return {
                 ...state,
                 wishListId: action.id
+            }
+            case actions.DELETE:
+            return {
+                ...state,
+                itemDelete: action.item
             }
             return {
                 state

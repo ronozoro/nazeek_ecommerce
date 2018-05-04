@@ -14,11 +14,6 @@ export class Profile extends React.Component {
 
         }
     }
-
-    componentWillReceiveProps(nextProps) {
-    }
-
-
     render() {
 
         var thos = this
@@ -56,11 +51,12 @@ export class Profile extends React.Component {
                                     </Card></Link>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Card style={styles.Card}>
+                                   <Link to="/wishlist" ><Card style={styles.Card}>
                                         <Card.Content style={styles.header} header='WishList' />
                                         <Card.Content description='Mange My WishList' />
 
                                     </Card>
+                                    </Link>
                                 </Grid.Column>
                                 <Grid.Column>
                                     <Card style={styles.Card}>
