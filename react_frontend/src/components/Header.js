@@ -323,7 +323,7 @@ constructor(props){
                             borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>new</span>
                             */} <Link style={{color:'white'}} to="/newv">
                        arrivals</Link></GridColumn>
-                      <GridColumn style={styles.right} width={1}><Link style={{color:'white'}} to='/homedecore'>offers
+                      <GridColumn style={styles.right} width={1}><Link style={{color:'white'}} to='/offers'>offers
                        {/* <span style={{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>offers</span> */}
     </Link></GridColumn>

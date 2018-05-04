@@ -6,8 +6,8 @@ import authReducer from "./authReducer";
 import shopReducer from "./shopReducer";
 import cartReducer from './cart'
 import checkoutReducer from './checkout'
-import header from './header'
 import wishList from './wishList'
+import filterMenu from './filterMenu'
 const rootReducer = combineReducers({
     form: formReducer,
     notifs: notifReducer,
@@ -15,8 +15,8 @@ const rootReducer = combineReducers({
     shop: shopReducer,
     cart:cartReducer,
     checkout:checkoutReducer,
-    header:header,
-    wishList:wishList
+    wishList:wishList,
+    filterMenu:filterMenu
 
 
 });

@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { get } from '../actions/header'
+import { get } from '../actions/filterMenue'
 import {Rating, Menu,Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader,Dropdown,Table,TableBody,TableCell } from 'semantic-ui-react'
 
-class filtermenue extends React.Component {
+class Filtermenue extends React.Component {
       constructor(props){
         super(props);
         this.state={
@@ -168,4 +168,4 @@ class filtermenue extends React.Component {
         }
       }
 
-      export default filtermenue;
+      export default Filtermenue;

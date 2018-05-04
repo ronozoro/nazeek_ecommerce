@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {get} from '../actions/header'
+import {get} from '../actions/filterMenue'
 import { Menu, MenuItem, Icon,Sidebar,Segment,Dimmer,Image,Loader,Grid,GridColumn,GridRow} from 'semantic-ui-react'
 const div=[{img1:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',colors:['','',''],h:['fhffkkds','lfgdfdffd','jhgjdgfdj']},
 {img1:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',colors:['jhf','jhf','gfd'],h:['fhffkkds','lfgdfdffd','jhgjdgfdj']},
@@ -49,7 +49,7 @@ componentWillMount() {
               }}
 const mapStateToProps = (state, Props) => {
       return {
-      ...Props,
+     products:state.filterMenu.products
      
       }
     }
