@@ -27,13 +27,9 @@ class ReviewList(ListCreateAPIView):
             raise Http404
 
     def create(self, request, *args, **kwargs):
-        token = request.GET.get('token')
-        user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
-        user_id = json.loads(user_id.text)
-        user_record = User.objects.filter(pk=user_id.get('pk'))
+        # user_record = User.objects.filter(pk=request.data.get('user'))
 
-        serializer = self.get_serializer(data={**request.data,
-                                               "user": user_record[0].username})
+        serializer = self.get_serializer(data={**request.data,})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
