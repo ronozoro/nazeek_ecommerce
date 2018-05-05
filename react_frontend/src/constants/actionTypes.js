@@ -10,6 +10,7 @@ export const ShopTypes = {
     CATEGORIES: "CATEGORIES",
     SELLERS: "SELLERS",
     BRANDS: "BRANDS",
+    GETDETAILS:"GETDETAILS"
 };
 export const cartTypes= {
     SET_TO_CART:"SET_TO_CART",

@@ -62,3 +62,10 @@ export function getBrands() {
         });
     };
 }
+export function getProdDetails(product) {
+    return function (dispatch) {
+        
+    dispatch({type:ShopTypes.GETDETAILS,product})
+        
+    };
+}

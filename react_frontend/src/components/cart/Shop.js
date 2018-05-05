@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
-import { getProducts } from "../../actions/shopActions";
+import { getProducts,getProdDetails } from "../../actions/shopActions";
 import { setToCart } from '../../actions/cart'
 import { getItemsOfCart } from '../../actions/cart'
 import {addToWishList} from '../../actions/WishlistListActions'
@@ -9,8 +10,16 @@ import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
 import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
 
 class ShopData extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            rating:0,
+            maxRating:0
+        }
+    }
     static propTypes = {
         getProducts: PropTypes.func.isRequired,
+        getProdDetails :PropTypes.func.isRequired,
         setToCart: PropTypes.func.isRequired,
         getItemsOfCart: PropTypes.func.isRequired
     };
@@ -23,7 +32,7 @@ class ShopData extends Component {
         //this.props.getItemsOfCart();
 
     }
-
+ 
     handleClick(product) {
         console.log(product);
         
@@ -35,21 +44,27 @@ class ShopData extends Component {
 
 
     }
+  
+
     wishListClisk(product){
         console.log(product);
         
      this.props.addToWishList(product)
+    }
+    handleProdDetails(product){
+      console.log(product);
+      this.props.getProdDetails(product.object)
     }
     renderProducts(object) {
         var thos = this
         return (
             <div className="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                 <div className="product-result-item">
-                    <a href="#" className="pro-resThumb">
+                    <Link to="/productDetails" className="pro-resThumb">
                         <img data-image={object.object.id} className="active"
                             src={'data:image/png;base64, ' + object.object.image}
-                            alt={object.object.name} />
-                    </a>
+                            alt={object.object.name} onClick={this.handleProdDetails.bind(this,object)}/>
+                    </Link>
                     <div className="pro-resCaption">
                         <div className="color-choose">
                             {
@@ -75,6 +90,7 @@ class ShopData extends Component {
                             <h2 className="pr-title"><a href="#">{object.object.title}</a></h2>
                             <p className="pr-shop">{object.object.seller_name}</p>
                             <span className="pr-sa">{object.object.price}</span>
+                            <Rating icon='star' defaultRating={3} maxRating={5} />
                             <ul className="pro-resAction">
                                 <li>
                                     <a href="#" className="heart-btn">
@@ -86,6 +102,7 @@ class ShopData extends Component {
                                         <i className="icon-basket icons" onClick={this.handleClick.bind(this,{prod:object,varId:{id:1}})} />
                                     </a>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
@@ -173,4 +190,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getProducts, setToCart, getItemsOfCart,addToWishList })(ShopData);
+export default connect(mapStateToProps, { getProducts, setToCart, getItemsOfCart,addToWishList,getProdDetails })(ShopData);

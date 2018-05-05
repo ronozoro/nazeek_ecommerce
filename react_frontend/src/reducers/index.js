@@ -8,6 +8,7 @@ import cartReducer from './cart'
 import checkoutReducer from './checkout'
 import wishList from './wishList'
 import filterMenu from './filterMenu'
+import reviews from './reviews'
 const rootReducer = combineReducers({
     form: formReducer,
     notifs: notifReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     cart:cartReducer,
     checkout:checkoutReducer,
     wishList:wishList,
-    filterMenu:filterMenu
+    filterMenu:filterMenu,
+    reviews:reviews
 
 
 });

@@ -31,4 +31,7 @@ export const  wishListUrl={
     getCount:`${ROOT_URL}api/wishlistitemcount/`,
     deleteItem:`${ROOT_URL}api/wishlist/`
 }
+export const ReviewsUrl={
+    createReview:`${ROOT_URL}api/reviews/`
+}
 

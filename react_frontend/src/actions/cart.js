@@ -16,11 +16,12 @@ function checkItemsOfCart(items, id, varId) {
     if (items && items.length) {
         for(var i=0;i<items.length;i++){
             if(items[i].product===id){
-                console.log(found);
                 if(items[i].item===varId){
                     var qun = (items[i].quantity + 1)
                   addItem(varId, qun)
                   found=1
+                  console.log(found);
+
                 }               
             }          
         }

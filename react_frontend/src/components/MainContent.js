@@ -28,6 +28,7 @@ import Offers from '../pages/offers'
 import servware from '../pages/serveware'
 import wishlist from '../components/profile/wishlist'
 import Sidemenue from '../components/sidemenue'
+import ProductDetails from '../components/cart/product-details'
 const MainContent = () => (
     <div >
         <Switch>
@@ -36,6 +37,7 @@ const MainContent = () => (
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={Signup}/>
             <Route path="/shop" component={Shop}/>
+            <Route path="/productDetails" component={ProductDetails}/>
             <Route path="/cart" component={Cart}/>
             <Route path="/addressbook" component={AddressBook}/>
             <Route path="/AddAddress" component={AddAddress}/>

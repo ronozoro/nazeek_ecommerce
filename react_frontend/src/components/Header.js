@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Grid,GridRow,GridColumn} from 'semantic-ui-react'
 import {connect} from "react-redux";
+import {getItemsOfCart} from '../actions/cart'
 import {fetchWishlistItemCount} from '../actions/WishlistListActions'
  class Header extends Component {
 constructor(props){
     super(props);
     this.state={
-        count:null
+        count:props.count||0,
     }
 }
     static propTypes = {
         authenticated: PropTypes.bool,
-        fetchWishlistItemCount:PropTypes.func.isRequired
+        fetchWishlistItemCount:PropTypes.func.isRequired,
+        getItemsOfCart:PropTypes.func.isRequired
     };
    
      renderCart() {
@@ -26,7 +28,7 @@ constructor(props){
                                 className="icon-heart icons"></i><span>{this.props.wishlistCount}</span></Link>
                         </li>
                         <li className="cart-purches-btn">
-                            <Link to="/cart"><i className="icon-basket icons"></i><span>{this.props.count}</span></Link>
+                            <Link to="/cart"><i className="icon-basket icons"></i><span>{this.state.count}</span></Link>
                         </li>
                     </ul>
                 </div>
@@ -302,11 +304,14 @@ constructor(props){
         console.log("didmount");
         
         this.props.fetchWishlistItemCount()
+        this.props.getItemsOfCart()
     }
     componentWillReceiveProps(nextProps){
-        this.setState({count:nextProps.wishlistCount})
+        this.setState({count:nextProps.count})
     }
     render() {
+        console.log({cartcount:this.props.count});
+        
         return (
             <header>
                 {this.renderHeaderTop()}
@@ -384,4 +389,4 @@ const styles={
     span1:{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}
 }
-export default connect(mapStateToProps,{fetchWishlistItemCount})(Header);
+export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart})(Header);

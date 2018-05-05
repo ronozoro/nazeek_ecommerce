@@ -10,6 +10,8 @@ export default function(state = {}, action) {
             return  { ...state, sellers: action.payload};
         case ShopTypes.BRANDS:
             return  { ...state, brands: action.payload};
+            case ShopTypes.GETDETAILS:
+            return {...state,product:action.product}
     }
     return state;
 }
