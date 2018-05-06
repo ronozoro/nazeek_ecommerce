@@ -92,7 +92,7 @@ export function createReviewForProduct(model) {
 setTimeout(() => {
   console.log(id);
   
-  axios.post('http://localhost:8000/api/reviews/'+ model.product+'/?token='+ localStorage.getItem('token'), {product:model.product,user:id, value:model.rating, comment_text:model.comment} ).then(response=>{
+  axios.post('http://0.0.0.0:8000/api/reviews/'+ model.product+'/?token='+ localStorage.getItem('token'), {product:model.product,user:id, value:model.rating, comment_text:model.comment} ).then(response=>{
     console.log({reviews:response.data});
   })
 
@@ -107,7 +107,7 @@ setTimeout(() => {
 
 export function getReviewForProduct(productId) {  
   return function(dispatch){
-    axios.get('http://localhost:8000/api/reviews/'+ productId+'/?token='+ localStorage.getItem('token')).then(response=>{
+    axios.get('http://0.0.0.0:8000/api/reviews/'+ productId+'/?token='+ localStorage.getItem('token')).then(response=>{
       console.log({reviews:response.data});
       dispatch({type:REVIEWSLIST,reviewsList:response.data})
     })

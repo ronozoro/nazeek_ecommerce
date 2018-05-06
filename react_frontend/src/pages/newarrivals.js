@@ -20,7 +20,7 @@ import Filtermenue from '../components/filtermenue'
 //     get: PropTypes.func.isRequired,
 // };
 componentDidMount(){
-  this.props.get("localhost:800")
+  this.props.get("0.0.0.0:8000")
 }
 
 
