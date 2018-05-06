@@ -36,7 +36,7 @@ export class Cart extends React.Component {
             {id:'color',title:'color'},
 
         ]
-        if(this.state.cartItems&&this.state.cartItems.length)
+        if(this.state.cartItems&&this.state.cartItems.length&& this.props.products&&this.props.products.length)
         return (
             <div>
 
@@ -66,17 +66,17 @@ export class Cart extends React.Component {
                                 return this.props.products.map(prod=>{
                                     console.log(prod);                                        
                                     if(item.product===prod.id){
-                                       return prod.productimage_set.map(I=>{
-                                           console.log({I});                                           
-                                            if(I.product==item.product){
+                                    //    return prod.productimage_set.map(I=>{
+                                    //        console.log({I});                                           
+                                    //         if(I.product==item.product){
                                                 return<Table.Cell>                                      
-                                                <div style={styles.img}><Image width={150} src={'data:image/png;base64, '+I.image} size='tiny' verticalAlign='middle' /></div>
-                                                 <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf;dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div>
+                                                <div style={styles.img}><Image width={150} src={'data:image/png;base64, '+prod.image} size='tiny' verticalAlign='middle' /></div>
+                                                 {/* <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf;dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div> */}
                                                 </Table.Cell> 
                                             }
-                                        })
+                                    //     })
                                     
-                                    }
+                                    // }
                                 })
 
                                   
@@ -168,7 +168,7 @@ export class Cart extends React.Component {
 }
 const mapStateToProps =(state)=>{
     return {
-      cart:state.cart.cart,
+      cart:state.cart.cartItems,
       products:state.shop.products,
     }
 }

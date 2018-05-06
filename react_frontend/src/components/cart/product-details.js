@@ -10,7 +10,6 @@ import Reviews from './reviewForm'
 import { Container, Divider, Table, Rating, Header, Tab } from 'semantic-ui-react'
 import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
 import $ from 'jquery'
-
 class ProductDetails extends Component {
     constructor(props) {
         super(props);
@@ -119,20 +118,20 @@ function showSlides(n) {
                             <div class="col-md-7">
                                 <div class="block-product-slide">
 
-                                    <div class="slider slider-for" style={{marginLeft:20}}>
+                                    <div class="slider slider-for" style={{marginLeft:30}}>
 
                                         <div class="pro-slide-item">
 
                                             <div  class="pro--Thumb slider-for__item ex1" data-src={'data:image/png;base64, ' + this.props.product.image}>
-                                                <img data-image={this.props.product.id} className="active"  class="image-zoom" 
-                                                    src={'data:image/png;base64, ' + this.props.product.image} data-zoom="{{ featured_image | img_url: '1024x1024', scale: 2 }}"
+                                                <img data-image={this.props.product.id}   class="img-rounded zoom" 
+                                                    src={'data:image/png;base64, ' + this.props.product.image} 
                                                    alt={this.props.product.name} />
                                             </div>
                                         </div>
 
                                     </div>
 
-                                    <div class="slider slider-nav clearfix">
+                                    <div class="slider slider-nav clearfix slick-initialized slick-slider slick-vertical">
 
                                         {this.props.product.variation_set.map(product => {
 
@@ -148,6 +147,19 @@ function showSlides(n) {
                                         })}
 
                                     </div>
+                                    <div class="slider slider-nav clearfix slick-initialized slick-slider slick-vertical">
+                                    <i class="fa fa-angle-up slick-arrow" style={{display: 'inline-block'}}></i>
+									<div class="slick-list draggable" style={{height: 488, padding: '50px 0px'}}>
+                                    <div class="slick-track" style={{opacity: 1, height: 2074, transform: 'translate3d(0px, -488px, 0px)'}}>
+                                    <div class="sp-nav slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" tabIndex="-1" style={{width: 125}}>
+										<img src="images/small/image2.png" alt="" class="img-responsive"/>
+									</div>
+									</div>
+                                    </div>
+								<i class="fa fa-angle-down slick-arrow" style={{display: 'inline-block'}}></i>
+                                </div>
+
+
 
                                     <div class="bottom-slide-pro clearfix">
                                         <ul class="share-pro clearfix">

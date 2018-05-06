@@ -9,6 +9,7 @@ import checkoutReducer from './checkout'
 import wishList from './wishList'
 import filterMenu from './filterMenu'
 import reviews from './reviews'
+import header from './header'
 const rootReducer = combineReducers({
     form: formReducer,
     notifs: notifReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     checkout:checkoutReducer,
     wishList:wishList,
     filterMenu:filterMenu,
-    reviews:reviews
+    reviews:reviews,
+    header:header
 
 
 });

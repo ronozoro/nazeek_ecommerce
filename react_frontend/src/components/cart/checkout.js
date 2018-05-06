@@ -14,8 +14,8 @@ export class Checkout extends React.Component {
         this.state = {
             addresses:  props.addresses||[],
             cartItems: props.cartItems||[],
-            itemsCount: 0,
-            itemsPrices: 0,
+            itemsCount: null,
+            itemsPrices: null,
             shippingAddress:[],
             pillingAddress:[],
            
@@ -49,7 +49,15 @@ export class Checkout extends React.Component {
     render() {
         console.log(this.state.addresses, this.state.cartItems);
 console.log(this.state.shippingAddress,this.state.pillingAddress);
+var count=0,itemsPrices=0
+this.state.cartItems.map(item => {
+    count=count+item.quantity 
+    itemsPrices=(itemsPrices)+(item.price * item.quantity)
+    // this.setState({itemsCount:(this.state.itemsCount+item.quantity),itemsPrices:(this.state.itemsPrices) + (item.price * item.quantity)})
+    // this.state.itemsCount = count
+        // this.state.itemsPrices = (this.state.itemsPrices) + (item.price * item.quantity)
 
+})
         var thos = this
         return (
             <div>
@@ -170,15 +178,10 @@ console.log(this.state.shippingAddress,this.state.pillingAddress);
                     </Table>
                     <div>
                         <div style={styles.gen}> General Requests</div>
-                        {this.state.cartItems.map(item => {
-                            this.state.itemsCount = this.state.itemsCount + item.quantity,
-                                this.state.itemsPrices = this.state.itemsPrices + (item.price * item.quantity)
-
-                        })}
                         <List style={styles.list}>
-                            <List.Item > Items : {this.state.itemsCount}</List.Item>
+                            <List.Item > Items : {count}</List.Item>
                             {/* <List.Item >Deliver Fees : 23 K.D</List.Item> */}
-                            <List.Item >Total Amount : {this.state.itemsPrices}</List.Item>
+                            <List.Item >Total Amount : {itemsPrices}</List.Item>
 
                         </List>
                     </div>
@@ -211,7 +214,7 @@ console.log(this.state.shippingAddress,this.state.pillingAddress);
 const mapStateToProps = (state) => {
     return {
         addresses: state.checkout.addresses,
-        cartItems: state.cart.cart
+        cartItems: state.cart.cartItems
 
     }
 }

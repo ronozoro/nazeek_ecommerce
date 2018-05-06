@@ -10,6 +10,7 @@ export default function(state = {cart:[],cartItems:[],count:0,products:[]}, acti
             return  { 
                 ...state,
                  cart: action.items,
+                 cartItems:action.items,
                  count:action.count,
                  products:state.products.concat(action.product),
                 };

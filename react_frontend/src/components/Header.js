@@ -3,13 +3,18 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Grid,GridRow,GridColumn} from 'semantic-ui-react'
 import {connect} from "react-redux";
+import {Input} from 'semantic-ui-react'
 import {getItemsOfCart} from '../actions/cart'
 import {fetchWishlistItemCount} from '../actions/WishlistListActions'
+import {getcatagorysitms} from '../actions/header'
+import {getcatagorys} from '../actions/header'
+import {get} from '../actions/header'
  class Header extends Component {
 constructor(props){
     super(props);
     this.state={
         count:props.count||0,
+        catagorys:props.catagorys||[]
     }
 }
     static propTypes = {
@@ -99,7 +104,7 @@ constructor(props){
                             </div>
                             <div className="col-md-6 col-sm-6">
                                 <form className="form-search-head" action="#">
-                                    <input className="form-control" placeholder="Search" type="text"/>
+                                <Input className="form-control" placeholder="Search" type="text" onChange={this.handlechange.bind(this)}></Input>
                                         <button type="submit" className="btn btn-submit-search"><i
                                             className="icon-magnifier icons" aria-hidden="true"></i></button>
                                 </form>
@@ -299,40 +304,66 @@ constructor(props){
             </div>
         );
     }
-
+    handleClick(id){
+        console.log(id)
+        this.props.getcatagorysitms(id)
+    }
+    handlechange(e,data){
+        console.log(e)
+        console.log(data.value);
+        
+        if(this.props.products.length!=0)
+        {
+          let filteritems=this.props.products.filter((products)=>{
+                return products.title.indexOf(data.value)
+            })
+        this.props.products=filteritems
+        }else {
+            this.props.get()
+        }
+    }
     componentDidMount(){
         console.log("didmount");
         
         this.props.fetchWishlistItemCount()
         this.props.getItemsOfCart()
+        this.props.getcatagorys();
+
     }
     componentWillReceiveProps(nextProps){
-        this.setState({count:nextProps.count})
+        this.setState({count:nextProps.count,catagorys:nextProps.catagorys})
     }
     render() {
         console.log({cartcount:this.props.count});
-        
+        let catagorys=this.props.catagorys
+
         return (
             <header>
                 {this.renderHeaderTop()}
                 {this.renderMiddle()}
                 <Grid>
                     <GridRow>
-                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'> search by </Link></GridColumn>
-                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/ferneture'>Furniture</Link></GridColumn>
-                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'>Home Decor</Link></GridColumn>
+                      <GridColumn style={styles.right} width={2}> <Link to="/offers" style={{color:'white'}} > search by </Link></GridColumn>
+                     {this.state.catagorys.map((catagory,index)=>{
+                         console.log(catagory);
+                         
+                         let id=catagory.id
+                         console.log(id);
+                         
+                         return <GridColumn style={styles.right} id={index+1} key={index} width={2} onClick={this.handleClick.bind(this,id)}> {catagory.title}</GridColumn>}) }
+                      {/* <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'>Home Decor</Link></GridColumn>
                       <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/servware"> Serve ware</Link></GridColumn>
-                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/outdoor">Outdoor</Link></GridColumn>
-                      <GridColumn style={styles.right} width={2}> 
-                          {/* <span style={{backgroundColor: '#f54236',
-                            borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>new</span>
-                            */} <Link style={{color:'white'}} to="/newv">
-                       arrivals</Link></GridColumn>
-                      <GridColumn style={styles.right} width={1}><Link style={{color:'white'}} to='/offers'>offers
+                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/outdoor">Outdoor</Link></GridColumn>*/}
+                    <GridColumn style={styles.right} width={2}> 
+                           {/* <span style={{backgroundColor: '#f54236',
+                            borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>new</span> */}
+                             <Link style={{color:'white'}} to="/newv">
+                       arrivals</Link></GridColumn> 
+                      <GridColumn style={styles.right} width={1}><Link style={{color:'white'}} to='/Offers'>offers
                        {/* <span style={{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>offers</span> */}
-    </Link></GridColumn>
-                      <GridColumn style={styles.btn} width={3}><Link style={{color:'white'}} to='/homedecore'>design your room</Link></GridColumn>
+                       </Link></GridColumn>
+                      <GridColumn style={styles.btn} width={3}>design your room</GridColumn>
                     </GridRow>
                     
                 </Grid>
@@ -349,7 +380,9 @@ function mapStateToProps(state) {
     return {
         authenticated: state.auth.authenticated,
         count:state.cart.count,
-        wishlistCount:state.wishList.count
+        wishlistCount:state.wishList.count,
+        catagorys:state.header.catagorys,
+        products:state.header.products
     }
 }
 
@@ -389,4 +422,4 @@ const styles={
     span1:{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}
 }
-export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart})(Header);
+export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,get})(Header);

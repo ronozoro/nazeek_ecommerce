@@ -1,4 +1,4 @@
-const ROOT_URL = "http://18.197.50.198:8000/";
+const ROOT_URL = "http://0.0.0.0:8000/";//18.197.50.198
 
 export const AuthUrls = {
     LOGIN: `${ROOT_URL}rest-auth/login/`,
@@ -34,4 +34,7 @@ export const  wishListUrl={
 export const ReviewsUrl={
     createReview:`${ROOT_URL}api/reviews/`
 }
+ export const filtersUrl={
+     products:`${ROOT_URL}api/categories/`
+ }
 

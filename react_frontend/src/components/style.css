@@ -1,4 +1,4 @@
-* {box-sizing:border-box}
+*{box-sizing:border-box}
 
 /* Slideshow container */
 .slideshow-container {
@@ -11,12 +11,7 @@
 .mySlides {
     display: none;
 }
-.slide {
-  background-image: url('../../../src/styles/images/img-slide.jpg')
-}
-.recent{
-  background-image:url('../../../src/styles/images/viewbg.jpg')
-}
+
 /* Next & previous buttons */
 .prev, .next {
   cursor: pointer;

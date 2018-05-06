@@ -29,11 +29,14 @@ import servware from '../pages/serveware'
 import wishlist from '../components/profile/wishlist'
 import Sidemenue from '../components/sidemenue'
 import ProductDetails from '../components/cart/product-details'
+import Home from '../components/home'
 const MainContent = () => (
     <div >
         <Switch>
             <Route exact path="/" component={Landing}/>
             <Route path="/login" component={Login}/>
+            <Route path="/home" component={Home}/>
+
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={Signup}/>
             <Route path="/shop" component={Shop}/>
