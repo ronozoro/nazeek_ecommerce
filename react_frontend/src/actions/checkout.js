@@ -20,7 +20,7 @@ import { cartTypes } from "../constants/actionTypes";
 function setUserCheckoutToken(email) {
     console.log("set");
     var token = localStorage.getItem('token')
-    return axios.post('http://127.0.0.1:8000/api/user/checkout/', { "email": email, token: token })
+    return axios.post(CartUrls.userCheckout, { "email": email, token: token })
         .then(response => {
             console.log({ set: response });
             localStorage.setItem('user_checkout_token', response.data.user_checkout_token)
@@ -30,7 +30,7 @@ function setUserCheckoutToken(email) {
 }
 export function getAddress() {
     return function (dispatch) {
-        return axios.get('http://127.0.0.1:8000/api/user/address/?checkout_token="' + localStorage.getItem('user_checkout_token') + `"`, {}).then(response => {
+        return axios.get( CartUrls.getAdress+'?checkout_token="' + localStorage.getItem('user_checkout_token') + `"`, {}).then(response => {
             console.log(response);
             dispatch({
                 type: CHECKOUT_ADDRESS,

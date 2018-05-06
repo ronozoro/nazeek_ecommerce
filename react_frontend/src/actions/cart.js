@@ -5,7 +5,7 @@ import { CartUrls } from '../constants/urls'
 
 function creatCart() {
     console.log("creat ");
-    axios.get('http://127.0.0.1:8000/api/cart/', {}).then(response => {
+    axios.get(CartUrls.cart, {}).then(response => {
         localStorage.setItem('cart_token', response.data.token)
     }).catch((error) => {
     });
@@ -58,7 +58,7 @@ function addItem(varId, count) {
     }
     else
     cart_user_token=""
-    return axios.get('http://127.0.0.1:8000/api/cart/?token="' + localStorage.getItem('cart_token') + '&item=' + varId + '&qty=' + count + '&cart_user_token='+cart_user_token +'')
+    return axios.get(CartUrls.cart+'?token="' + localStorage.getItem('cart_token') + '&item=' + varId + '&qty=' + count + '&cart_user_token='+cart_user_token +'')
         .then(response => {
             console.log(response.data);
             dispatch({
@@ -171,7 +171,7 @@ export function changeQuantity(data) {
 }
 export function getItemsOfCart() {
     return function (dispatch) {
-        return axios.get('http://127.0.0.1:8000/api/cart/?token="' + localStorage.getItem('cart_token'))
+        return axios.get(CartUrls.cart+'?token="' + localStorage.getItem('cart_token'))
             .then(response => {
                   dispatch({
                     type: cartTypes.CARTITEMS,
