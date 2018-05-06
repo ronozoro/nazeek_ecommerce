@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Sidemenue from '../sidemenue'
 import {setToCart} from '../../actions/cart'
-import {getWishListItems,deleteWishlistItem}  from '../../actions/wishlistListActions'
+import {getWishListItems,deleteWishlistItem}  from '../../actions/WishlistListActions'
 import {Container,Divider, Rating, Menu, Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader, Dropdown, Table, TableBody, TableCell } from 'semantic-ui-react'
 import {Grid,Image} from "semantic-ui-react";
 class wishlist extends React.Component {
