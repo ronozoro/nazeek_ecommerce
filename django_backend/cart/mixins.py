@@ -18,7 +18,7 @@ class CartUpdateAPIMixin(object):
         if cart:
             token = self.request.GET.get('cart_user_token')
             if token:
-                user_id = requests.get('http://0.0.0.0:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+                user_id = requests.get('http://18.197.50.198:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
                 user_id = json.loads(user_id.text)
                 user_record = User.objects.filter(pk=user_id.get('pk'))
                 if user_record:

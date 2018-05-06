@@ -19,7 +19,7 @@ import Filtermenue from '../components/filtermenue'
 //     get: PropTypes.func.isRequired,
 // };
 componentDidMount(){
-  this.props.get("0.0.0.0:8000")
+  this.props.get("18.197.50.198:8000")
 }
 
 
