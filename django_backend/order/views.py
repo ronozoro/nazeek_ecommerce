@@ -142,7 +142,7 @@ class UserCheckoutAPI(UserCheckoutMixin, APIView):
         token = request.data.get("token")
         email = request.data.get("email")
         if token:
-            user_id = requests.get('http://18.197.50.198:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
             user_record = User.objects.filter(pk=user_id.get('pk'))
         else:
