@@ -19,35 +19,20 @@ import Filtermenue from '../components/filtermenue'
 //   static propTypes = {
 //     get: PropTypes.func.isRequired,
 // };
-componentDidMount(){
-  this.props.get("18.197.50.198:8000")
-}
 
 
 
 render(){
   console.log(this.props.products)
-  return <Grid>
-  <Grid.Row>
-    { <Grid.Column width={4}>
-    <Filtermenue /> 
-    </Grid.Column> }
-    <Grid.Column width={12} 
-    //  style={{width:'75%'}}
-    ><Products />
-    </Grid.Column>
-    </Grid.Row>
-    </Grid>
+  return   <Products/>
 }
  }
 const mapStateToProps = (state, Props) => {
-  console.log(state)
   return {
       
-     products:state.filterMenu.products
      
       }
    
     }
   
-      export default connect(mapStateToProps, {get})(NewA);
+      export default connect(mapStateToProps)(NewA);

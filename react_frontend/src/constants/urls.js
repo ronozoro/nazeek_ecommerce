@@ -35,6 +35,8 @@ export const ReviewsUrl={
     createReview:`${ROOT_URL}api/reviews/`
 }
  export const filtersUrl={
-     products:`${ROOT_URL}api/categories/`
+     catagorys:`${ROOT_URL}api/categories/`,
+     catagoryitems:`${ROOT_URL}api/products/`,
+     sort:`${ROOT_URL}api/products/?format=json&ordering=`
  }
 

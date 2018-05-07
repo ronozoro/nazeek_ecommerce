@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { get } from '../actions/filterMenue'
 import {Rating, Menu,Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader,Dropdown,Table,TableBody,TableCell } from 'semantic-ui-react'
 
 class Filtermenue extends React.Component {
@@ -85,10 +84,9 @@ class Filtermenue extends React.Component {
                           </div>
                       </div>
                   </div>
-                  <div class="filter-block">
+                  {/* <div class="filter-block">
                       <h3 class="f-title-sm">Designer/ shop</h3>
-                      <h3 class="f-title-xs">Designer/ shop</h3>
-                      <div class="block-checkList content accordion-content mCustomScrollbar _mCS_1" data-mcs-theme="dark"><div id="mCSB_1" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" style="max-height: 200px;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                      <div class="block-checkList content accordion-content mCustomScrollbar _mCS_1" data-mcs-theme="dark"><div id="mCSB_1" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" style={{maxHeight: 200}} tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style={{position:'relative', top:0, left:0,}} dir="ltr">
                           <div class="ui_checkbox">
                               <input type="checkbox" name="example"/>
                               <label>Table</label>
@@ -129,12 +127,12 @@ class Filtermenue extends React.Component {
                               <input type="checkbox" name="example"/>
                               <label>Sofa</label>
                           </div>
-                      </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 118px; max-height: 190px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+                      </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style={{display: 'block'}}><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style={{position: 'absolute', minHeight: 30, display: 'block', height: 118, maxHeight: 190, top: 0}}><div class="mCSB_dragger_bar" style={{lineHeight: 30}}></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
                   </div>
                   <div class="filter-block">
                       <h3 class="f-title-sm">Style</h3>
                       <h3 class="f-title-xs">Designer/ shop</h3>
-                      <div class="block-checkList content accordion-content mCustomScrollbar _mCS_2 mCS_no_scrollbar" data-mcs-theme="dark"><div id="mCSB_2" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" tabindex="0" style="max-height: none;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+                      <div class="block-checkList content accordion-content mCustomScrollbar _mCS_2 mCS_no_scrollbar" data-mcs-theme="dark"><div id="mCSB_2" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" tabindex="0" style={{maxHeight: 'none'}}><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style={{position:'relative', top:0, left:0}} dir="ltr">
                           <div class="ui_checkbox">
                               <input type="checkbox" name="example"/>
                               <label>Modern</label>
@@ -143,7 +141,7 @@ class Filtermenue extends React.Component {
                               <input type="checkbox" name="example"/>
                               <label>Contemporary</label>
                           </div>
-                          <div class="ui_checkbox">
+                          <div classn="ui_checkbox">
                               <input type="checkbox" name="example"/>
                               <label>Classic</label>
                           </div>
@@ -155,13 +153,14 @@ class Filtermenue extends React.Component {
                               <input type="checkbox" name="example"/>
                               <label>Islamic</label>
                           </div>
-                      </div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;">
+                      </div>
+                      <div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-dark mCSB_scrollTools_vertical" style={{display: 'none'}}>
                           <div class="mCSB_draggerContainer">
-                              <div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;">
-                                  <div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+                              <div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style={{position: 'absolute', minHeight: 30,height: 0, top: 0}}>
+                                  <div class="mCSB_dragger_bar" style={{lineHeight: 30}}></div>
                                   </div><div class="mCSB_draggerRail">
                                       </div></div></div></div></div>
-                  </div>
+                  </div> */}
                   </div>
                  
         
