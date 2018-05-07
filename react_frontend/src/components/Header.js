@@ -6,9 +6,13 @@ import {connect} from "react-redux";
 import {Input} from 'semantic-ui-react'
 import {getItemsOfCart} from '../actions/cart'
 import {fetchWishlistItemCount} from '../actions/WishlistListActions'
-import {getcatagorysitms} from '../actions/header'
-import {getcatagorys} from '../actions/header'
-import {get} from '../actions/header'
+import {getcatagorysitms} from '../actions/filterMenue'
+import {getcatagorys} from '../actions/filterMenue'
+import {get} from '../actions/filterMenue'
+import history from "../utils/historyUtils";
+
+// import {aftersearsh} '../actions/header'
+import {aftersearsh} from '../actions/filterMenue'
  class Header extends Component {
 constructor(props){
     super(props);
@@ -304,23 +308,34 @@ constructor(props){
             </div>
         );
     }
-    handleClick(id){
+    handleClick(id,title){
         console.log(id)
-        this.props.getcatagorysitms(id)
+        this.props.getcatagorysitms(id,title)
     }
     handlechange(e,data){
         console.log(e)
         console.log(data.value);
-        
+        let filteritems=[]
+
         if(this.props.products.length!=0)
         {
-          let filteritems=this.props.products.filter((products)=>{
-                return products.title.indexOf(data.value)
+            console.log(this.props.products)
+       this.props.products.map((product)=>{
+              if( product.title.toLowerCase().indexOf(data.value.toLowerCase())!== -1)
+                 {
+                     filteritems.push (product)
+                } 
             })
-        this.props.products=filteritems
-        }else {
-            this.props.get()
+    this.props.aftersearsh(filteritems)
+            console.log(filteritems)
+       // this.props.products=filteritems
         }
+
+        if(filteritems.length!=0)
+        {
+            this.props.aftersearsh(filteritems)
+            history.push("/products")}
+        
     }
     componentDidMount(){
         console.log("didmount");
@@ -328,10 +343,11 @@ constructor(props){
         this.props.fetchWishlistItemCount()
         this.props.getItemsOfCart()
         this.props.getcatagorys();
+        this.props.get()
 
     }
     componentWillReceiveProps(nextProps){
-        this.setState({count:nextProps.count,catagorys:nextProps.catagorys})
+        this.setState({count:nextProps.count,catagorys:nextProps.catagorys,})
     }
     render() {
         console.log({cartcount:this.props.count});
@@ -350,7 +366,7 @@ constructor(props){
                          let id=catagory.id
                          console.log(id);
                          
-                         return <GridColumn style={styles.right} id={index+1} key={index} width={2} onClick={this.handleClick.bind(this,id)}> {catagory.title}</GridColumn>}) }
+                         return <GridColumn style={styles.right} id={index+1} key={index} width={2} onClick={this.handleClick.bind(this,id,catagory.title)}> {catagory.title}</GridColumn>}) }
                       {/* <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'>Home Decor</Link></GridColumn>
                       <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/servware"> Serve ware</Link></GridColumn>
                       <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/outdoor">Outdoor</Link></GridColumn>*/}
@@ -381,8 +397,8 @@ function mapStateToProps(state) {
         authenticated: state.auth.authenticated,
         count:state.cart.count,
         wishlistCount:state.wishList.count,
-        catagorys:state.header.catagorys,
-        products:state.header.products
+        catagorys:state.filterMenu.catagorys,
+        products:state.filterMenu.products
     }
 }
 
@@ -422,4 +438,4 @@ const styles={
     span1:{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}
 }
-export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,get})(Header);
+export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,get,aftersearsh})(Header);

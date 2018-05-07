@@ -20,16 +20,17 @@ import NoMatch from "./NoMatch";
 import AddAddress from "./cart/add-new-addres";
 import Profile from '../components/profile/index'
 import AddressBook from '../components/profile/address-book'
-import furneture from '../pages/furneture'
-import homedecore from '../pages/homedecore'
+import Furneture from '../pages/furneture'
+import Homedecore from '../pages/homedecore'
 import newv from '../pages/new'
-import outdoor from '../pages/outdoor'
+import Outdoor from '../pages/outdoor'
 import Offers from '../pages/offers'
-import servware from '../pages/serveware'
+import Servware from '../pages/serveware'
 import wishlist from '../components/profile/wishlist'
 import Sidemenue from '../components/sidemenue'
 import ProductDetails from '../components/cart/product-details'
 import Home from '../components/home'
+import products from '../components/products'
 const MainContent = () => (
     <div >
         <Switch>
@@ -54,14 +55,15 @@ const MainContent = () => (
             <Route path="/userProfile" component={RequireAuth(UserProfile)}/>
             <Route path="/profile_edit" component={RequireAuth(UserProfileEdit)}/>
             <Route path="/change_password" component={RequireAuth(PasswordChange)}/>
-            <Route path="/ferneture" component={furneture}/>
-            <Route path="/homedecore" component={homedecore}/>
+            <Route path="/furniture" component={Furneture}/>
+            <Route path="/homedecore" component={Homedecore}/>
             <Route path="/newv" component={newv}/>
             <Route path="/wishlist" component={wishlist}/>
-            <Route path="/outdoor" component={outdoor}/>
+            <Route path="/outdoor" component={Outdoor}/>
             <Route path="/offers" component={Offers}/>
             <Route path="/sidemenue" component={Sidemenue}/>
-            <Route path="/servware" component={servware}/>
+            <Route path="/sevewhere" component={Servware}/>
+            <Route path="/products" component={products}/>
             <Route component={NoMatch}/>
         </Switch>
     </div>

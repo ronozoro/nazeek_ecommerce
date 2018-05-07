@@ -2,48 +2,70 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getsorteditems } from '../actions/filterMenue'
+import Filtermenue from './filtermenue'
 
 //import PropTypes from "prop-types";
 //import { get } from '../actions/header'
-import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button, Dropdown } from 'semantic-ui-react'
-const options = [
-      { key: 1, text: 'Title', value: 'Title' },
-      { key: 2, text: 'dssending', value: 'dssending' },
-      { key: 3, text: 'assending', value: 'assending' },
-      { key: 4, text: 'price', value: 'price' },
-      { key: 5, text: 'last updated', value: 'last updated' },
-      { key: 6, text: 'last created', value: 'last created' }
+import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button,Select ,Dropdown} from 'semantic-ui-react'
+const sortoptions = [
+      { key: 1, text: 'title_ascending', value: 'title' },
+      { key: 2, text: 'title_descending', value: '-title' },
+      { key: 3, text: 'id_ascending', value: 'id' },
+      { key: 4, text: 'id_descending', value: '-id' },
+      { key: 5, text: ' price', value: 'price' },
+      // { key: 6, text: 'last created', value: 'last created' }
 ]
 class Products extends React.Component {
-
+      constructor(props){
+            super(props);
+            this.state={
+                products:this.props.products||[]
+            }
+      }
       handleChange(e, data) {
             console.log(data.value);
 
             // console.log(obj.options[obj.value].text)
             // console.log(obj)
-            getsorteditems(data.value)
+          this.props.getsorteditems(data.value)
       }
+      componentWillReceiveProps(nextProps){
+            this.setState({products:nextProps.products})
+      }
+     
       render() {
 
             {/* <Dimmer active={this.props.loading}>
                         <Loader/>
                 </Dimmer> */}
-            return <Grid >
-                  <Grid.Row columns={2}>
-                        <Grid.Column>
-                              jhjgdjhsgd
-            </Grid.Column>
-                        <Grid.Column>
-                              <Dropdown placeholder="sortby" options={options} onChange={this.handleChange.bind(this)} />
-                        </Grid.Column>
-                  </Grid.Row>
-                  <Divider fitted />
-                  <Segment style={{ margin: '20px', padding: '25px' }} >
-                        <Grid columns={3}>
-                              <Grid.Row columns={3}>
+            return <Grid columns={2}>
+            <Grid.Column width={4}>
+                  <Filtermenue />
+
+            </Grid.Column >
+                              <Grid.Column width={12}>
+                              <div class="sec-head marg-b0 col-left-right clearfix">
+							<h2 class="sec-title f-left">Living Room</h2>
+							<div class="col--right clearfix">
+								<div >
+                                                      <Dropdown options={sortoptions} selection  style={{backgroundColor:'#13bfad',color:'black'}} placeholder='sort by' onChange={this.handleChange.bind(this)} />
+									{/* <select  options={options}>
+										 <option>Sort by</option>
+										<option>Sort</option>
+										<option>Sort</option>
+										<option>Sort</option> 
+									</select> */}
+								</div>
+								
+							</div>
+						</div>
+                              <Grid columns={3}>
+                            
+                              <Grid.Row>
                                     {
                                           this.props.products.map((coulm, index) => {
-                                                return <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                                return <Grid.Column>
+                                                <div>
                                                       <div class="product-result-item">
                                                             <Link to="/" class="pro-resThumb">
                                                                   <img data-image="color1" class="active" src={coulm.image
@@ -87,7 +109,7 @@ class Products extends React.Component {
                                                                               </label>
                                                                         </div>
                                                                   </div>
-                                                                  <div class="pro-resTxt">
+                                                                  <div class="pro-resTxt" style={{height:100}}>
                                                                         <h2 class="pr-title"><a href="#">{coulm.title}</a></h2>
                                                                         <p class="pr-shop">{coulm.Shop_Name}</p>
                                                                         <span class="pr-sa">{coulm.price}</span>
@@ -103,11 +125,13 @@ class Products extends React.Component {
                                                             </div>
                                                       </div>
                                                 </div>
+                                                </Grid.Column>
                                           })}
-
-                              </Grid.Row>
-                        </Grid>
-                  </Segment>
+</Grid.Row>
+                                          </Grid>
+</Grid.Column>
+                              
+                        
             </Grid>
       }
 }
@@ -115,7 +139,7 @@ const mapStateToProps = (state, Props) => {
       console.log(state)
       return {
 
-            products: state.header.products,
+            products: state.filterMenu.products,
 
       }
 
@@ -140,4 +164,4 @@ var styles = {
             
             
             
-            export default connect(mapStateToProps,getsorteditems)(Products);
+            export default connect(mapStateToProps,{getsorteditems})(Products);

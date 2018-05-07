@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {get} from '../actions/filterMenue'
 import { Menu, MenuItem, Icon,Sidebar,Segment,Dimmer,Loader} from 'semantic-ui-react'
+import Products from '../components/products'
 
- class outdoor extends React.Component {
+ class Outdoor extends React.Component {
   
   static propTypes = {
     get: PropTypes.func.isRequired,
@@ -21,7 +22,7 @@ componentWillMount() {
                 </Dimmer> */}
                 
                 <Segment style={{ margin: '20px', padding: '25px' }} >
-                   
+                <Products/>
                 </Segment>
                 
             </Segment>
@@ -36,4 +37,4 @@ const mapStateToProps = (state, Props) => {
     }
     
   
-  export default connect(mapStateToProps, {get})(outdoor);
+  export default connect(mapStateToProps, {get})(Outdoor);

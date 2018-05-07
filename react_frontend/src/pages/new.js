@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {get} from '../actions/filterMenue'
 import { Menu, MenuItem, Icon,Sidebar,Segment,Dimmer,Loader} from 'semantic-ui-react'
+import Products from '../components/products'
 
  class newv extends React.Component {
   
