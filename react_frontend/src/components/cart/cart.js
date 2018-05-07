@@ -19,7 +19,7 @@ export class Cart extends React.Component {
         this.props.changeQuantity({quantity:quantity,id:id,prodId:prodId})
     }
     componentWillReceiveProps(nextProps){
-        console.log({nextProps});
+        console.log({nextPropsCart:nextProps});
         
      this.setState({cartItems:nextProps.cart})
     }

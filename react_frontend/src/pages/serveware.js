@@ -15,17 +15,17 @@ import Products from '../components/products'
                         <Loader/>
                 </Dimmer> */}
               
-                <Products/>
+                <Products   products={this.props.categoryItems}/>
             </Segment>
         }
 
 }
 const mapStateToProps = (state, Props) => {
       return {
-      ...Props,
+        categoryItems:state.filterMenu.GETCATAGORYITMS
      
       }
     }
     
   
-  export default connect(mapStateToProps, {get})(Servware);
+  export default connect(mapStateToProps, )(Servware);

@@ -2,7 +2,7 @@ import axios from "axios";
 import {ShopTypes} from "../constants/actionTypes";
 import {ShopUrls} from "../constants/urls";
 
-function setProducts(payload) {
+ function setProducts(payload) {
     return {
         type: ShopTypes.PRODUCTS,
         payload: payload
@@ -10,10 +10,16 @@ function setProducts(payload) {
 }
 
 export function getProducts() {
+    console.log("jhjkhkljlkjdlzkcjlxkzcjlzxkcjxlzkcj");
+    
     return function (dispatch) {
-        axios.get(ShopUrls.PRODUCTS, {}).then(response => {
+        axios.get(ShopUrls.PRODUCTS, { }).then(response => {
+            console.log({shop:response.data});
+            
             dispatch(setProducts(response.data))
         }).catch((error) => {
+            console.log(error);
+            
         });
     };
 }

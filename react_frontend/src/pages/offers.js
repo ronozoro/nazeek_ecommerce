@@ -18,9 +18,9 @@ import Filtermenue from '../components/filtermenue'
 //   static propTypes = {
 //     get: PropTypes.func.isRequired,
 // };
-componentDidMount(){
-  this.props.get("localhost:8000")
-}
+// componentDidMount(){
+//   this.props.get("localhost:8000")
+// }
 
 
 

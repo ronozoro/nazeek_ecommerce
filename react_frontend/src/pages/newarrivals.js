@@ -24,12 +24,13 @@ import Filtermenue from '../components/filtermenue'
 
 render(){
   console.log(this.props.products)
-  return   <Products/>
+  return   <Products   products={this.props.categoryItems}/>
 }
  }
 const mapStateToProps = (state, Props) => {
   return {
-      
+    categoryItems:state.filterMenu.GETCATAGORYITMS
+
      
       }
    

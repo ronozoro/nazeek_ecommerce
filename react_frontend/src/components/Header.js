@@ -330,11 +330,15 @@ constructor(props){
             console.log(filteritems)
        // this.props.products=filteritems
         }
+        else{
+            this.props.get()
+
+        }
 
         if(filteritems.length!=0)
         {
             this.props.aftersearsh(filteritems)
-            history.push("/products")}
+        }
         
     }
     componentDidMount(){
@@ -343,7 +347,7 @@ constructor(props){
         this.props.fetchWishlistItemCount()
         this.props.getItemsOfCart()
         this.props.getcatagorys();
-        this.props.get()
+        //this.props.get()
 
     }
     componentWillReceiveProps(nextProps){
@@ -361,10 +365,10 @@ constructor(props){
                     <GridRow>
                       <GridColumn style={styles.right} width={2}> <Link to="/offers" style={{color:'white'}} > search by </Link></GridColumn>
                      {this.state.catagorys.map((catagory,index)=>{
-                         console.log(catagory);
+                        //  console.log(catagory);
                          
-                         let id=catagory.id
-                         console.log(id);
+                          let id=catagory.id
+                        //  console.log(id);
                          
                          return <GridColumn style={styles.right} id={index+1} key={index} width={2} onClick={this.handleClick.bind(this,id,catagory.title)}> {catagory.title}</GridColumn>}) }
                       {/* <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'>Home Decor</Link></GridColumn>
@@ -390,9 +394,7 @@ constructor(props){
     }
 }
 
-function mapStateToProps(state) {
-    console.log(state.wishList);
-    
+function mapStateToProps(state) {    
     return {
         authenticated: state.auth.authenticated,
         count:state.cart.count,

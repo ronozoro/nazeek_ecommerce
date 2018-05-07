@@ -5,13 +5,15 @@ export const GETCATAGORYITMS="GETCATAGORYITMS";
 import axios from "axios";
 import history from "../utils/historyUtils";
 import {filtersUrl} from '../constants/urls'
+import {ShopUrls} from '../constants/urls'
+import {setProducts} from './shopActions'
     export function get() {
         console.log('action')
       return function (dispatch) {
-          axios.get(filtersUrl.catagoryitems, {}).then(response => {
+          axios.get(ShopUrls.PRODUCTS, {}).then(response => {
               console.log(response)
             
-               dispatch(set(response.data))
+               dispatch(setProducts(response.data))
             console.log(response.data)
           }).catch((error) => {
               console.log(error)
@@ -19,7 +21,7 @@ import {filtersUrl} from '../constants/urls'
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"}]
-               dispatch(set(data))
+               dispatch(setProducts(data))
           });
       };
   }
@@ -46,7 +48,10 @@ import {filtersUrl} from '../constants/urls'
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"}]
                dispatch(set(data))
           });
+          history.push("/products")
+
       };
+
   }
 //   function setsorted(Data) {
 //     return {
@@ -80,7 +85,15 @@ function setcatagorys(Data) {
       data: Data
   }
 }
-
+function setcatagoryItems(Data) {
+  console.log(Data)
+  return function(dispatch){
+  dispatch({
+      type:GETCATAGORYITMS ,
+      data: Data
+  })
+}
+}
 export function getcatagorysitms(id,title) {
     console.log(id)
     let url=filtersUrl.catagoryitems+id+"/?format=json"
@@ -90,8 +103,12 @@ export function getcatagorysitms(id,title) {
         console.log(url)
       axios.get(url, {}).then(response => {
           console.log(response)
-      
-           dispatch(set(response.data))
+           dispatch({
+            type:GETCATAGORYITMS ,
+            data: response.data
+        })
+          //  history.push("/"+title)
+
         console.log(response.data)
       }).catch((error) => {
           console.log(error)
@@ -99,18 +116,23 @@ export function getcatagorysitms(id,title) {
           {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
           {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
           {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"}]
-          dispatch(set(data))
+          dispatch(setcatagoryItems(data))
       });
-      history.push("/"+title)
+      setTimeout(() => {
+        history.push("/"+title)
+
+      }, 1000);
   };
 }
 export function aftersearsh(items)
 {
+  console.log({search:items});
+  
   return function (dispatch){
-    return {
+    dispatch( {
       type: GETDATA,
       data: items
-  }
+  })
   history.push("/products")
 
   }

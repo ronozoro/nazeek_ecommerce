@@ -62,7 +62,7 @@ class wishlist extends React.Component {
                         <Table.Header>
                             <Table.Row>
                                {columnsName.map((coulm,index)=>{
-                               return  <Table.HeaderCell>{coulm.title}</Table.HeaderCell>
+                               return  <Table.HeaderCell colSpan='1'>{coulm.title}</Table.HeaderCell>
                                 })
                                } 
                                                              
@@ -79,9 +79,9 @@ class wishlist extends React.Component {
                                 return this.props.products.map(prod=>{
                                     console.log(prod);                                        
                                     if(item.product===prod.id){
-                                                return<Table.Cell collapsing>                                      
-                                                <div style={styles.img}><Image width={150} src={'data:image/png;base64, '+prod.image} size='tiny' verticalAlign='middle' /></div>
-                                                 <div style={styles.contentImg}>Middle ;lk;flk;fkdf;kdf;skf; <br/> dlfk;dlfk;dlfk;dfkkflkfmldfkdlsfkdlkfAligned</div>
+                                                return<Table.Cell >                                      
+                                                <div ><Image width={150} src={'data:image/png;base64, '+prod.image} size='tiny' verticalAlign='middle' /></div>
+                                                 <div style={styles.contentImg}>Middle; <br/> fAligned</div>
                                                 </Table.Cell> 
                                             }
                                             else{

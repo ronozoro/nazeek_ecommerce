@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
-import { getProducts,getProdDetails } from "../../actions/shopActions";
+import { getProducts } from "../../actions/shopActions";
+import { getProdDetails } from '../../actions/shopActions';
 import { setToCart } from '../../actions/cart'
 import { getItemsOfCart } from '../../actions/cart'
 import {addToWishList} from '../../actions/WishlistListActions'
@@ -14,7 +15,8 @@ class ShopData extends Component {
         super(props);
         this.state={
             rating:0,
-            maxRating:0
+            maxRating:0,
+            products:props.products||[]
         }
     }
     static propTypes = {
@@ -24,22 +26,19 @@ class ShopData extends Component {
         getItemsOfCart: PropTypes.func.isRequired
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.getProducts();
 
     }
-    componentDidMount() {
-        //this.props.getItemsOfCart();
-
-    }
+  
  
     handleClick(product) {
-        console.log(product);
+        // console.log(product);
         
         this.props.setToCart(product)
     }
     handleChange(e, object) {
-        console.log({ x: object.prod, xx: object.varId });
+        // console.log({ x: object.prod, xx: object.varId });
         this.props.setToCart(object)
 
 
@@ -47,13 +46,16 @@ class ShopData extends Component {
   
 
     wishListClisk(product){
-        console.log(product);
+        // console.log(product);
         
      this.props.addToWishList(product)
     }
     handleProdDetails(product){
-      console.log(product);
+    //   console.log(product);
       this.props.getProdDetails(product.object)
+    }
+    componentWillReceiveProps(nextPros){
+      this.setState({products:nextPros.products})
     }
     renderProducts(object) {
         var thos = this
@@ -126,8 +128,8 @@ class ShopData extends Component {
                 <div className="col--right clearfix">
                     <div className="filter-sortrg">
                         <i className="zmdi zmdi-unfold-more"></i>
-                        <select className="form-control sort-s">
-                            <option>Sort by</option>
+                        <select className="form-control sort-s" >
+                            <option >Sort by</option>
                             <option>Sort</option>
                             <option>Sort</option>
                             <option>Sort</option>
@@ -140,7 +142,6 @@ class ShopData extends Component {
 
     renderShop() {
         const products = this.props.products;
-        console.log(products)
         if (products) {
             return (
                 <div className="container">
@@ -150,7 +151,7 @@ class ShopData extends Component {
                                 <h2>Filter</h2>
                                 <div className="filter-block-content">
 
-                                    {this.renderFilters()}
+                                    {/* {this.renderFilters()} */}
                                 </div>
                             </div>
                         </div>

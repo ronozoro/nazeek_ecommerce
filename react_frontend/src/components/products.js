@@ -19,21 +19,27 @@ class Products extends React.Component {
       constructor(props){
             super(props);
             this.state={
-                products:this.props.products||[]
+                products:props.products||[],
+                value:""
+
             }
       }
-      handleChange(e, data) {
-            console.log(data.value);
+      handleChange(e,data) {
+       
 
-            // console.log(obj.options[obj.value].text)
-            // console.log(obj)
+           
           this.props.getsorteditems(data.value)
       }
       componentWillReceiveProps(nextProps){
+            console.log({next:nextProps.products});
+            
             this.setState({products:nextProps.products})
       }
      
       render() {
+            console.log(this.props.products);
+            console.log(this.state.products);
+            
 
             {/* <Dimmer active={this.props.loading}>
                         <Loader/>
@@ -44,16 +50,20 @@ class Products extends React.Component {
 
             </Grid.Column >
                               <Grid.Column width={12}>
-                              <div class="sec-head marg-b0 col-left-right clearfix">
+                        <div class="sec-head clearfix" style={{ marginBottom: 10}}>
 							<h2 class="sec-title f-left">Living Room</h2>
-							<div class="col--right clearfix">
+							<div class="col--right clearfix" >
 								<div >
                                                       <Dropdown options={sortoptions} selection  style={{backgroundColor:'#13bfad',color:'black'}} placeholder='sort by' onChange={this.handleChange.bind(this)} />
-									{/* <select  options={options}>
+									{/* <select  value={this.state.value} id="mySelect" onchange={this.handleChange(this)}>
 										 <option>Sort by</option>
-										<option>Sort</option>
-										<option>Sort</option>
-										<option>Sort</option> 
+										<option value="title">title_ascending</option>
+										<option value="-title">title_descending</option>
+										<option value="id">id_ascending</option> 
+                                                            <option value="-id">id_descending</option> 
+										<option value="price">price</option> 
+										
+
 									</select> */}
 								</div>
 								
@@ -63,13 +73,12 @@ class Products extends React.Component {
                             
                               <Grid.Row>
                                     {
-                                          this.props.products.map((coulm, index) => {
+                                          this.state.products.map((coulm, index) => {
                                                 return <Grid.Column>
                                                 <div>
                                                       <div class="product-result-item">
                                                             <Link to="/" class="pro-resThumb">
-                                                                  <img data-image="color1" class="active" src={coulm.image
-                                                                  } alt="" />
+                                                                  <img data-image="color1" class="active" src={'data:image/png;base64, '+ coulm.image} alt="" />
                                                             </Link>
                                                             <div class="pro-resCaption">
                                                                   <div class="color-choose">
@@ -80,34 +89,8 @@ class Products extends React.Component {
                                                                                     </span>
                                                                               </label>
                                                                         </div>
-                                                                        <div>
-                                                                              <input data-image="color2" type="radio" id="color2" name="color" value="color2" />
-                                                                              <label for="color2">
-                                                                                    <span style={{ backgroundColor: '#ea1e64' }}>
-                                                                                    </span>
-                                                                              </label>
-                                                                        </div>
-                                                                        <div>
-                                                                              <input data-image="color3" type="radio" id="color3" name="color" value="color3" />
-                                                                              <label for="color3">
-                                                                                    <span style={{ backgroundColor: '#3f51b5' }}>
-                                                                                    </span>
-                                                                              </label>
-                                                                        </div>
-                                                                        <div>
-                                                                              <input data-image="color4" type="radio" id="color4" name="color" value="color4" />
-                                                                              <label for="color4">
-                                                                                    <span style={{ backgroundColor: '#4cb050' }}>
-                                                                                    </span>
-                                                                              </label>
-                                                                        </div>
-                                                                        <div>
-                                                                              <input data-image="color5" type="radio" id="color5" name="color" value="color5" />
-                                                                              <label for="color5">
-                                                                                    <span style={{ backgroundColor: '#ffc104' }}>
-                                                                                    </span>
-                                                                              </label>
-                                                                        </div>
+                                                                    
+                                                                   
                                                                   </div>
                                                                   <div class="pro-resTxt" style={{height:100}}>
                                                                         <h2 class="pr-title"><a href="#">{coulm.title}</a></h2>
@@ -139,7 +122,7 @@ const mapStateToProps = (state, Props) => {
       console.log(state)
       return {
 
-            products: state.filterMenu.products,
+             products: state.filterMenu.catagoryitms,
 
       }
 

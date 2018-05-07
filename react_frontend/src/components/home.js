@@ -5,9 +5,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getsorteditems } from '../actions/filterMenue'
-var Carousel = require('react-responsive-carousel').Carousel;
 import { Slide } from 'react-slideshow-image';
 import Sidemenue from './sidemenue'
+import Products from './products'
 import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button, Dropdown } from 'semantic-ui-react'
 var slideIndex = 1;
 
@@ -46,19 +46,18 @@ class Home extends React.Component {
 					transitionDuration={1000}
 				/></div>
 				<br />
-				<div style={styles.div}>
-					<Grid columns={2}>
-						<Grid.Column width={4}>
-							<Sidemenue />
-						</Grid.Column>
-						<Grid.Column width={10}>
-							<div class="sec-head clearfix">
+				<div >
+					{/* <Grid columns={2}> */}
+						
+						{/* <Grid.Column width={10}> */}
+							{/* <div class="sec-head clearfix">
 								<h2 class="sec-title f-left">new arrivals</h2>
 								<a href="#" class="more-page f-right">more <i class="icon-arrow-right icons"></i></a>
-							</div>
-						</Grid.Column>
+							</div> */}
+							<Products/>
+						{/* </Grid.Column> */}
 
-					</Grid>
+					{/* </Grid> */}
 				</div>
 				<div class="recent" style={{
 			position: 'relative',
@@ -120,4 +119,4 @@ var styles = {
 	}
 }
 
-export default connect(mapStateToProps, getsorteditems)(Home);
+export default connect(mapStateToProps)(Home);

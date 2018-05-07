@@ -16,7 +16,7 @@ class Furneture extends React.Component {
 
   render() {
     return <div>
-      <Products/>
+      <Products  products={this.props.categoryItems}/>
     </div>
 
   }
@@ -24,7 +24,7 @@ class Furneture extends React.Component {
 }
 const mapStateToProps = (state, Props) => {
   return {
-
+    categoryItems:state.filterMenu.GETCATAGORYITMS
   }
 }
 

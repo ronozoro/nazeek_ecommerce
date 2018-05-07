@@ -24,12 +24,13 @@ setTimeout(() => {
     console.log({reviews:response.data});
   })
 
-  setTimeout(() => {
-    getReviewForProduct(model.product)
+ 
 
-  }, 300);
 }, 700);
-  
+setTimeout(() => {
+  getReviewForProduct(model.product)
+
+}, 1000);
   }
 }
 

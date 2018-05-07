@@ -9,12 +9,8 @@ import Products from '../components/products'
  class Outdoor extends React.Component {
   
   static propTypes = {
-    get: PropTypes.func.isRequired,
 };
-componentWillMount() {
-  console.log('ammount')
-    this.props.get('http://muslimsalat.com/london.json?key=87193111d038e814c2fcff1fef98f2e7');
-}
+
       render() {
  return <Segment>
                 {/* <Dimmer active={this.props.loading}>
@@ -22,7 +18,7 @@ componentWillMount() {
                 </Dimmer> */}
                 
                 <Segment style={{ margin: '20px', padding: '25px' }} >
-                <Products/>
+                <Products   products={this.props.categoryItems}/>
                 </Segment>
                 
             </Segment>
@@ -31,10 +27,11 @@ componentWillMount() {
 }
 const mapStateToProps = (state, Props) => {
       return {
-      ...Props,
+        categoryItems:state.filterMenu.GETCATAGORYITMS
+
      
       }
     }
     
   
-  export default connect(mapStateToProps, {get})(Outdoor);
+  export default connect(mapStateToProps )(Outdoor);

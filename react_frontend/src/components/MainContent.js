@@ -34,7 +34,7 @@ import products from '../components/products'
 const MainContent = () => (
     <div >
         <Switch>
-            <Route exact path="/" component={Landing}/>
+            <Route exact path="/" component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/home" component={Home}/>
 

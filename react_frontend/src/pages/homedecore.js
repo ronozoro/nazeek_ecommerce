@@ -16,7 +16,7 @@ import Products from '../components/products'
                         <Loader/>
                 </Dimmer> */}
                 
-                <Products/>
+                <Products   products={this.props.categoryItems}/>
                 
             </Segment>
         }
@@ -24,7 +24,8 @@ import Products from '../components/products'
 }
 const mapStateToProps = (state, Props) => {
       return {
-     
+        categoryItems:state.filterMenu.GETCATAGORYITMS
+
      
       }
     }

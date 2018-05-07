@@ -94,7 +94,7 @@ export function setToCart(product) {
                     //variation: product.varId
                 })
             })
-        }, 400);
+        }, 2000);
        
     };
 }
@@ -131,7 +131,7 @@ export function changeQuantity(data) {
     
             })
     
-        }, 300);
+        }, 2000);
       
         // axios.get('http://127.0.0.1:8000/api/cart/?token="' + localStorage.getItem('cart_token'))
         // .then(response =>{

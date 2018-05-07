@@ -1,7 +1,7 @@
 import * as actions from '../actions/filterMenue'
 //import * as conActions from '../actions/connection-monitor'
 
-const header = (state={products:[],sorteditems:[],catagoryitms:[],catagorys:[]} , action)=> {
+const filterMenu = (state={products:[],sorteditems:[],catagoryitms:[],catagorys:[]} , action)=> {
   console.log('reducer')
   switch (action.type) {
       case actions.GETDATA:
@@ -12,15 +12,15 @@ const header = (state={products:[],sorteditems:[],catagoryitms:[],catagorys:[]} 
         // catagoryitms:[],
         // sorteditems:[],
         // state:{}
-       
+        
       };
       case actions.GETCATAGORYITMS:
       return {
         ...state,
-      
-        catagoryitms: action.data,
+           catagoryitms:[],
+        catagoryitms: state.catagoryitms.concat(action.data),
         
-        state:{}
+        //state:{}
        
       };
       case actions.GETCATAGORYS:
@@ -47,7 +47,7 @@ const header = (state={products:[],sorteditems:[],catagoryitms:[],catagorys:[]} 
   }
 }
 
-export default header;
+export default filterMenu;
 
 
 //87193111d038e814c2fcff1fef98f2e7
