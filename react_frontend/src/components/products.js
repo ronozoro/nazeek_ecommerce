@@ -50,7 +50,7 @@ class Products extends React.Component {
 
             </Grid.Column >
                               <Grid.Column width={12}>
-                        <div class="sec-head clearfix" style={{ marginBottom: 10}}>
+                        <div class="sec-head clearfix" style={{ marginBottom: '3%'}}>
 							<h2 class="sec-title f-left">Living Room</h2>
 							<div class="col--right clearfix" >
 								<div >

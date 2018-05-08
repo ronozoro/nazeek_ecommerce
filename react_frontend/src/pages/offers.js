@@ -26,16 +26,8 @@ import Filtermenue from '../components/filtermenue'
 
 render(){
   console.log(this.props.products)
-  return <Grid>
-  <Grid.Row>
-     <Grid.Column width={4}>
-    {/* <Filtermenue />  */}
-    </Grid.Column> 
-    <Grid.Column width={12} >
-    <Products />
-    </Grid.Column>
-    </Grid.Row>
-    </Grid>
+  return <Products />
+    
 }
  }
 const mapStateToProps = (state, Props) => {
