@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Rating, Menu,Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader,Dropdown,Table,TableBody,TableCell } from 'semantic-ui-react'
-
+import $ from 'jquery'
 class Filtermenue extends React.Component {
       constructor(props){
         super(props);
@@ -18,7 +18,12 @@ class Filtermenue extends React.Component {
       //     this.setState({data:newprops.data})
         }
         render(){
-              return <div> <div class="side-filter">
+              return <div> 
+
+
+
+
+                  <div class="side-filter">
               <h2>Filter</h2>
               <div class="filter-block-content">
                   <div class="filter-block">
@@ -48,7 +53,7 @@ class Filtermenue extends React.Component {
                               <div class="panel-heading accordion-heading">
                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="collapsed">Chair</a>
                               </div>
-                              <div id="collapse2" class="panel-collapse collapse"/>
+                              <div id="collapse2" class="panel-collapse collapse in">
                                   <div class="panel-body">
                                       <div class="ui_checkbox-collapse">
                                           <div class="ui_checkbox">
@@ -62,26 +67,13 @@ class Filtermenue extends React.Component {
                                       </div>
                                   </div>
                               </div>
-                          </div>
-                          <div class="panel panel-default">
-                              <div class="panel-heading accordion-heading">
-                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="collapsed">Sofa</a>
-                              </div>
-                              <div id="collapse3" class="panel-collapse collapse"/>
-                                  <div class="panel-body">
-                                      <div class="ui_checkbox-collapse">
-                                          <div class="ui_checkbox">
-                                              <input type="checkbox" name="example"/>
-                                              <label>Table</label>
-                                          </div>
-                                          <div class="ui_checkbox">
-                                              <input type="checkbox" name="example"/>
-                                              <label>Chair</label>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+                        </div>
+                  </div>
+                        
+                        
+
+                    </div>
+                          
                       </div>
                   </div>
                   {/* <div class="filter-block">

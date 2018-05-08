@@ -54,7 +54,7 @@ class Home extends React.Component {
 								<h2 class="sec-title f-left">new arrivals</h2>
 								<a href="#" class="more-page f-right">more <i class="icon-arrow-right icons"></i></a>
 							</div> */}
-							<Products/>
+							<Products title="  NEW ARIVALS"/>
 						{/* </Grid.Column> */}
 
 					{/* </Grid> */}

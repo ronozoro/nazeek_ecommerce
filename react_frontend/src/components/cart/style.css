@@ -17,6 +17,12 @@
 .recent{
   background-image:url('../../../src/styles/images/viewbg.jpg')
 }
+.zoomImg:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+      transform: translate3d(50px, 100px);
+
+}
 /* Next & previous buttons */
 .prev, .next {
   cursor: pointer;

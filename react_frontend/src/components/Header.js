@@ -8,7 +8,7 @@ import {getItemsOfCart} from '../actions/cart'
 import {fetchWishlistItemCount} from '../actions/WishlistListActions'
 import {getcatagorysitms} from '../actions/filterMenue'
 import {getcatagorys} from '../actions/filterMenue'
-import {get} from '../actions/filterMenue'
+import {getProducts} from '../actions/shopActions'
 import history from "../utils/historyUtils";
 
 // import {aftersearsh} '../actions/header'
@@ -18,7 +18,8 @@ constructor(props){
     super(props);
     this.state={
         count:props.count||0,
-        catagorys:props.catagorys||[]
+        catagorys:props.catagorys||[],
+        filteritems:[]
     }
 }
     static propTypes = {
@@ -109,7 +110,7 @@ constructor(props){
                             <div className="col-md-6 col-sm-6">
                                 <form className="form-search-head" action="#">
                                 <Input className="form-control" placeholder="Search" type="text" onChange={this.handlechange.bind(this)}></Input>
-                                        <button type="submit" className="btn btn-submit-search"><i
+                                        <button type="button" className="btn btn-submit-search" onClick={this.search.bind(this)}><i
                                             className="icon-magnifier icons" aria-hidden="true"></i></button>
                                 </form>
                             </div>
@@ -315,7 +316,6 @@ constructor(props){
     handlechange(e,data){
         console.log(e)
         console.log(data.value);
-        let filteritems=[]
 
         if(this.props.products.length!=0)
         {
@@ -323,23 +323,25 @@ constructor(props){
        this.props.products.map((product)=>{
               if( product.title.toLowerCase().indexOf(data.value.toLowerCase())!== -1)
                  {
-                     filteritems.push (product)
+                     this.setState({filteritems:this.state.filteritems.push (product)})
                 } 
             })
-    this.props.aftersearsh(filteritems)
-            console.log(filteritems)
-       // this.props.products=filteritems
+    // this.props.aftersearsh(filteritems)
+    //         console.log(filteritems)
+       
         }
-        else{
-            this.props.get()
+       
 
-        }
-
-        if(filteritems.length!=0)
-        {
-            this.props.aftersearsh(filteritems)
-        }
+       
         
+    }
+    search(){
+        console.log(this.state.filteritems);
+        
+        if(this.state.filteritems.length!=0)
+        {
+            //this.props.aftersearsh(filteritems)
+        }
     }
     componentDidMount(){
         console.log("didmount");
@@ -347,7 +349,7 @@ constructor(props){
         this.props.fetchWishlistItemCount()
         this.props.getItemsOfCart()
         this.props.getcatagorys();
-        //this.props.get()
+        this.props.getProducts()
 
     }
     componentWillReceiveProps(nextProps){
@@ -400,7 +402,7 @@ function mapStateToProps(state) {
         count:state.cart.count,
         wishlistCount:state.wishList.count,
         catagorys:state.filterMenu.catagorys,
-        products:state.filterMenu.products
+        products:state.shop.products
     }
 }
 
@@ -440,4 +442,4 @@ const styles={
     span1:{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}
 }
-export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,get,aftersearsh})(Header);
+export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,getProducts,aftersearsh})(Header);

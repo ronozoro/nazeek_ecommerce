@@ -15,7 +15,7 @@ import Products from '../components/products'
                         <Loader/>
                 </Dimmer> */}
               
-                <Products   products={this.props.categoryItems}/>
+                <Products title="Servware"  products={this.props.categoryItems}/>
             </Segment>
         }
 

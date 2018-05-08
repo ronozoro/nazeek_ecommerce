@@ -18,7 +18,7 @@ import Products from '../components/products'
                 </Dimmer> */}
                 
                 <Segment style={{ margin: '20px', padding: '25px' }} >
-                <Products   products={this.props.categoryItems}/>
+                <Products title="Outdoor"  products={this.props.categoryItems}/>
                 </Segment>
                 
             </Segment>

@@ -6,7 +6,7 @@ import axios from "axios";
 import history from "../utils/historyUtils";
 import {filtersUrl} from '../constants/urls'
 import {ShopUrls} from '../constants/urls'
-import {setProducts} from './shopActions'
+import setProducts from './shopActions'
     export function get() {
         console.log('action')
       return function (dispatch) {

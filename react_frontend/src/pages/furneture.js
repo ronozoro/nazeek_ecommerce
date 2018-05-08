@@ -16,7 +16,7 @@ class Furneture extends React.Component {
 
   render() {
     return <div>
-      <Products  products={this.props.categoryItems}/>
+      <Products title="furniture" products={this.props.categoryItems}/>
     </div>
 
   }
