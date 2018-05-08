@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Grid,GridRow,GridColumn} from 'semantic-ui-react'
+import {Grid,GridRow,GridColumn,Icon} from 'semantic-ui-react'
 import {connect} from "react-redux";
 import {Input} from 'semantic-ui-react'
 import {getItemsOfCart} from '../actions/cart'
 import {fetchWishlistItemCount} from '../actions/WishlistListActions'
 import {getcatagorysitms} from '../actions/filterMenue'
+import {categoryItems} from '../actions/shopActions'
 import {getcatagorys} from '../actions/filterMenue'
 import {getProducts} from '../actions/shopActions'
 import history from "../utils/historyUtils";
@@ -25,20 +26,34 @@ constructor(props){
     static propTypes = {
         authenticated: PropTypes.bool,
         fetchWishlistItemCount:PropTypes.func.isRequired,
-        getItemsOfCart:PropTypes.func.isRequired
+        getItemsOfCart:PropTypes.func.isRequired,
     };
-   
+   wishlist(){
+if(localStorage.getItem('token')==null){
+    history.push("/login")
+}   
+else{
+    history.push("/wishlist")
+}  
+   }
+   gotocart(){
+    if(localStorage.getItem('token')==null){
+        history.push("/login")
+    }   
+    else{
+        history.push("/cart")
+    } 
+   }
      renderCart() {
         return (
             <div className="col-md-3 col-sm-3">
                 <div className="clearfix">
                     <ul className="menu-purches clearfix">
-                        <li className="favorite-btn">
-                        <Link to="/wishlist"><i
-                                className="icon-heart icons"></i><span>{this.props.wishlistCount}</span></Link>
+                        <li style={{fontSize: 20,color: '#13bfad'}}>
+                       <Icon   name="heart" onClick={this.wishlist.bind(this)}></Icon><span>{this.props.wishlistCount}</span>
                         </li>
-                        <li className="cart-purches-btn">
-                            <Link to="/cart"><i className="icon-basket icons"></i><span>{this.state.count}</span></Link>
+                        <li  style={{fontSize: 20,color: '#13bfad'}}>
+                           <Icon name="plus cart"  onClick={this.gotocart.bind(this)} ></Icon><span>{this.state.count}</span>
                         </li>
                     </ul>
                 </div>
@@ -311,7 +326,8 @@ constructor(props){
     }
     handleClick(id,title){
         console.log(id)
-        this.props.getcatagorysitms(id,title)
+        this.props.categoryItems(id)
+        //this.props.getcatagorysitms(id,title)
     }
     handlechange(e,data){
         console.log(e)
@@ -367,23 +383,18 @@ constructor(props){
                     <GridRow>
                       <GridColumn style={styles.right} width={2}> <Link to="/offers" style={{color:'white'}} > search by </Link></GridColumn>
                      {this.state.catagorys.map((catagory,index)=>{
-                        //  console.log(catagory);
                          
                           let id=catagory.id
-                        //  console.log(id);
                          
-                         return <GridColumn style={styles.right} id={index+1} key={index} width={2} onClick={this.handleClick.bind(this,id,catagory.title)}> {catagory.title}</GridColumn>}) }
-                      {/* <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to='/homedecore'>Home Decor</Link></GridColumn>
-                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/servware"> Serve ware</Link></GridColumn>
-                      <GridColumn style={styles.right} width={2}> <Link style={{color:'white'}} to="/outdoor">Outdoor</Link></GridColumn>*/}
+                         return <GridColumn style={styles.right} id={index+1} key={index} width={2} onClick={this.handleClick.bind(this,id,catagory.title)}> {catagory.title}
+                         </GridColumn>}) }
+                     
                     <GridColumn style={styles.right} width={2}> 
-                           {/* <span style={{backgroundColor: '#f54236',
-                            borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>new</span> */}
+                           
                              <Link style={{color:'white'}} to="/newv">
                        arrivals</Link></GridColumn> 
                       <GridColumn style={styles.right} width={1}><Link style={{color:'white'}} to='/Offers'>offers
-                       {/* <span style={{backgroundColor: '#f54236',
-    borderRadius: 3,padding: '1 5 0',lineHeight: 20}}>offers</span> */}
+                      
                        </Link></GridColumn>
                       <GridColumn style={styles.btn} width={3}>design your room</GridColumn>
                     </GridRow>
@@ -442,4 +453,4 @@ const styles={
     span1:{backgroundColor: '#f54236',
     borderRadius: 3,padding: '1 5 0',lineHeight: 20}
 }
-export default connect(mapStateToProps,{fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,getProducts,aftersearsh})(Header);
+export default connect(mapStateToProps,{categoryItems,fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,getProducts,aftersearsh})(Header);

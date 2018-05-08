@@ -14,6 +14,7 @@ export const ShopUrls = {
     CATEGORIES: `${ROOT_URL}api/categories`,
     BRANDS: `${ROOT_URL}api/brands`,
     SELLERS: `${ROOT_URL}api/sellers`,
+    ORDER:`${ROOT_URL}api/products/`
 };;
 export const CartUrls={
     cart:`${ROOT_URL}api/cart/`,

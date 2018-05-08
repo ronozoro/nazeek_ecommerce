@@ -6,7 +6,9 @@
   position: relative;
   margin: auto;
 }
-
+.highlight:hover{
+opacity: .5;
+}
 /* Hide the images by default */
 .mySlides {
     display: none;

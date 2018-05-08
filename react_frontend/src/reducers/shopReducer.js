@@ -1,9 +1,11 @@
 import { ShopTypes } from "../constants/actionTypes";
 
-export default function(state = {products:[],categories:[],sellers:[],brands:[],product:{}}, action) {
+export default function(state = {allproducts:[],products:[],categories:[],sellers:[],brands:[],product:{}}, action) {
     switch(action.type) {
         case ShopTypes.PRODUCTS:
             return  { ...state, products: action.payload};
+            case ShopTypes.ALLPRODUCTS:
+            return  { ...state, allproducts: action.payload};
         case ShopTypes.CATEGORIES:
             return  { ...state, categories: action.payload};
         case ShopTypes.SELLERS:
