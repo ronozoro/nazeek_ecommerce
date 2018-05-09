@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getsorteditems } from '../actions/filterMenue'
 import Filtermenue from './filtermenue'
+require('jquery')
 require('./cart/style.css')
 //import PropTypes from "prop-types";
 //import { get } from '../actions/header'
@@ -13,9 +14,11 @@ class Products extends React.Component {
             super(props);
             this.state = {
                   products: props.products || [],
-                  value: 'Sort by'
+                  value: 'Sort by',
+                  Quantity:1
 
             }
+            this.handleclick=this.handleclick.bind(this)
             this.change = this.change.bind(this)
       }
       componentWillReceiveProps(nextProps) {
@@ -27,6 +30,16 @@ class Products extends React.Component {
             console.log(event.target.value);
             this.props.getsorteditems(event.target.value)
 
+      }
+      handleChage(e){
+console.log(e.target.value);
+this.setState({Quantity:e.target.value})
+
+      }
+      handleclick(){
+            console.log(this.state.Quantity);
+            
+            this.setState({Quantity:this.state.Quantity+1})
       }
       render() {
             console.log(this.props.products);
@@ -49,7 +62,11 @@ class Products extends React.Component {
                         <Grid.Column width={4}>
                               <Filtermenue />
 
-
+                              <div class="quantity">
+                                    <input type="text" name="count-quat1" class="count-quat" value={this.state.Quantity?this.state.Quantity.toString():1}  onChange={this.handleChage}  />
+                                          <div class="btn button-count inc jsQuantityIncrease" ><i class="fa fa-plus" aria-hidden="true" onClick={this.handleclick}></i></div>
+                                          <div class="btn button-count dec jsQuantityDecrease disabled" minimum="1"><i class="fa fa-minus" aria-hidden="true"></i></div>
+				                        </div>
 
 
                         </Grid.Column >
