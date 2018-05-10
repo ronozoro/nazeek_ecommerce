@@ -379,7 +379,7 @@ else{
             <header>
                 {this.renderHeaderTop()}
                 {this.renderMiddle()}
-                <Grid>
+                <Grid style={{width:"70%"}}>
                     <GridRow>
                       <GridColumn style={styles.right} width={2}> <Link to="/offers" style={{color:'white'}} > search by </Link></GridColumn>
                      {this.state.catagorys.map((catagory,index)=>{

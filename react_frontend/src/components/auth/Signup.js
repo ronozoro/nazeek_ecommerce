@@ -2,7 +2,7 @@ import React, {Component} from "react";
 // import PropTypes from "prop-types";
 import {reduxForm, Field, propTypes} from "redux-form";
 import {required} from "redux-form-validators"
-import {renderField, renderError} from "../../utils/renderUtils";
+import {renderField, renderError,renderCheckbox} from "../../utils/renderUtils";
 import {signupUser} from "../../actions/authActions";
 
 class Signup extends Component {
@@ -74,11 +74,11 @@ class Signup extends Component {
 
                                 <fieldset className="form-check">
                                     <Field name="terms_conditions" label="Accept of term of use&policy"
-                                           component={renderField}
+                                           component={renderCheckbox}
                                            type="checkbox"
                                            validate={[required({message: "You must accept the terms to signup"})]}/>
                                     <br/>
-                                    <Field name="subscribe" label="Subscribe newsletters" component={renderField}
+                                    <Field name="subscribe" label="Subscribe newsletters" component={renderCheckbox}
                                            type="checkbox"/>
                                 </fieldset>
 

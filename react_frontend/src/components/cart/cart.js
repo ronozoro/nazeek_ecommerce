@@ -10,10 +10,13 @@ export class Cart extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            cartItems:props.cart
+            cartItems:props.cart,
+            value:1
         }
         this.handleChange=this.handleChange.bind(this)
-
+this.handleTest=this.handleTest.bind(this)
+this.increase=this.increase.bind(this)
+this.decrease=this.decrease.bind(this)
     }
     handleChange(quantity,id,prodId){  
         this.props.changeQuantity({quantity:quantity,id:id,prodId:prodId})
@@ -26,6 +29,20 @@ export class Cart extends React.Component {
     handlClick(){
         this.props.checkout()
     }
+    handleTest(e){
+   console.log("change");
+   console.log(e.target.value);
+   
+   this.setState({value:e.target.value})
+    }
+    increase(id,prodId){
+    this.setState({value:this.state.value+1})
+    // this.props.changeQuantity({quantity:this.state.value,id:id,prodId:prodId})
+
+    }
+    decrease(){
+    this.setState({value:this.state.value-1})
+    }
     render() {
         var thos=this
         const columnsName=[
@@ -33,6 +50,7 @@ export class Cart extends React.Component {
             {id:'item',title:'ProductId'},
             {id:'quantity',title:'quantity'},
             {id:'price',title:'ItemPrice'},
+            {id:'subtotal',title:"SubTotal"},
             {id:'color',title:'color'},
 
         ]
@@ -90,6 +108,11 @@ export class Cart extends React.Component {
                                 if(coulm.id=='quantity') {                                   
                                         return <Table.Cell>
                                         {item[coulm.id] }
+                                        <div class="quantity">
+			                          	<input type="text" name="count-quat1" refs='input' className="count-quat" value={this.state.value.toString()} onChange={this.handleTest}/>
+			                        	<div className="btn button-count inc jsQuantityIncrease"><i className="fa fa-plus" aria-hidden="true" onClick={this.increase(item.item,item.product)}></i></div>
+			                        	<div className="btn button-count dec jsQuantityDecrease" minimum="1"><i class="fa fa-minus" aria-hidden="true" onClick={this.decrease}></i></div>
+			                        </div>
                                         <Input type="number" ref="input" onChange={(e,data)=>{this.handleChange(data.value,item.item,item.product)}}/>
                                      </Table.Cell>                                 
                                    
@@ -99,16 +122,31 @@ export class Cart extends React.Component {
                                        {item[coulm.id]}
                                     </Table.Cell>
                                 } 
+                                if(coulm.id=='subtotal') {
+                                           return<Table.Cell>
+                                               {item.quantity * item.price}
+                                                   </Table.Cell>
+                                     
+                                } 
                                 if(coulm.id=='color') {
                                    return this.props.products.map(prod=>{
-                                        console.log(prod);                                        
                                         if(item.product===prod.id){
                                            return prod.variation_set.map(v=>{
                                                 if(item.item===v.id){
-                                                 return<Table.Cell>
-                                                    {v.color}
-                                                 </Table.Cell>
+                                                    var style = {
+                                                        backgroundColor: v.color,
+                                                        width:30,height:30
+                                                    }
+                                                    return(
+                                                    <Table.Cell>
+                                                     <label style={style}> 
+                                                     <span >
+                                                         
+                                                        </span>
+                                            </label>
+                                                 </Table.Cell>)
                                                 }
+                                            
                                             })
                                         
                                         }

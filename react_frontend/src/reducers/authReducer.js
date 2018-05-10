@@ -1,6 +1,6 @@
 import { AuthTypes } from "../constants/actionTypes";
 
-export default function(state = {}, action) {
+export default function(state = {user:{},authenticated:false,token:""}, action) {
     switch(action.type) {
         case AuthTypes.LOGIN:
             return { ...state, authenticated: true, token: action.payload};

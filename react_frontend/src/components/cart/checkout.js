@@ -2,134 +2,158 @@ import * as React from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { changeQuantity } from "../../actions/cart";
-import { open } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
-import {getAddress} from '../../actions/checkout'
-import {getItemsOfCart} from '../../actions/cart'
+import { getAddress } from '../../actions/checkout'
+import { getItemsOfCart } from '../../actions/cart'
 import { Input, Icon, Container, Segment, Divider, List, Table, Rating, Header } from 'semantic-ui-react'
-import { Button, Checkbox, Image, Grid } from 'semantic-ui-react'
+import { Button, Checkbox, Image, Grid, Form } from 'semantic-ui-react'
+import { payNow } from '../../actions/checkout'
+import AddAddress from './add-new-addres'
+import { addAdress } from '../../actions/checkout'
+
 export class Checkout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            addresses:  props.addresses||[],
-            cartItems: props.cartItems||[],
+            addresses: props.addresses || [],
+            cartItems: props.cartItems || [],
             itemsCount: null,
             itemsPrices: null,
-            shippingAddress:[],
-            pillingAddress:[],
-           
+         
+            sh_Add_value: false,
+            bill_add_value: false,
+
+            checkedShipping: [],
+            checkedBilling: [],
+            open: false,
+
+            city: "",
+            area: "",
+            street: "",
+            avenue: "",
+            type: "",
+            directions: "",
+            house: "",
+
         }
+        this.handleSelectTypeChange = this.handleSelectTypeChange.bind(this)
+        this.handleSelectAreaChange = this.handleSelectAreaChange.bind(this)
+
     }
-    componentDidMount(){
+    componentDidMount() {
         this.props.getAddress()
         this.props.getItemsOfCart()
     }
     componentWillReceiveProps(nextProps) {
-        console.log('kkkdfkjfkldfjlkjldkdkf' );
-        var thos=this
+        var thos = this
         this.setState({ addresses: nextProps.addresses, cartItems: nextProps.cartItems })
-        for(var i=0;i<nextProps.addresses.length;i++){
-            if(nextProps.addresses[i].type === 'shipping'){
-                console.log("fdf");
-                
-                thos.state.shippingAddress.push(nextProps.addresses[i])
-            }
-            else {
-                thos.state.pillingAddress.push(nextProps.addresses[i])
-
-            }
-        }
-       
     }
     handleClick() {
-        this.props.open()
+        this.setState({ open: true })
+    }
+    handleChangeBilling = (value, item) => {
+        console.log(value, item);
+        if (value == true) {
+            // this.state.checkedBilling.push(item)
+            this.setState({ checkedBilling: this.state.checkedBilling.concat(item) })
+        }
+        this.setState({ bill_Add_value: value })
+
+    }
+    handleChangeShipping = ( value, item ) => {
+        console.log(item);
+             this.setState({ checkedShipping: this.state.checkedShipping.concat(item) })
+
+        this.setState({ bill_Add_value: value })
+
+    }
+    payNow() {
+        if (this.state.checkedShipping && this.state.checkedShipping.length && this.state.checkedBilling && this.state.checkedBilling.length) {
+            console.log("yessssssssssss");
+            this.props.payNow(this.state.checkedBilling,this.state.checkedShipping)
+        }
+        else {
+            alert("please  check shippin address and billing address at least one")
+        }
+    }
+    handleSubmit() {
+        console.log("sumit");
+        console.log(this.state.city, this.state.directions);
+        let model = {};
+        model['city'] = this.state.city,
+            model['house'] = this.state.house,
+            model['street'] = this.state.street,
+            model['area'] = this.state.area,
+            model['directions'] = this.state.directions,
+            model['type'] = this.state.type,
+            model['avenue'] = this.state.avenue
+
+        this.props.addAdress(model)
+        this.setState({ city: "", house: "", street: "", area: "", directions: "", type: "", avenue: "" })
+    }
+    handleChange = (e, { name, value }) => {
+        console.log(name, value);
+        this.setState({ [name]: value })
+    }
+    handleSelectTypeChange(e) {
+        this.setState({ type: e.target.value })
+    }
+    handleSelectAreaChange(e) {
+        this.setState({ area: e.target.value })
     }
 
     render() {
         console.log(this.state.addresses, this.state.cartItems);
-console.log(this.state.shippingAddress,this.state.pillingAddress);
-var count=0,itemsPrices=0
-this.state.cartItems.map(item => {
-    count=count+item.quantity 
-    itemsPrices=(itemsPrices)+(item.price * item.quantity)
-    // this.setState({itemsCount:(this.state.itemsCount+item.quantity),itemsPrices:(this.state.itemsPrices) + (item.price * item.quantity)})
-    // this.state.itemsCount = count
-        // this.state.itemsPrices = (this.state.itemsPrices) + (item.price * item.quantity)
-
-})
+        var count = 0, itemsPrices = 0
+        this.state.cartItems.map(item => {
+            count = count + item.quantity
+            itemsPrices = (itemsPrices) + (item.price * item.quantity)
+        })
         var thos = this
         return (
-            <div>
+            <div style={{ marginTop: 30 }}>
                 <Container textAlign='justified'>
                     <b style={{ fontSize: 23 }}>CHECKOUT</b>
                     <Divider style={{ background: '#13bfad' }} />
-                    <Grid columns={2} coulmns="equal" style={{}}>
-                        <Grid.Column width={8}>
-                            <List>
-                                <h1 style={styles.h1}> shipping address</h1>
-                                {this.state.shippingAddress.map(add => {
-                                    return <div><List.Item style={styles.listItem}>
-                                        city:{add.city},streat:{add.street}
-                                    </List.Item>
-                                    <Checkbox radio />
-                                    </div>
-                                })}
-                            </List>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                            <List>
-                                <h1 style={styles.h1}> pilling address</h1>
-                                {this.state.pillingAddress.map(add => {
-                                    return <div><List.Item style={styles.listItem}>
-                                        city:{add.city},streat:{add.street}
-                                    </List.Item>
-                                    <Checkbox radio />
-                                    </div>
-                                })}
-                            </List>
-                        </Grid.Column>
-                        <Grid.Row>
-                            <Button type="button" style={styles.btnAdd} onClick={this.handleClick.bind(this)}> <Icon name="plus circle" /> Add New Adress </Button>
-
-                        </Grid.Row>
-                    </Grid>
-                    {/* <Table
+                    <Table
                         fixed
                         striped
                         basic='very'
                         style={styles.table}
-                    >
+                        >
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell colSpan='2' style={styles.header}> Address List</Table.HeaderCell>
+                                <Table.HeaderCell colSpan='2' style={styles.header}> Shipping Address</Table.HeaderCell>
 
                             </Table.Row>
                         </Table.Header>
 
                         <Table.Body >
                             {this.state.addresses.map((item, index) => {
-                                return <Table.Row>
-                                    <Table.Cell 
-                                    style={{
-                                        textAlign: 'left'
-                                    }}>
-                                         <Icon name='marker' /> city:{item.city},streat:{item.street}
-                                </Table.Cell>
-                                    <Table.Cell collapsing
-                                    style={{
-                                        textAlign: 'right',
-                                        fontSize: 23,
-                                        color: '#13bfad'
-                                    }}><Icon name="edit" /> <Icon name="delete" /></Table.Cell>
-                                </Table.Row>
+                                if (item.type == "shipping")
+                                    return <Table.Row>
+                                        <Table.Cell
+                                            style={{
+                                                textAlign: 'left'
+                                            }}>
+                                            <Icon name='marker' style={styles.icon} />
+                                            {item.city} {item.street}
+                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
+
+                                        </Table.Cell>
+                                        <Table.Cell collapsing
+                                            style={{
+                                                textAlign: 'right',
+                                                fontSize: 23,
+                                                color: '#13bfad'
+                                            }}> <div style={{ display: 'inline-block' }}><Icon name="delete" /></div>
+                                        </Table.Cell>
+                                    </Table.Row>
 
                             })
                             }
                         </Table.Body>
-                    </Table> */}
-
-                  
+                    </Table>
                     <Table
                         fixed
                         striped
@@ -137,9 +161,111 @@ this.state.cartItems.map(item => {
                         style={styles.table}
                     >
                         <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell colSpan='2' style={styles.header}> Billing Address</Table.HeaderCell>
+
+                            </Table.Row>
+                        </Table.Header>
+
+                        <Table.Body >
+                            {this.state.addresses.map((item, index) => {
+                                if (item.type == "billing")
+                                    return <Table.Row>
+                                        <Table.Cell
+                                            style={{
+                                                textAlign: 'left'
+                                            }}>
+                                            <Icon name='marker' style={styles.icon} />
+                                            {item.city}
+                                            {item.street}
+                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} />
+                                        </Table.Cell>
+                                        <Table.Cell collapsing
+                                            style={{
+                                                textAlign: 'right',
+                                                fontSize: 23,
+                                                color: '#13bfad'
+                                            }}> <div style={{ display: 'inline-block' }}><Icon name="delete" /></div>
+                                        </Table.Cell>
+                                    </Table.Row>
+
+                            })
+                            }
+                        </Table.Body>
+                    </Table>
+                    <button type="button" style={styles.btnAdd} class="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+                        <Icon name="plus circle" /> Add New Adress
+                    </button>
+
+                    <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="dialog" style={{ marginTop: 250 }}>
+                            <div class="modal-content">
+                                <div style={{ margin: 10 }}>
+                                    <h2 class="sec-title f-left">Add New Address</h2>
+                                    <button type="button" class="close" data-dismiss="modal" >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <Form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
+                                        <Grid columns={1}>
+                                            <Grid.Column>
+                                                <label style={styles.label}>City</label><Input style={styles.input} defaultValue={this.state.city} name="city" type="text" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>type</label>
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.type} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectTypeChange} tabIndex="-1" aria-hidden="true">
+                                                    <option >Enter yours here</option>
+                                                    <option value="shipping">shipping</option>
+                                                    <option value="billing" >billing</option>
+                                                </select></div>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>area</label>
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.area} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectAreaChange} tabIndex="-1" aria-hidden="true">
+                                                    <option >Enter yours here</option>
+                                                    <option value="area1">area1</option>
+                                                    <option value="area2" >area2</option>
+                                                </select></div>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>Street</label><Input style={styles.input} defaultValue={this.state.street} name="street" type="text" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+
+                                                <label style={styles.label}>Avenue</label><Input style={styles.input} defaultValue={this.state.avenue} type="text" name="avenue" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>house</label><Input style={styles.input} type="text" defaultValue={this.state.house} name="house" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>Extra directions</label><Input style={styles.input} type="text" defaultValue={this.state.directions} name="directions" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column style={{ marginLeft: 160 }}>
+                                                <Button content="ADD" primary type="submit" style={styles.btn} />
+                                                <Button content="CANCEL" primary type="button" style={styles.btn} class="close" data-dismiss="modal" aria-label="Close" />
+
+                                            </Grid.Column>
+                                        </Grid>
+                                        <br /><br />
+                                    </Form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div style={this.state.open?{display:'block'}:{display:'none'}}>
+                      <AddAddress/>
+                    </div> */}
+                    <Table
+                        fixed
+                        striped
+                        basic='very'
+                        style={styles.table}
+                         >
+                        <Table.Header>
                             <Table.Row >
                                 <Table.HeaderCell style={styles.header}> Order Summary</Table.HeaderCell>
-                                <Table.HeaderCell > Total Price </Table.HeaderCell>
+                                <Table.HeaderCell style={{ color: '#13bfad' }}> Total Price </Table.HeaderCell>
 
                             </Table.Row>
                         </Table.Header>
@@ -153,8 +279,8 @@ this.state.cartItems.map(item => {
                                         {item.item_title}
                                         Delivery in 3 days thought delivery
                                 </Table.Cell>
-                                    <Table.Cell collapsing style={{
-                                        textAlign: 'right',
+                                    <Table.Cell style={{
+                                        textAlign: 'center',
                                         fontSize: 23,
                                         color: '#13bfad'
                                     }}>
@@ -177,7 +303,7 @@ this.state.cartItems.map(item => {
                         </Table.Body>
                     </Table>
                     <div>
-                        <div style={styles.gen}> General Requests</div>
+                        <h2 class="title-head2">Payment Way</h2>
                         <List style={styles.list}>
                             <List.Item > Items : {count}</List.Item>
                             {/* <List.Item >Deliver Fees : 23 K.D</List.Item> */}
@@ -186,24 +312,34 @@ this.state.cartItems.map(item => {
                         </List>
                     </div>
                     <br /><br />
-                    {/* <div>
-                        <Grid>
-                            <Grid.Row style={{color:'#13bfad',fontSize:17}}>
-                                Payment Way
-                            </Grid.Row>   
-                            <Divider  style={{background:'#13bfad'}}/>
-                        
-                            <Grid.Row>
-                                <Segment>
-                                    sjkdfkjfjkf
-                                </Segment>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Button style={styles.btnAdd} type="button" content="Buy Now"/>
-                            </Grid.Row>
-                            <br/><br/>
-                        </Grid>
-                    </div> */}
+                    <div>
+                        <div class="checkout-block">
+                            <h2 class="title-head2">Payment Way</h2>
+                            <div class="payment--method clearfix">
+                                <div class="pay-mrg">
+                                    <input type="radio" name="pay-method" />
+                                    <img src="../../../src/styles/images/py1.png" alt="" />
+                                    <h3>k-net</h3>
+                                </div>
+                                <div class="pay-mrg">
+                                    <input type="radio" name="pay-method" />
+                                    <img src="../../../src/styles/images/py2.png" alt="" />
+                                    <h3>Credit</h3>
+                                </div>
+                                <div class="pay-mrg">
+                                    <input type="radio" name="pay-method" />
+                                    <img src="../../../src/styles/images/py3.png" alt="" />
+                                    <h3>Tap pay</h3>
+                                </div>
+                            </div>
+                            <div class="checkout-bottom clearfix">
+                                <div class="ch-b-left">
+                                    <Button class="ge-request" style={styles.btnAdd} onClick={this.payNow.bind(this)}>Pay now</Button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     <br /><br /><br /><br />
                 </Container>
             </div>
@@ -226,6 +362,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 }
 
+
 var styles = {
     discount: {
         borderRadius: 20,
@@ -235,9 +372,14 @@ var styles = {
         textAlign: 'center',
 
     },
+    checkbox: {
+        position: 'relative',
+        top: 18,
+        marginLeft: 15
+    },
     header: {
         textAlign: 'left',
-        borderBottom: '1px solid #13bfad',
+        // borderBottom: '1px solid #13bfad',
         color: '#13bfad'
     },
     btnAdd: {
@@ -263,10 +405,10 @@ var styles = {
         color: '#13bfad'
 
     },
-    listItem:{
-        fontSize:20
+    listItem: {
+        fontSize: 20
     },
-    h1:{
+    h1: {
         color: '#13bfad'
     },
     table: {
@@ -277,6 +419,31 @@ var styles = {
         fontSize: 25,
         padding: 5,
         color: '#13bfad',
+    },
+    icon: {
+        color: '#1dc1b0',
+        fontSize: 20
+    },
+    menu: {
+        margin: '7px',
+        width: 300,
+        height: 50
+    },
+
+    input: {
+        margin: '7px',
+        width: 300,
+        height: 50
+    },
+    label: {
+        width: 124,
+        margin: 10,
+        fontSize: 17
+    },
+    btn: {
+        background: '#13bfad',
+        border: '1px solid',
+        borderRadius: 17
     }
 }
-export default connect(mapStateToProps, { open,getAddress,getItemsOfCart })(Checkout);
+export default connect(mapStateToProps, { getAddress, getItemsOfCart, payNow, addAdress })(Checkout);

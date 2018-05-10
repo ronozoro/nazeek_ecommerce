@@ -31,12 +31,16 @@ import Sidemenue from '../components/sidemenue'
 import ProductDetails from '../components/cart/product-details'
 import Home from '../components/home'
 import products from '../components/products'
+import Contact from '../components/contact'
+import Payment from '../components/payment'
 const MainContent = () => (
     <div >
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/home" component={Home}/>
+            <Route path="/contact" component={Contact}/>
+            <Route path="/payment" component={Payment}/>
 
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={Signup}/>

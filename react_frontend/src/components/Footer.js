@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 class Footer extends Component {
     render() {
@@ -10,7 +11,7 @@ class Footer extends Component {
                         <div className="row">
                             <div className="col-md-3 col-sm-6 col-xs-6">
                                 <div className="f-box">
-                                    <h2>Contact Us</h2>
+                                    <h2><Link to="/contact">Contact Us</Link></h2>
                                     <ul className="f-menu">
                                         <li><a href="contact.html#Customer-Care">Customer Care</a></li>
                                         <li><a href="contact.html#Preducer-Designer">Producer/Designer</a></li>
@@ -40,7 +41,7 @@ class Footer extends Component {
                             </div>
                             <div className="col-md-3 col-sm-6 col-xs-6">
                                 <div className="f-box">
-                                    <h2>Payment Methods</h2>
+                                    <h2><Link to="/payment">Payment Methods</Link></h2>
                                     <ul className="f-menu">
                                         <li><i className="fa fa-cc-visa" aria-hidden="true"></i>Visa</li>
                                         <li><i className="fa fa-cc-mastercard" aria-hidden="true"></i>Master Card</li>

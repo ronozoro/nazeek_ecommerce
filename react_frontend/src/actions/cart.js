@@ -31,19 +31,6 @@ function checkItemsOfCart(items, id, varId) {
             addItem(varId, 1)
 
         }
-        // items.map(item => {
-        //         if (item&&item.product === id && item.item === varId) {
-        //             console.log("productFound");                    
-        //                 console.log("equal");                        
-        //                 var qun = (item.quantity + 1)
-        //                 addItem(varId, qun)
-        //         }
-              
-        // })
-       
-        //     console.log("color not found");                    
-        //     addItem(varId, 1)
-        
     }
     else {
         console.log("empty cart");

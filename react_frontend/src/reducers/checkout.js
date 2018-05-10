@@ -20,6 +20,11 @@ export default function(state = {addresses:[],open:false,id:0}, action) {
                     ...state,
                     id:action.id
                 }
+                case action.ORDER_TOKEN:
+                    return{
+
+                    }
+                
                 case actions.OPEN:
                 return{
                     ...state,

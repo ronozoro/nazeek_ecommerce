@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom'
 import Sidemenue from '../sidemenue'
 import  { Input, Icon, Container,Segment, Divider, List, Table, Rating, Header } from 'semantic-ui-react'
 import { Button, Checkbox, Image, Grid } from 'semantic-ui-react'
+import  AddAddress  from '../cart/add-new-addres';
 export class AddressBook extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             addresses: props.addresses||[],
-            shippingAddress:[],
-            pillingAddress:[],
+          
            
         }
     }
@@ -22,18 +22,18 @@ export class AddressBook extends React.Component {
    }
     componentWillReceiveProps(nextProps) {
         console.log({ nextProps });
-        var tempS,tempP
-        var thos=this
+        // var tempS,tempP
+        // var thos=this
         this.setState({ addresses: nextProps.addresses })
-        for(var i=0;i<nextProps.addresses.length;i++){
-            if(nextProps.addresses[i].type === 'shipping'){
-                thos.state.shippingAddress.push(nextProps.addresses[i])
-            }
-            else {
-                thos.state.pillingAddress.push(nextProps.addresses[i])
+        // for(var i=0;i<nextProps.addresses.length;i++){
+        //     if(nextProps.addresses[i].type === 'shipping'){
+        //         thos.state.shippingAddress.push(nextProps.addresses[i])
+        //     }
+        //     else {
+        //         thos.state.pillingAddress.push(nextProps.addresses[i])
 
-            }
-        }
+        //     }
+        // }
        
     }
     handleClick(){
@@ -41,9 +41,7 @@ export class AddressBook extends React.Component {
     }
    
     render() {        
-        console.log(this.state.shippingAddress);
-        console.log(this.state.pillingAddress);
-
+    
         console.log(this.props.addresses);
         
         var thos = this
@@ -55,39 +53,91 @@ export class AddressBook extends React.Component {
                     <Grid.Column width={4}>
                         <Sidemenue />
                     </Grid.Column>
-                    <Grid.Column style={{    marginLeft: 31}} width={10}>
+                    <Grid.Column style={{    marginLeft: 90}} width={10}>
                     <b style={{ fontSize: 23 }}>Address Book</b>
                     <Divider  style={{background: '#13bfad'}}/>
-                    <Grid columns={2} coulmns="equal" style={{}}>
-                    <Grid.Column width={8}>
-                    <List>
-                    <h1 style={styles.h1}> shipping address</h1>                    
-                    {this.state.shippingAddress.map(add=>{
-                        return<List.Item style={styles.listItem}>
-                            city:{add.city},streat:{add.street}
-                        </List.Item>
-                    })}
-                    </List>
-                    </Grid.Column>
-                    <Grid.Column width={8}>
-                    <List>
-                    <h1 style={styles.h1}> pilling address</h1>
-                    {this.state.pillingAddress.map(add=>{
-                        console.log("ffffff");
-                        return<List.Item style={styles.listItem}>
-                            city:{add.city},streat:{add.street}
-                        </List.Item>
-                    })}
-                    </List>
-                    </Grid.Column>
-                    <Grid.Row>
-                      <Link to="AddAddress"><Button type="button" style={styles.btnAdd} onClick={this.handleClick.bind(this)}> <Icon name="plus circle" /> Add New Adress </Button></Link>
+                    <Table
+                        fixed
+                        striped
+                        basic='very'
+                        style={styles.table}
+                        >
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell colSpan='2' style={styles.header}> Shipping Address</Table.HeaderCell>
 
-                    </Grid.Row>
-                    </Grid>
+                            </Table.Row>
+                        </Table.Header>
+
+                        <Table.Body >
+                            {this.state.addresses.map((item, index) => {
+                                if (item.type == "shipping")
+                                    return <Table.Row>
+                                        <Table.Cell
+                                            style={{
+                                                textAlign: 'left'
+                                            }}>
+                                            <Icon name='marker' style={styles.icon} />
+                                            {item.city} {item.street}
+                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
+
+                                        </Table.Cell>
+                                        <Table.Cell collapsing
+                                            style={{
+                                                textAlign: 'right',
+                                                fontSize: 23,
+                                                color: '#13bfad'
+                                            }}> <div style={{ display: 'inline-block' }}><Icon name="delete" /></div>
+                                        </Table.Cell>
+                                    </Table.Row>
+
+                            })
+                            }
+                        </Table.Body>
+                    </Table>
+                    <Table
+                        fixed
+                        striped
+                        basic='very'
+                        style={styles.table}
+                    >
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell colSpan='2' style={styles.header}> Billing Address</Table.HeaderCell>
+
+                            </Table.Row>
+                        </Table.Header>
+
+                        <Table.Body >
+                            {this.state.addresses.map((item, index) => {
+                                if (item.type == "billing")
+                                    return <Table.Row>
+                                        <Table.Cell
+                                            style={{
+                                                textAlign: 'left'
+                                            }}>
+                                            <Icon name='marker' style={styles.icon} />
+                                            {item.city}
+                                            {item.street}
+                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} />
+                                        </Table.Cell>
+                                        <Table.Cell collapsing
+                                            style={{
+                                                textAlign: 'right',
+                                                fontSize: 23,
+                                                color: '#13bfad'
+                                            }}> <div style={{ display: 'inline-block' }}><Icon name="delete" /></div>
+                                        </Table.Cell>
+                                    </Table.Row>
+
+                            })
+                            }
+                        </Table.Body>
+                    </Table>
+                    <AddAddress/>
                     </Grid.Column>
                     </Grid>
-                    
+                   
 
                     
                    

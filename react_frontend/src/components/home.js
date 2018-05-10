@@ -8,10 +8,12 @@ import { getsorteditems } from '../actions/filterMenue'
 import { Slide } from 'react-slideshow-image';
 import Sidemenue from './sidemenue'
 import Products from './products'
+import Test from './testSlider'
+
 import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button, Dropdown } from 'semantic-ui-react'
 var slideIndex = 1;
 
-
+ 
 
 class Home extends React.Component {
 	constructor() {
@@ -67,7 +69,10 @@ class Home extends React.Component {
 			backgroundPosition: 'center'}}>
 					<div class="sec-head clearfix" style={{display:'table',margin:'auto'}}>
 						<h2 class="sec-title">RECENT VIEW</h2>
+
 					</div>
+                           
+					<Test/>
 
 				</div>
 <div>
@@ -90,7 +95,6 @@ class Home extends React.Component {
 			</div>
 		</section>
 </div>
-
 			</div>
 		)
 
@@ -99,7 +103,7 @@ class Home extends React.Component {
 }
 const mapStateToProps = (state, Props) => {
 	console.log(state)
-	return
+	return {}
 
 }
 var styles = {
