@@ -20,9 +20,10 @@ console.log("creatwish");
        history.push("/login")
   }
   //get id,userId,itemList
-   return axios.get(wishListUrl.createList+'?token='+localStorage.getItem("token")).then(response=>{
+   return axios.get(wishListUrl.createList+'?token='+localStorage.getItem("token"))
+   .then(response=>{
     console.log(response.data);
-    dispatch({type:GETwISHLISTID,id:response.data.whishlist_id})
+    dispatch({type:GETwISHLISTID,id:response.data.id})
     return response.data
   })
   }

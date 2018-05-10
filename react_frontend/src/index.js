@@ -29,4 +29,4 @@ ReactDOM.render(
         </Router>
     </Provider>
     , document.getElementById("root"));
-import "./styles/js/jquery-1.12.2.min.js"
+// import "./styles/js/jquery-1.12.2.min.js"

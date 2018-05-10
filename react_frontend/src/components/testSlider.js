@@ -2,12 +2,17 @@ import * as React from 'react';
 import { Icon, Menu } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import Slider from "react-slick";
+import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
+
 require('./slideStyle.css')
-import { getsorteditems} from '../actions/shopActions';
 import { connect } from "react-redux";
 
-// require('../../node_modules/slick-carousel/slick/slick.min.js') 
-// require('../../node_modules/slick-carousel/slick/slick-theme.css') 
+import { getProducts } from "../actions/shopActions";
+import { getProdDetails ,getsorteditems} from '../actions/shopActions';
+import { setToCart } from '../actions/cart'
+import { getItemsOfCart } from '../actions/cart'
+import {addToWishList} from '../actions/WishlistListActions'
+ 
 export const SampleNextArrow =(props) =>{
   const { className, style, onClick } = props;
   return (
@@ -35,15 +40,33 @@ export class Test extends React.Component {
     this.state = {
       open: false
     }
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
+  
   }
 
  
   componentDidMount(){
-    this.props.getsorteditems('modified_date')
+    //this.props.getsorteditems('modified_date')
+    this.props.getProducts()
   }
   
+  handleChange(e, object) {
+    // console.log({ x: object.prod, xx: object.varId });
+    this.props.setToCart(object)
+}
+handleClick(product) {
+  // console.log(product);
+  
+  this.props.setToCart(product)
+}
+wishListClisk(product){
+  // console.log(product);
+  
+this.props.addToWishList(product)
+}
+handleProdDetails(product){
+  //   console.log(product);
+    this.props.getProdDetails(product.object)
+  }
   renderProducts(object) {
     var thos = this
     return (
@@ -99,8 +122,47 @@ export class Test extends React.Component {
         </div>
     )
 }
-
+item(object){
+return <div className="recent-item clearfix" style={{width: 522}}>
+                <Link to="/productDetails" className="recThumb">
+                <img alt="" className="img-responsive Thumb-main" src={'data:image/png;base64, ' + object.image}
+                       onClick={this.handleProdDetails.bind(this,object)}/>
+									<img src={'data:image/png;base64, ' + object.image} alt="" className="img-responsive Thumb-hover"/>
+                </Link>
+								<div className="recTxt">
+									<p className="re-salary">
+										<span className="sa-new">{object.price}</span>
+										<span className="sa-old">{object.price}</span>
+									</p>
+									<p className="desc-p">
+                              {object.description}	this is description	
+                              						</p>
+									<div className="star-rating">
+                                        <span style={{width:60}}><strong class="rating">3</strong> out of 5</span>
+                                    </div>
+									<a href="#" className="addCart" onClick={this.handleClick.bind(this,{prod:object,varId:{id:1}})}>Add To Cart</a>
+									<div className="label-xs">offers</div>
+								</div>
+								<a href="#" className="favorite-pro-btn"><i className="icon-heart icons" onClick={this.wishListClisk.bind(this,{object:object})}></i></a>
+							</div>
+}
+prodSlid(){
+  const products=this.props.products
+  for(var i=0;i<products.length;i+=2) {
+    if(i<7){
+      if(products[i] && products[i+1])
+      return  <div >
+      <div className="item" >
+              {this.item(this.props.products[i])}
+              {this.item(this.props.products[i+1])}
+          </div>
+        </div>
+    }
+  }
+}
   render() {
+    const products=this.props.products
+    console.log(products);
     var settings = {
       dots: true,
       arrows:true,
@@ -110,28 +172,21 @@ export class Test extends React.Component {
       speed: 500,
       slidesToShow: 1,
     };
-    return (<div>
-         <div className="container">
-        <Slider {...settings}>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-        </Slider>
-      </div>
-    </div>
+    return (<div style={{width: 1114,
+      margin: 'auto'}}>
+      <Slider {...settings} >
+       {this.prodSlid()}
+
+     
+</Slider>
+</div>
+
+
+  
     );
   }
 }
-export default Test;
+
 var styles= {
   link: {
     color: 'white',
@@ -153,7 +208,38 @@ var styles= {
 
 function mapStateToProps(state) {
   return {
+    products:state.shop.products
   }
 }
 
-export default connect(mapStateToProps, { getsorteditems})(Test);
+export default connect(mapStateToProps, { getProducts,setToCart,addToWishList,getProdDetails})(Test);
+
+
+
+
+
+      //   //  <div className="container">
+      //   // <Slider {...settings}>
+
+      //   {/* {products.map((object, i) => {
+      //   return <div>
+      //      {this.renderProducts({ object })}
+      //      </div>
+      //   }
+      // )} */}
+
+
+      //     {/* <div>
+      //       <img src="http://placekitten.com/g/400/200" />
+      //     </div>
+      //     <div>
+      //       <img src="http://placekitten.com/g/400/200" />
+      //     </div>
+      //     <div>
+      //       <img src="http://placekitten.com/g/400/200" />
+      //     </div>
+      //     <div>
+      //       <img src="http://placekitten.com/g/400/200" />
+      //     </div> */}
+      //   // </Slider>
+      //   </div>

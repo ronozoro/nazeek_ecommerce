@@ -12,9 +12,6 @@ import Test from './testSlider'
 
 import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button, Dropdown } from 'semantic-ui-react'
 var slideIndex = 1;
-
- 
-
 class Home extends React.Component {
 	constructor() {
 		super();
