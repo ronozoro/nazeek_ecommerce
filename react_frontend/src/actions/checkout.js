@@ -99,19 +99,19 @@ export function checkout() {
     }
 }
 export function payNow(checkedBilling,checkedShipping){
-var b_id,s_id
-b_id=checkedBilling[0].id
-s_id=checkedShipping[0].id
-      console.log(b_id,s_id);
-        if(b_id&&s_id){
+    var b_id, s_id
+    b_id = checkedBilling[0].id
+    s_id = checkedShipping[0].id
+    console.log(b_id, s_id);
+    if (b_id && s_id) {
         {
             axios.post(CartUrls.checkoutUrl, {
-            "billing_address": b_id,
-            "shipping_address": s_id,
-            "cart_token": localStorage.getItem('cart_token'),
-            "checkout_token": localStorage.getItem('user_checkout_token')
-        }).then(response => {
-            console.log({ order: response });
+                "billing_address": b_id,
+                "shipping_address": s_id,
+                "cart_token": localStorage.getItem('cart_token'),
+                "checkout_token": localStorage.getItem('user_checkout_token')
+            }).then(response => {
+                console.log({ order: response });
             dispatch({
                 type:ORDER_TOKEN
             })
@@ -155,6 +155,8 @@ export function addAdress(model) {
  }
         axios.get(CartUrls.userId + '?checkout_token=' + localStorage.getItem('user_checkout_token'))
             .then(response => {
+                console.log('userId',response.data);
+                
                 console.log({ finish: response.data[0].id });
                 userId = response.data[0].id
                 dispatch({
@@ -162,32 +164,43 @@ export function addAdress(model) {
                     id: response.data[0].id
                 })
             })
-
-        setTimeout(() => {
-            console.log(userId);
-            axios.post(CartUrls.creatAdress, {
-                "user": userId,
-                "type": model.type,
-                "street": model.street,
-                "city": model.city,
-                "zipcode": "1234"
-            }).then(response => {
-                console.log({ creat: response.data });
+            .then(response=>{
+                axios.post(CartUrls.creatAdress, {
+                    "user": userId,
+                    "type": model.type,
+                    "street": model.street,
+                    "city": model.city,
+                    "zipcode": "1234"
+                }).then(response => {
+                    console.log({ creat: response.data });
+                    var getAdd = getAddress()
+                    getAdd(response=>{
+                        console.log({add:response});
+                        dispatch({ 
+                            type:CHECKOUT_ADDRESS,
+                            addresses:response.addresses
+                        })
+                    })      
+                })
             })
-        }, 500);
+
+        // setTimeout(() => {
+        //     console.log(userId);
+            
+        // }, 500);
 
         //history.push("/checkout")
 
-        setTimeout(() => {
-            var getAdd = getAddress()
-            getAdd(response=>{
-                console.log({add:response});
-                dispatch({ 
-                    type:CHECKOUT_ADDRESS,
-                    addresses:response.addresses
-                })
-            })      
-        }, 800);
+        // setTimeout(() => {
+        //     var getAdd = getAddress()
+        //     getAdd(response=>{
+        //         console.log({add:response});
+        //         dispatch({ 
+        //             type:CHECKOUT_ADDRESS,
+        //             addresses:response.addresses
+        //         })
+        //     })      
+        // }, 800);
 
     }
 

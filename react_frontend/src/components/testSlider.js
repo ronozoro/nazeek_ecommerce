@@ -44,10 +44,10 @@ export class Test extends React.Component {
   }
 
  
-  componentDidMount(){
-    //this.props.getsorteditems('modified_date')
-    this.props.getProducts()
-  }
+  // componentDidMount(){
+  //   //this.props.getsorteditems('modified_date')
+  //   //this.props.getProducts()
+  // }
   
   handleChange(e, object) {
     // console.log({ x: object.prod, xx: object.varId });
@@ -67,63 +67,9 @@ handleProdDetails(product){
   //   console.log(product);
     this.props.getProdDetails(product.object)
   }
-  renderProducts(object) {
-    var thos = this
-    return (
-        <div className="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-            <div className="product-result-item">
-                <Link to="/productDetails" className="pro-resThumb">
-                    <img data-image={object.object.id} className="active"
-                        src={'data:image/png;base64, ' + object.object.image}
-                        alt={object.object.name} onClick={this.handleProdDetails.bind(this,object)}/>
-                </Link>
-                <div className="pro-resCaption">
-                    <div className="color-choose">
-                        {
-                            object.object.variation_set.map(function (product) {
-                                var style = {
-                                    backgroundColor: product.color
-                                }
-
-                                return (
-                                    <div>
-                                        <input data-image={product.image} name={product.title}
-                                            value={product.price} checked="" type="radio" />
-                                        <label class="highlight" onClick={(e) => { thos.handleChange(e, { prod: object, varId: product }) }} style={style}>
-                                            <span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className="pro-resTxt">
-                        <h2 className="pr-title"><a href="#">{object.object.title}</a></h2>
-                        <p className="pr-shop">{object.object.seller_name}</p>
-                        <span className="pr-sa">{object.object.price}</span>
-                        <Rating icon='star' defaultRating={3} maxRating={5} />
-                        <ul className="pro-resAction">
-                            <li>
-                                <a href="#" className="heart-btn">
-                                    <i className="icon-heart icons"  onClick={this.wishListClisk.bind(this,object)}/>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="basket-btn">
-                                    <i className="icon-basket icons" onClick={this.handleClick.bind(this,{prod:object,varId:{id:1}})} />
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+  
 item(object){
-return <div className="recent-item clearfix" style={{width: 522}}>
+return <div className="recent-item clearfix" style={{width: 500}}>
                 <Link to="/productDetails" className="recThumb">
                 <img alt="" className="img-responsive Thumb-main" src={'data:image/png;base64, ' + object.image}
                        onClick={this.handleProdDetails.bind(this,object)}/>
@@ -146,39 +92,52 @@ return <div className="recent-item clearfix" style={{width: 522}}>
 								<a href="#" className="favorite-pro-btn"><i className="icon-heart icons" onClick={this.wishListClisk.bind(this,{object:object})}></i></a>
 							</div>
 }
-prodSlid(){
-  const products=this.props.products
-  for(var i=0;i<products.length;i+=2) {
-    if(i<7){
-      if(products[i] && products[i+1])
-      return  <div >
-      <div className="item" >
-              {this.item(this.props.products[i])}
-              {this.item(this.props.products[i+1])}
-          </div>
-        </div>
-    }
-  }
-}
+
+
   render() {
+
     const products=this.props.products
+   
+ 
     console.log(products);
     var settings = {
       dots: true,
       arrows:true,
       infinite: true,
-      slidesToScroll: 1,
+      slidesToScroll: 2,
      
       speed: 500,
-      slidesToShow: 1,
+      slidesToShow: 2,
     };
     return (<div style={{width: 1114,
       margin: 'auto'}}>
-      <Slider {...settings} >
-       {this.prodSlid()}
-
-     
-</Slider>
+{this.props.products.length? <Slider {...settings} >
+      <div >
+        <div className="item" >
+                {this.props.products[0]?this.item(this.props.products[0]):null}
+                {this.props.products[1]?this.item(this.props.products[1]):null}
+            </div>
+          </div>
+          <div >
+        <div className="item" >
+                {this.props.products[2]?this.item(this.props.products[2]):null}
+                {this.props.products[3]?this.item(this.props.products[3]):null}
+            </div>
+          </div>
+          <div >
+        <div className="item" >
+                {this.props.products[4] ?this.item(this.props.products[4]):null}
+                {this.props.products[5]?this.item(this.props.products[5]):null}
+            </div>
+          </div>
+          <div>
+        <div className="item" >
+                {this.props.products[6]?this.item(this.props.products[6]):null}
+                {this.props.products[7]?this.item(this.props.products[7]):null}
+            </div>
+         </div>
+</Slider>:null
+          }
 </div>
 
 
@@ -212,7 +171,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { getProducts,setToCart,addToWishList,getProdDetails})(Test);
+export default connect(mapStateToProps, { setToCart,addToWishList,getProdDetails})(Test);
 
 
 

@@ -24,8 +24,8 @@
 
     display: block;
     overflow: hidden;
-
-    margin: 0;
+    margin-left: 60px;
+        margin: 0;
     padding: 0;
 }
 .slick-list:focus
@@ -37,7 +37,9 @@
     cursor: pointer;
     cursor: hand;
 }
-
+.slick-slider .slick-list{
+    margin-left: 29px;
+}
 .slick-slider .slick-track,
 .slick-slider .slick-list
 {
@@ -46,6 +48,7 @@
         -ms-transform: translate3d(0, 0, 0);
          -o-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
+           
 }
 
 .slick-track

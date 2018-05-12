@@ -73,7 +73,7 @@ export class Checkout extends React.Component {
             this.props.payNow(this.state.checkedBilling,this.state.checkedShipping)
         }
         else {
-            alert("please  check shippin address and billing address at least one")
+            alert("please  check one shipping address and one billing address at least ")
         }
     }
     handleSubmit() {
@@ -89,7 +89,9 @@ export class Checkout extends React.Component {
             model['avenue'] = this.state.avenue
 
         this.props.addAdress(model)
-        this.setState({ city: "", house: "", street: "", area: "", directions: "", type: "", avenue: "" })
+        setTimeout(() => {
+            this.setState({ city: "", house: "", street: "", area: "", directions: "", type: "", avenue: "" })
+        }, 200);
     }
     handleChange = (e, { name, value }) => {
         console.log(name, value);
@@ -136,10 +138,10 @@ export class Checkout extends React.Component {
                                             style={{
                                                 textAlign: 'left'
                                             }}>
-                                            <Icon name='marker' style={styles.icon} />
-                                            {item.city} {item.street}
-                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
-
+                                            <p style={{display:'inline-block',width:275}}><Icon name='marker' style={styles.icon} />
+                                            {item.city} {item.street}</p>
+                                            <div><Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
+</div>
                                         </Table.Cell>
                                         <Table.Cell collapsing
                                             style={{
@@ -175,10 +177,10 @@ export class Checkout extends React.Component {
                                             style={{
                                                 textAlign: 'left'
                                             }}>
-                                            <Icon name='marker' style={styles.icon} />
+                                           <p style={{display:'inline-block',width:275}}> <Icon name='marker' style={styles.icon} />
                                             {item.city}
-                                            {item.street}
-                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} />
+                                            {item.street}</p>
+                                            <div><Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} /></div>
                                         </Table.Cell>
                                         <Table.Cell collapsing
                                             style={{
@@ -193,20 +195,20 @@ export class Checkout extends React.Component {
                             }
                         </Table.Body>
                     </Table>
-                    <button type="button" style={styles.btnAdd} class="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" style={styles.btnAdd} className="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
                         <Icon name="plus circle" /> Add New Adress
                     </button>
 
-                    <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="dialog" style={{ marginTop: 250 }}>
-                            <div class="modal-content">
+                    <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="dialog" style={{ marginTop: 250 }}>
+                            <div className="modal-content">
                                 <div style={{ margin: 10 }}>
-                                    <h2 class="sec-title f-left">Add New Address</h2>
-                                    <button type="button" class="close" data-dismiss="modal" >
+                                    <h2 className="sec-title f-left">Add New Address</h2>
+                                    <button type="button" className="close" data-dismiss="modal" >
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     <Form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
                                         <Grid columns={1}>
                                             <Grid.Column>
@@ -214,7 +216,7 @@ export class Checkout extends React.Component {
                                             </Grid.Column>
                                             <Grid.Column>
                                                 <label style={styles.label}>type</label>
-                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.type} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectTypeChange} tabIndex="-1" aria-hidden="true">
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.type} className="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectTypeChange} tabIndex="-1" aria-hidden="true">
                                                     <option >Enter yours here</option>
                                                     <option value="shipping">shipping</option>
                                                     <option value="billing" >billing</option>
@@ -222,7 +224,7 @@ export class Checkout extends React.Component {
                                             </Grid.Column>
                                             <Grid.Column>
                                                 <label style={styles.label}>area</label>
-                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.area} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectAreaChange} tabIndex="-1" aria-hidden="true">
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.area} classNameName="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectAreaChange} tabIndex="-1" aria-hidden="true">
                                                     <option >Enter yours here</option>
                                                     <option value="area1">area1</option>
                                                     <option value="area2" >area2</option>
@@ -243,7 +245,7 @@ export class Checkout extends React.Component {
                                             </Grid.Column>
                                             <Grid.Column style={{ marginLeft: 160 }}>
                                                 <Button content="ADD" primary type="submit" style={styles.btn} />
-                                                <Button content="CANCEL" primary type="button" style={styles.btn} class="close" data-dismiss="modal" aria-label="Close" />
+                                                <Button content="CANCEL" primary type="button" style={styles.btn} className="close" data-dismiss="modal" aria-label="Close" />
 
                                             </Grid.Column>
                                         </Grid>
@@ -303,7 +305,7 @@ export class Checkout extends React.Component {
                         </Table.Body>
                     </Table>
                     <div>
-                        <h2 class="title-head2">Payment Way</h2>
+                        <h2 className="title-head2">General</h2>
                         <List style={styles.list}>
                             <List.Item > Items : {count}</List.Item>
                             {/* <List.Item >Deliver Fees : 23 K.D</List.Item> */}
@@ -313,28 +315,28 @@ export class Checkout extends React.Component {
                     </div>
                     <br /><br />
                     <div>
-                        <div class="checkout-block">
-                            <h2 class="title-head2">Payment Way</h2>
-                            <div class="payment--method clearfix">
-                                <div class="pay-mrg">
+                        <div className="checkout-block">
+                            <h2 className="title-head2">Payment Way</h2>
+                            <div className="payment--method clearfix">
+                                <div className="pay-mrg">
                                     <input type="radio" name="pay-method" />
                                     <img src="../../../src/styles/images/py1.png" alt="" />
-                                    <h3>k-net</h3>
+                                    <h3 style={styles.h3}>k-net</h3>
                                 </div>
-                                <div class="pay-mrg">
+                                <div className="pay-mrg">
                                     <input type="radio" name="pay-method" />
                                     <img src="../../../src/styles/images/py2.png" alt="" />
-                                    <h3>Credit</h3>
+                                    <h3 style={styles.h3}>Credit</h3>
                                 </div>
-                                <div class="pay-mrg">
+                                <div className="pay-mrg">
                                     <input type="radio" name="pay-method" />
                                     <img src="../../../src/styles/images/py3.png" alt="" />
-                                    <h3>Tap pay</h3>
+                                    <h3 style={styles.h3}>Tap pay</h3>
                                 </div>
                             </div>
-                            <div class="checkout-bottom clearfix">
-                                <div class="ch-b-left">
-                                    <Button class="ge-request" style={styles.btnAdd} onClick={this.payNow.bind(this)}>Pay now</Button>
+                            <div className="checkout-bottom clearfix">
+                                <div className="ch-b-left">
+                                    <Button className="ge-request" style={styles.btnAdd} onClick={this.payNow.bind(this)}>Pay now</Button>
                                 </div>
                             </div>
                         </div>
@@ -389,6 +391,9 @@ var styles = {
         background: 'white',
         color: '#13bfad'
 
+    },
+    h3:{
+        background:'white'
     },
     gen: {
         border: '1px solid',

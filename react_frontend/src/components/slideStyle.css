@@ -8,6 +8,7 @@ h3 {
   position: relative;
   text-align: center;
 }
+
 .variable-width .slick-slide p {
   background: blue;
   height: 100px;
@@ -83,5 +84,18 @@ h3 {
     font-size: 40px;
     line-height: 1;
     opacity: .75;
-    color: #fff;
+    color:#9E9E9E;
 }
+ .slick-list{
+  margin-left: 60px;
+  }
+  .slick-slide .slick-active .slick-current{
+    margin-left: 45px;
+  }
+  .sp-nav {
+    width: 155px;
+    display: block;
+  }
+  /* .slick-slide .slick-active{
+margin-left: -20px;
+  } */

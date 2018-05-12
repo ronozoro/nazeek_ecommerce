@@ -17,24 +17,13 @@ export class AddressBook extends React.Component {
            
         }
     }
-   componentWillMount(){
+   componentDidMount(){
        this.props.getAddress()
    }
     componentWillReceiveProps(nextProps) {
-        console.log({ nextProps });
-        // var tempS,tempP
-        // var thos=this
+        console.log({ addressbook:nextProps.addresses });
         this.setState({ addresses: nextProps.addresses })
-        // for(var i=0;i<nextProps.addresses.length;i++){
-        //     if(nextProps.addresses[i].type === 'shipping'){
-        //         thos.state.shippingAddress.push(nextProps.addresses[i])
-        //     }
-        //     else {
-        //         thos.state.pillingAddress.push(nextProps.addresses[i])
-
-        //     }
-        // }
-       
+        
     }
     handleClick(){
         this.props.open()
@@ -42,7 +31,7 @@ export class AddressBook extends React.Component {
    
     render() {        
     
-        console.log(this.props.addresses);
+        console.log('addressbook',this.props.addresses);
         
         var thos = this
         return (
@@ -77,9 +66,9 @@ export class AddressBook extends React.Component {
                                             style={{
                                                 textAlign: 'left'
                                             }}>
-                                            <Icon name='marker' style={styles.icon} />
-                                            {item.city} {item.street}
-                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
+                                             <p style={{display:'inline-block',width:275}}> <Icon name='marker' style={styles.icon} />
+                                               {item.city} {item.street}</p>
+                                           <div style={{display:'inline-block'}}> <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} /></div>
 
                                         </Table.Cell>
                                         <Table.Cell collapsing
@@ -116,10 +105,10 @@ export class AddressBook extends React.Component {
                                             style={{
                                                 textAlign: 'left'
                                             }}>
-                                            <Icon name='marker' style={styles.icon} />
+                                            <p style={{display:'inline-block',width:275}}><Icon name='marker' style={styles.icon} />
                                             {item.city}
-                                            {item.street}
-                                            <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} />
+                                            {item.street}</p>
+                                           <div style={{display:'inline-block'}}> <Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} /></div>
                                         </Table.Cell>
                                         <Table.Cell collapsing
                                             style={{

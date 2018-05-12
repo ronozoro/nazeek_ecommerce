@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import 'redux-notifications/lib/styles.css';
+// import 'redux-notifications/lib/styles.css';
 import "./styles/css/font-awesome.css";
 import "./styles/css/material-design-iconic-font.css";
 import "./styles/css/simple-line-icons.css";
@@ -29,4 +29,4 @@ ReactDOM.render(
         </Router>
     </Provider>
     , document.getElementById("root"));
-// import "./styles/js/jquery-1.12.2.min.js"
+ import "./styles/js/jquery-1.12.2.min.js"

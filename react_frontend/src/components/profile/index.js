@@ -94,11 +94,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 var styles = {
     header: {
         background: '#13bfad',
-        color: 'white'
+        color: 'white',
+        width: 324
     },
     Card: {
         width: 350,
-        height: 100
     }
 }
 export default connect(mapStateToProps, {})(Profile);

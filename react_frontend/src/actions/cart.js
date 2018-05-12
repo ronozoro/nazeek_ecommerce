@@ -11,13 +11,13 @@ function creatCart() {
     });
 }
 
-function checkItemsOfCart(items, id, varId) {
+function checkItemsOfCart(items, id, varId,count) {
     var found=0;
     if (items && items.length) {
         for(var i=0;i<items.length;i++){
             if(items[i].product===id){
                 if(items[i].item===varId){
-                    var qun = (items[i].quantity + 1)
+                    var qun = (items[i].quantity + count)
                   addItem(varId, qun)
                   found=1
                   console.log(found);
@@ -26,15 +26,16 @@ function checkItemsOfCart(items, id, varId) {
             }          
         }
         if(found===0){
-            console.log("jjkhjhjkjhj");
+            console.log("found:0");
+                        console.log(count);
                         
-            addItem(varId, 1)
+            addItem(varId, count)
 
         }
     }
     else {
         console.log("empty cart");
-        addItem(varId, 1)
+        addItem(varId, count)
     }
 }
 function addItem(varId, count) {
@@ -66,8 +67,11 @@ export function setToCart(product) {
         var items = getItemsOfCart()
         items(response => {
             console.log({itemsofCart:response});
-            
-            checkItemsOfCart(response.items, product.prod.object.id, product.varId.id)
+            if(product.count)
+              checkItemsOfCart(response.items, product.prod.object.id, product.varId.id,product.count)
+              else
+              checkItemsOfCart(response.items, product.prod.object.id, product.varId.id,1)
+
         })
         setTimeout(() => {
             var newItems = getItemsOfCart()
@@ -81,7 +85,7 @@ export function setToCart(product) {
                     //variation: product.varId
                 })
             })
-        }, 2000);
+        }, 4000);
        
     };
 }
