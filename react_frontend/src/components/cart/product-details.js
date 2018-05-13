@@ -8,7 +8,7 @@ import { changeQuantity } from "../../actions/cart";
 import { addToWishList } from '../../actions/WishlistListActions'
 import Reviews from './reviewForm'
 import { Container, Divider, Table, Rating, Header, Tab } from 'semantic-ui-react'
-import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Grid,Dimmer,Loader } from 'semantic-ui-react'
 import $ from 'jquery'
 import Slider from 'react-slick'
 // import ZoomableImage from 'react-zoomable-image';
@@ -117,6 +117,9 @@ handleInputChange(e){
         var thos = this
         return (
             <div class="content-innerPage">
+            <Dimmer active={this.props.product===null}>
+                    <Loader/>
+                </Dimmer>
                 <div class="container">
                     <div class="product-detail-primary">
                         <div class="row">

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 import { createReviewForProduct } from '../../actions/ReviewListActions'
 import { Container, Divider, Table, Rating, Header, Tab } from 'semantic-ui-react'
-import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Grid,Loader,Dimmer } from 'semantic-ui-react'
 import { Form, Input, TextArea } from 'semantic-ui-react'
 
 class Reviews extends Component {
@@ -55,7 +55,9 @@ class Reviews extends Component {
         return (
 
             <div class="container">
-
+                <Dimmer active={this.props.product===null&&this.props.reviewsList===null}>
+                    <Loader/>
+                </Dimmer>
                 <div style={styles.div}>
                     {this.state.Reviews.map(item => {
                         return <div>

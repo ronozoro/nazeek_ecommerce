@@ -5,7 +5,7 @@ import { changeQuantity } from "../../actions/cart";
 import { Link } from 'react-router-dom'
 import { getAddress } from '../../actions/checkout'
 import { getItemsOfCart } from '../../actions/cart'
-import { Input, Icon, Container, Segment, Divider, List, Table, Rating, Header } from 'semantic-ui-react'
+import { Input, Icon, Container, Segment, Divider, List, Table, Rating, Header,Loader,Dimmer } from 'semantic-ui-react'
 import { Button, Checkbox, Image, Grid, Form } from 'semantic-ui-react'
 import { payNow } from '../../actions/checkout'
 import AddAddress from './add-new-addres'
@@ -115,6 +115,9 @@ export class Checkout extends React.Component {
         return (
             <div style={{ marginTop: 30 }}>
                 <Container textAlign='justified'>
+                <Dimmer active={this.props.cartItems===null&&this.props.addAdress==null}>
+                    <Loader/>
+                </Dimmer>
                     <b style={{ fontSize: 23 }}>CHECKOUT</b>
                     <Divider style={{ background: '#13bfad' }} />
                     <Table

@@ -5,7 +5,7 @@ import { changeQuantity } from "../../actions/cart";
 import { checkout } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
 import { Input, Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
-import { Button, Checkbox, Image, Icon, Grid } from 'semantic-ui-react'
+import { Button, Checkbox, Image, Icon, Grid,Dimmer,Loader } from 'semantic-ui-react'
 import $ from 'jquery'
 import Slider from "react-slick";
 require('../slideStyle.css')
@@ -78,6 +78,9 @@ export class Cart extends React.Component {
                     <Container textAlign='justified' style={{marginTop:50}}>
                         {/* <b style={{ fontSize: 23 }}>SHOPING CART</b>
                     <Divider /> */}
+                    <Dimmer active={this.props.cart}>
+                    <Loader/>
+                </Dimmer>
                         <div className="sec-head clearfix">
                             <h2 className="sec-title ">Shoping cart</h2>
                             <div className="col--right">

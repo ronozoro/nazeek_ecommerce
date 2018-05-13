@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Grid,GridRow,GridColumn,Icon} from 'semantic-ui-react'
+import {Grid,GridRow,GridColumn,Icon,Loader,Dimmer} from 'semantic-ui-react'
 import {connect} from "react-redux";
 import {Input} from 'semantic-ui-react'
 import {getItemsOfCart} from '../actions/cart'
@@ -63,9 +63,10 @@ class Header extends Component {
     closeNav() {
         console.log("khgjgdf");
         var elment = document.getElementById("mySidenav")
-        console.log(elment);
+       if(elment){ console.log(elment);
 
         elment.style.width = "0";
+       }
     }
     // renderCart() {
     //     fetchWishlistItemCount:PropTypes.func.isRequired,
@@ -187,6 +188,9 @@ else{
             return (
 
                 <div class="header-bottom">
+                <Dimmer active={this.props.catagorys===null}>
+                    <Loader/>
+                </Dimmer>
                     <div class="container">
 
                         <div class="hb-right clearfix">
@@ -201,7 +205,7 @@ else{
                         <div class="hb-left clearfix" style={{ position: 'absolute', top: 0, left: 11, height: 48 }}>
                             <ul class="menu-st search-by clearfix">
                                 <li class="dropdown">
-                                    <a href="product-page.html" data-toggle="dropdown"><i class="icon-magnifier icons" aria-hidden="true"></i> search by<span class="m-arrow"><i class="icon-arrow-down icons"></i></span></a>
+                                    <a href="/offers" data-toggle="dropdown"><i class="icon-magnifier icons" aria-hidden="true"></i> search by<span class="m-arrow"><i class="icon-arrow-down icons"></i></span></a>
 
 
 
@@ -209,26 +213,27 @@ else{
                             </ul>
                             <ul class="menu-st main-menu clearfix">
                                 <li class="dropdown">
-                                    <a href="product-page.html" data-toggle="dropdown">Furniture</a>
+                                    <a href="/offers" data-toggle="dropdown">Furniture</a>
 
                                 </li>
-                                <li class="dropdown">
-                                    <a href="product-page.html" data-toggle="dropdown">Home Decor</a>
+                                {this.state.catagorys.map((catagory, index) => {
+                                    //  console.log(catagory);
 
-                                </li>
-                                <li>
-                                    <a href="product-page.html">Serve ware</a>
-                                </li>
-                                <li>
-                                    <a href="product-page.html">Outdoor</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-st offerMenu clearfix">
+                                    let id = catagory.id
+                                    //  console.log(id);
+
+                                    return <li class="dropdown" id={index + 1} key={index} onClick={this.handleClick.bind(this, id, catagory.title)}>
+                                        <a style={{color:'white'}} > {catagory.title}</a>
+
+                                    </li>
+                                })}
+                     
+                           
                                 <li class="new-m">
-                                    <a href="product-page.html"><span>new</span> arrivals</a>
+                                    <a href="/offers"><span>new</span> arrivals</a>
                                 </li>
                                 <li class="offers-m">
-                                    <a href="product-page.html"><span>offers</span></a>
+                                    <a href="/offers"><span>offers</span></a>
                                 </li>
                             </ul>
                         </div>

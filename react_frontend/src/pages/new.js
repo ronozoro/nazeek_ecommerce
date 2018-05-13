@@ -17,9 +17,7 @@ componentWillMount() {
 }
       render() {
  return <Segment>
-                {/* <Dimmer active={this.props.loading}>
-                        <Loader/>
-                </Dimmer> */}
+               
                 
                 <Segment style={{ margin: '20px', padding: '25px' }} >
                    

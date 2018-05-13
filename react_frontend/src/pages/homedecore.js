@@ -12,9 +12,9 @@ import Products from '../components/products'
 
       render() {
  return <Segment>
-                {/* <Dimmer active={this.props.loading}>
+                <Dimmer active={this.props.categoryItems}>
                         <Loader/>
-                </Dimmer> */}
+                </Dimmer>
                 
                 <Products title='Homedecore'  products={this.props.categoryItems}/>
                 

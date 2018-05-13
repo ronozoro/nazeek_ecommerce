@@ -88,11 +88,11 @@ handleSelectAreaChange(e){
                                     <Form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
                                         <Grid columns={1}>
                                             <Grid.Column>
-                                                <label style={styles.label}>City</label><Input style={styles.input} defaultValue={this.state.city} name="city" type="text" onChange={this.handleChange.bind(this)} />
+                                                <label style={styles.label}>City</label><Input style={styles.input} value={this.state.city} name="city" type="text" onChange={this.handleChange.bind(this)} />
                                             </Grid.Column>
                                             <Grid.Column>
                                                 <label style={styles.label}>type</label>
-                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.type} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectTypeChange} tabIndex="-1" aria-hidden="true">
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} value={this.state.type} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectTypeChange} tabIndex="-1" aria-hidden="true">
                                                     <option >Enter yours here</option>
                                                     <option value="shipping">shipping</option>
                                                     <option value="billing" >billing</option>
@@ -100,27 +100,27 @@ handleSelectAreaChange(e){
                                             </Grid.Column>
                                             <Grid.Column>
                                                 <label style={styles.label}>area</label>
-                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.area} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectAreaChange} tabIndex="-1" aria-hidden="true">
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} value={this.state.area} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectAreaChange} tabIndex="-1" aria-hidden="true">
                                                     <option >Enter yours here</option>
                                                     <option value="area1">area1</option>
                                                     <option value="area2" >area2</option>
                                                 </select></div>
                                             </Grid.Column>
                                             <Grid.Column>
-                                                <label style={styles.label}>Street</label><Input style={styles.input} defaultValue={this.state.street} name="street" type="text" onChange={this.handleChange.bind(this)} />
+                                                <label style={styles.label}>Street</label><Input style={styles.input} value={this.state.street} name="street" type="text" onChange={this.handleChange.bind(this)} />
                                             </Grid.Column>
                                             <Grid.Column>
 
-                                                <label style={styles.label}>Avenue</label><Input style={styles.input} defaultValue={this.state.avenue} type="text" name="avenue" onChange={this.handleChange.bind(this)} />
+                                                <label style={styles.label}>Avenue</label><Input style={styles.input} value={this.state.avenue} type="text" name="avenue" onChange={this.handleChange.bind(this)} />
                                             </Grid.Column>
                                             <Grid.Column>
-                                                <label style={styles.label}>house</label><Input style={styles.input} type="text" defaultValue={this.state.house} name="house" onChange={this.handleChange.bind(this)} />
+                                                <label style={styles.label}>house</label><Input style={styles.input} type="text" value={this.state.house} name="house" onChange={this.handleChange.bind(this)} />
                                             </Grid.Column>
                                             <Grid.Column>
-                                                <label style={styles.label}>Extra directions</label><Input style={styles.input} type="text" defaultValue={this.state.directions} name="directions" onChange={this.handleChange.bind(this)} />
+                                                <label style={styles.label}>Extra directions</label><Input style={styles.input} type="text" value={this.state.directions} name="directions" onChange={this.handleChange.bind(this)} />
                                             </Grid.Column>
                                             <Grid.Column style={{ marginLeft: 160 }}>
-                                                <Button content="ADD" primary type="submit" style={styles.btn} />
+                                                <Button content="ADD" primary type="submit" onClick={this.handleSubmit} style={styles.btn} />
                                                 <Button content="CANCEL" primary type="button" style={styles.btn} class="close" data-dismiss="modal" aria-label="Close" />
 
                                             </Grid.Column>

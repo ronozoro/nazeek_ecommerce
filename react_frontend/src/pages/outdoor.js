@@ -13,9 +13,9 @@ import Products from '../components/products'
 
       render() {
  return <Segment>
-                {/* <Dimmer active={this.props.loading}>
+                <Dimmer active={this.props.categoryItems}>
                         <Loader/>
-                </Dimmer> */}
+                </Dimmer>
                 
                 <Segment style={{ margin: '20px', padding: '25px' }} >
                 <Products title="Outdoor"  products={this.props.categoryItems}/>

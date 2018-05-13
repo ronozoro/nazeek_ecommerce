@@ -8,7 +8,7 @@ import { setToCart } from '../../actions/cart'
 import { getItemsOfCart } from '../../actions/cart'
 import {addToWishList} from '../../actions/WishlistListActions'
 import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
-import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Grid ,Dimmer,Loader} from 'semantic-ui-react'
 import Filtermenue from '../filtermenue'
 
 class ShopData extends Component {
@@ -17,7 +17,7 @@ class ShopData extends Component {
         this.state={
             rating:0,
             maxRating:0,
-            products:props.products||[]
+            products:props.products
         }
         this.change=this.change.bind(this)
     }
@@ -180,8 +180,15 @@ class ShopData extends Component {
 
     render() {
         //  localStorage.clear('cart_token')
+        if(!this.props.products){
+          return  <Dimmer >
+            <Loader/>
+        </Dimmer>
+        }
+        else
         return (
             <div>
+               
                 {this.renderShop()}
 
             </div>
