@@ -2,7 +2,7 @@ import * as React from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { close } from '../../actions/checkout'
-import {open} from '../../actions/checkout'
+import { open } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
 import { Button, Header, Modal } from 'semantic-ui-react'
 import { addAdress } from '../../actions/checkout'
@@ -22,18 +22,22 @@ export class AddAddress extends React.Component {
             house: "",
 
         }
+        this.handleSelectTypeChange=this.handleSelectTypeChange.bind(this)
+        this.handleSelectAreaChange=this.handleSelectAreaChange.bind(this)
+
     }
     // componentDidMount(){
     //     this.props.open()
     // }
-    componentWillReceiveProps(nextProps) {
-        console.log("addadress");
-        
-        this.setState({ open: nextProps.open })
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     console.log("addadress");
+
+    //     this.setState({ open: nextProps.open })
+    // }
     close() {
         this.setState({ open: false })
-        this.props.close()
+        if (this.props.onClose)
+            this.props.onClose({ open: false })
     }
     handleSubmit() {
         console.log("sumit");
@@ -48,78 +52,94 @@ export class AddAddress extends React.Component {
             model['avenue'] = this.state.avenue
 
         this.props.addAdress(model)
+        this.setState({ city: "", house: "", street: "", area: "", directions: "", type: "", avenue: "" })
 
     }
     handleChange = (e, { name, value }) => {
         console.log(name, value);
-
         this.setState({ [name]: value })
     }
-
+handleSelectTypeChange(e){
+   this.setState({type:e.target.value})
+}
+handleSelectAreaChange(e){
+    this.setState({area:e.target.value})
+ }
     render() {
-        const countryOptions = [
-            { key: "1", text: "enter1", value: "enter1" },
-            { key: "2", text: "enter2", value: "enter2" },
-            { key: "3", text: "enter3", value: "enter3" }
-        ]
-        const types = [
-            { key: "1", text: "shipping", value: "shipping" },
-            { key: "2", text: "pilling", value: "pilling" }
-        ]
+       
         var thos = this
         return (
-            <div >
-                <Container style={styles.Container}>
-                    {/* <Modal open={this.state.open} onClose={this.close.bind(this)}>
-                        <Modal.Header style={{color:'white',background:'#13bfad'}}>Add New Address</Modal.Header>
-                        <Modal.Content > */}
-                        <h1 style={{color:'#13bfad'}}>Add New Address</h1>
-                        <Divider style={{background:'#13bfad'}}/>
-                            <Form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
-                                <Grid columns={1}>
-                                    <Grid.Column>
-                                        <label style={styles.label}>City</label><Input  style={styles.input} name="city" type="text" onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                    <label style={styles.label}>type</label><Dropdown style={styles.menu}  name="type"    selection options={types} onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                    <label style={styles.label}>area</label> <Dropdown style={styles.menu} button name="area"   selection options={countryOptions} onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <label style={styles.label}>Street</label><Input  style={styles.input} name="street" type="text" onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Column>
+          <div>
 
-                                        <label style={styles.label}>Avenue</label><Input  style={styles.input} type="text" name="avenue" onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <label style={styles.label}>house</label><Input  style={styles.input} type="text" name="house" onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <label style={styles.label}>Extra directions</label><Input style={styles.input} type="text" name="directions" onChange={this.handleChange.bind(this)} />
-                                    </Grid.Column>
-                                    <Grid.Row>
-                                        <Button content="ADD" primary type="submit" style={{ margin: 'auto' }} onClick={this.close.bind(this)} />
+               <button type="button" style={styles.btnAdd} class="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+                        <Icon name="plus circle" /> Add New Adress
+                    </button>
 
-                                    </Grid.Row>
-                                </Grid>
-                                <br /><br />
+                    <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="dialog" style={{ marginTop: 250 }}>
+                            <div class="modal-content">
+                                <div style={{ margin: 10 }}>
+                                    <h2 class="sec-title f-left">Add New Address</h2>
+                                    <button type="button" class="close" data-dismiss="modal" >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <Form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
+                                        <Grid columns={1}>
+                                            <Grid.Column>
+                                                <label style={styles.label}>City</label><Input style={styles.input} defaultValue={this.state.city} name="city" type="text" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>type</label>
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.type} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectTypeChange} tabIndex="-1" aria-hidden="true">
+                                                    <option >Enter yours here</option>
+                                                    <option value="shipping">shipping</option>
+                                                    <option value="billing" >billing</option>
+                                                </select></div>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>area</label>
+                                                <div style={{ display: 'inline-block' }}><select style={styles.menu} defaultValue={this.state.area} class="form-control chosen-select select2-hidden-accessible" onChange={this.handleSelectAreaChange} tabIndex="-1" aria-hidden="true">
+                                                    <option >Enter yours here</option>
+                                                    <option value="area1">area1</option>
+                                                    <option value="area2" >area2</option>
+                                                </select></div>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>Street</label><Input style={styles.input} defaultValue={this.state.street} name="street" type="text" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
 
-                            </Form>
-                        {/* </Modal.Content>
+                                                <label style={styles.label}>Avenue</label><Input style={styles.input} defaultValue={this.state.avenue} type="text" name="avenue" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>house</label><Input style={styles.input} type="text" defaultValue={this.state.house} name="house" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <label style={styles.label}>Extra directions</label><Input style={styles.input} type="text" defaultValue={this.state.directions} name="directions" onChange={this.handleChange.bind(this)} />
+                                            </Grid.Column>
+                                            <Grid.Column style={{ marginLeft: 160 }}>
+                                                <Button content="ADD" primary type="submit" style={styles.btn} />
+                                                <Button content="CANCEL" primary type="button" style={styles.btn} class="close" data-dismiss="modal" aria-label="Close" />
 
-                    </Modal> */}
+                                            </Grid.Column>
+                                        </Grid>
+                                        <br /><br />
+                                    </Form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+          </div>
 
-                </Container>
-            </div>
+
         )
 
     }
 }
 const mapStateToProps = (state) => {
     return {
-        open: state.checkout.open
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -137,7 +157,7 @@ var styles = {
         width: 600,
         margin: 'auto'
     },
-    Container:{
+    Container: {
         width: 600,
         margin: 14,
         border: '1px solid',
@@ -154,10 +174,23 @@ var styles = {
         width: 300,
         height: 50
     },
-    label:{
-    width: 124,
-    margin: 10,    
-    fontSize: 17
-    }
+    label: {
+        width: 124,
+        margin: 10,
+        fontSize: 17
+    },
+    btn: {
+        background: '#13bfad',
+        border: '1px solid',
+        borderRadius: 17
+    },
+    btnAdd: {
+        border: '1px solid',
+        borderRadius: 37,
+        fontSize: 15,
+        background: 'white',
+        color: '#13bfad'
+
+    },
 }
-export default connect(mapStateToProps, { open,close, addAdress })(AddAddress);
+export default connect(mapStateToProps, { addAdress })(AddAddress);

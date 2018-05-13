@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import { reduxForm, Field, propTypes } from "redux-form";
-import { required } from "redux-form-validators"
-import { renderField, renderError,rendercheckpox } from "../../utils/renderUtils";
-import { signupUser } from "../../actions/authActions";
+import {reduxForm, Field, propTypes} from "redux-form";
+import {required} from "redux-form-validators"
+import {renderField, renderError,renderCheckbox} from "../../utils/renderUtils";
+import {signupUser} from "../../actions/authActions";
 
 class Signup extends Component {
 
@@ -72,16 +72,15 @@ class Signup extends Component {
                                     type="text" />
                             </fieldset>
 
-                            <fieldset className="form-check">
-                                <Field name="terms_conditions" label="Accept of term of use&policy"
-                                           component={rendercheckpox}
+                                <fieldset className="form-check">
+                                    <Field name="terms_conditions" label="Accept of term of use&policy"
+                                           component={renderCheckbox}
                                            type="checkbox"
                                            validate={[required({message: "You must accept the terms to signup"})]}/>
-                              
-                                <br />
-                                <Field name="subscribe" label="Subscribe newsletters" component={rendercheckpox}
-                                    type="checkbox" />
-                            </fieldset>
+                                    <br/>
+                                    <Field name="subscribe" label="Subscribe newsletters" component={renderCheckbox}
+                                           type="checkbox"/>
+                                </fieldset>
 
 
                             <fieldset className="form-group">

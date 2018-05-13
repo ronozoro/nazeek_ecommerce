@@ -67,3 +67,9 @@ return (<div>
 </div>)
 }
 }
+
+function mapStateToProps(state) {
+    return {}
+}
+
+export default connect(mapStateToProps)(Payment);

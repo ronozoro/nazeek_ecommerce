@@ -2,6 +2,7 @@ export const CHECKOUT_ADDRESS = "CHECKOUT_ADDRESS"
 export const OPEN = "OPEN"
 export const CLOSE = "CLOSE"
 export const USER_ID = "USER_ID"
+export const ORDER_TOKEN="ORDER_TOKEN"
 export const ADD_ADDRESS = "ADD_ADDRESS"
 import { CartUrls } from "../constants/urls";
 import axios from 'axios'
@@ -72,19 +73,8 @@ export function checkout() {
             var getAdd = getAddress()
             getAdd(response => {
                 console.log({ add: response });
-                dispatch({ 
-                    type:CHECKOUT_ADDRESS,
-                    addresses:response.addresses
-                })
-                address = response.addresses
-            })
-            
-            setTimeout(() => {
                 address.map(add => {
-                    console.log(user_id,"jjjjjj");
-                    
-                    console.log("gggggg" ,add);
-                    
+                    console.log(user_id,"jjjjjj");                    
                     if (add.user === user_id) {
                         if (add.type === "billing")
                             {
@@ -95,25 +85,47 @@ export function checkout() {
                             s_id = add.id
                     }
                 })
-            }, 500);
-            setTimeout(() => {
-                console.log(b_id,s_id);
-                
-                axios.post(CartUrls.checkoutUrl, {
-                    "billing_address": b_id,
-                    "shipping_address": s_id,
-                    "cart_token": localStorage.getItem('cart_token'),
-                    "checkout_token": localStorage.getItem('user_checkout_token')
-                }).then(response => {
-                    console.log({ order: response });
-                    localStorage.setItem('order_token',response.data.order_token)
-                })             
-        }, 600);
+                dispatch({ 
+                    type:CHECKOUT_ADDRESS,
+                    addresses:response.addresses
+                })
+                address = response.addresses
+            })
+           
         setTimeout(() => {
             history.push("/checkout")
         }, 1000);
 
     }
+}
+export function payNow(checkedBilling,checkedShipping){
+    var b_id, s_id
+    b_id = checkedBilling[0].id
+    s_id = checkedShipping[0].id
+    console.log(b_id, s_id);
+    if (b_id && s_id) {
+        {
+            axios.post(CartUrls.checkoutUrl, {
+                "billing_address": b_id,
+                "shipping_address": s_id,
+                "cart_token": localStorage.getItem('cart_token'),
+                "checkout_token": localStorage.getItem('user_checkout_token')
+            }).then(response => {
+                console.log({ order: response });
+            dispatch({
+                type:ORDER_TOKEN
+            })
+            //localStorage.setItem('order_token',response.data.order_token)
+            localStorage.removeItem('cart_token')
+            localStorage.removeItem('user_checkout_token')
+        })  
+
+    } 
+}
+else{
+    alert(" you must check address billing and address shiping")
+}          
+
 }
 export function getuserId() {
     return function (dispatch) {
@@ -129,12 +141,22 @@ export function getuserId() {
     }
 }
 export function addAdress(model) {
+    
     console.log(model);
     var userId;
     return function (dispatch) {
+ if(localStorage.getItem('user_checkout_token')==null){
+    var user = getUserProfile();
+    user(response => {
+        console.log(response.payload.email);
+        setUserCheckoutToken(response.payload.email)
+    })
 
+ }
         axios.get(CartUrls.userId + '?checkout_token=' + localStorage.getItem('user_checkout_token'))
             .then(response => {
+                console.log('userId',response.data);
+                
                 console.log({ finish: response.data[0].id });
                 userId = response.data[0].id
                 dispatch({
@@ -142,19 +164,32 @@ export function addAdress(model) {
                     id: response.data[0].id
                 })
             })
-
-        setTimeout(() => {
-            console.log(userId);
-            axios.post(CartUrls.creatAdress, {
-                "user": userId,
-                "type": model.type,
-                "street": model.street,
-                "city": model.city,
-                "zipcode": "1234"
-            }).then(response => {
-                console.log({ creat: response.data });
+            .then(response=>{
+                axios.post(CartUrls.creatAdress, {
+                    "user": userId,
+                    "type": model.type,
+                    "street": model.street,
+                    "city": model.city,
+                    "zipcode": "1234"
+                }).then(response => {
+                    console.log({ creat: response.data });
+                    var getAdd = getAddress()
+                    getAdd(response=>{
+                        console.log({add:response});
+                        dispatch({ 
+                            type:CHECKOUT_ADDRESS,
+                            addresses:response.addresses
+                        })
+                    })      
+                })
             })
-        }, 500);
+
+        // setTimeout(() => {
+        //     console.log(userId);
+            
+        // }, 500);
+
+        //history.push("/checkout")
 
         // setTimeout(() => {
         //     var getAdd = getAddress()
@@ -162,10 +197,10 @@ export function addAdress(model) {
         //         console.log({add:response});
         //         dispatch({ 
         //             type:CHECKOUT_ADDRESS,
-        //             addresses:response
+        //             addresses:response.addresses
         //         })
         //     })      
-        // }, 200);
+        // }, 800);
 
     }
 

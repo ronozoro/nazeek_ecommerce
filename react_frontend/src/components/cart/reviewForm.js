@@ -65,14 +65,6 @@ class Reviews extends Component {
                     })}
                 </div>
                 <div>
-                    <h2 class="mt64 mb32 fw_extralight" style={disabel ? styles.h2 : { display: 'none' }}>
-                        Please <Link to="/login"><b>log in</b></Link> to comment on this module
-                        </h2>
-                    <h2 class="mt64 mb32 fw_extralight" style={disabel ? { display: 'none' } : styles.h2}>
-                        Write customer review 
-                        </h2>
-                    <br />
-
                     <Form onSubmit={this.handleSubmit.bind(this)}>
                         <Rating icon='star' clearable maxRating={5} disabled={disabel} name='rating' onRate={this.handleRate.bind(this)} />
                         <Form.Input name='comment' disabled={disabel} placeholder='Wrire All  Overall Feeding' onChange={this.handleChange.bind(this)} />
@@ -97,9 +89,9 @@ var styles={
     div: {
         fontSize: 24,
         padding: 10,
-        textAlign: 'center',
+        // textAlign: 'center',
         width: 500,
-        margin: '10px auto'
+        // margin: '10px auto'
     }
     ,
     h2: {

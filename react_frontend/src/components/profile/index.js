@@ -6,6 +6,8 @@ import Sidemenue from '../sidemenue'
 import { Button, Header, Modal } from 'semantic-ui-react'
 import { Input, Icon, Container, Segment, Card, Divider, Label, Table, Form, Dropdown } from 'semantic-ui-react'
 import { Checkbox, Image, Grid } from 'semantic-ui-react'
+require('../cart/style.css')
+
 export class Profile extends React.Component {
     constructor(props) {
         super(props)
@@ -19,39 +21,39 @@ export class Profile extends React.Component {
         var thos = this
         return (
 
-            <Container >
+            <Container style={{marginTop:50}}>
                 <Grid columns={2} >
                     <Grid.Column width={4}>
                         <Sidemenue />
                     </Grid.Column>
                     <Grid.Column style={{    marginLeft: 31}} width={10}>
                         
-                            <h1> Profile</h1>
-                            <Divider />
+                    <h1 style={{fontWeight: 'bold',fontSize: 22}} class="title-head2">Profile</h1>
+                                                {/* <Divider /> */}
                             <Grid columns={2} >
                                 <Grid.Column>
                                     <Link to="/userProfile">
-                                        <Card style={styles.Card}>
+                                        <Card style={styles.Card} className="highlight">
                                             <Card.Content style={styles.header} header=' personal Information' />
                                             <Card.Content description='Manage Your Personal Information' />
                                         </Card>
                                     </Link>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Card style={styles.Card}>
+                                    <Card style={styles.Card} className="highlight">
                                         <Card.Content style={styles.header} header='Order History' />
                                         <Card.Content description='Manage your Order History' />
 
                                     </Card>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Link to="addressbook"> < Card style={styles.Card}>
+                                    <Link to="addressbook"> < Card style={styles.Card} className="highlight">
                                         <Card.Content style={styles.header} header='Address Book' />
                                         <Card.Content description='Manage Address Book' />
                                     </Card></Link>
                                 </Grid.Column>
                                 <Grid.Column>
-                                   <Link to="/wishlist" ><Card style={styles.Card}>
+                                   <Link to="/wishlist" ><Card style={styles.Card} className="highlight">
                                         <Card.Content style={styles.header} header='WishList' />
                                         <Card.Content description='Mange My WishList' />
 
@@ -59,7 +61,7 @@ export class Profile extends React.Component {
                                     </Link>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Card style={styles.Card}>
+                                    <Card style={styles.Card} className="highlight">
                                         <Card.Content style={styles.header} header='Elliot Baker' />
                                         <Card.Content description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
                                         />
@@ -92,11 +94,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 var styles = {
     header: {
         background: '#13bfad',
-        color: 'white'
+        color: 'white',
+        width: 324
     },
     Card: {
         width: 350,
-        height: 100
     }
 }
 export default connect(mapStateToProps, {})(Profile);

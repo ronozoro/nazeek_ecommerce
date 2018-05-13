@@ -3502,10 +3502,10 @@ a.pagination-next i,a.pagination-prev i{
   padding: 0 !important;
 }
 .slick-arrow{
-  width: 125px;
+  /* width: 125px; */
   height: 25px;
   line-height: 25px;
-  background-color: #edf1f4;
+  /* background-color: #09141d; */
   color: #607d8a;
   text-align: center;
   line-height: 25px;
@@ -3518,10 +3518,10 @@ a.pagination-next i,a.pagination-prev i{
   transition: all 0.4s ease;
   margin-bottom: 2px;
 }
-.slick-arrow:hover{
+/* .slick-arrow:hover{
   background-color: #13bfad;
   color: #fff;
-}
+} */
 .slick-arrow:last-child{
   margin-bottom: 0;
 }

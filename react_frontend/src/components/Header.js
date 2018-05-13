@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { Grid, Sidebar, Image, Segment, Menu, Item, Pushable, Pusher, Button, Icon } from 'semantic-ui-react'
-import { connect } from "react-redux";
-import { Input } from 'semantic-ui-react'
-import { getItemsOfCart } from '../actions/cart'
-import { fetchWishlistItemCount } from '../actions/WishlistListActions'
-import { getcatagorysitms } from '../actions/filterMenue'
-import { getcatagorys } from '../actions/filterMenue'
-import { getProducts } from '../actions/shopActions'
+import {Link} from "react-router-dom";
+import {Grid,GridRow,GridColumn,Icon} from 'semantic-ui-react'
+import {connect} from "react-redux";
+import {Input} from 'semantic-ui-react'
+import {getItemsOfCart} from '../actions/cart'
+import {fetchWishlistItemCount} from '../actions/WishlistListActions'
+import {getcatagorysitms} from '../actions/filterMenue'
+import {categoryItems} from '../actions/shopActions'
+import {getcatagorys} from '../actions/filterMenue'
+import {getProducts} from '../actions/shopActions'
 import history from "../utils/historyUtils";
 
 // import {aftersearsh} '../actions/header'
@@ -66,17 +67,36 @@ class Header extends Component {
 
         elment.style.width = "0";
     }
-    renderCart() {
+    // renderCart() {
+    //     fetchWishlistItemCount:PropTypes.func.isRequired,
+    //     getItemsOfCart:PropTypes.func.isRequired,
+    // };
+   wishlist(){
+if(localStorage.getItem('token')==null){
+    history.push("/login")
+}   
+else{
+    history.push("/wishlist")
+}  
+   }
+   gotocart(){
+    if(localStorage.getItem('token')==null){
+        history.push("/login")
+    }   
+    else{
+        history.push("/cart")
+    } 
+   }
+     renderCart() {
         return (
             <div className="col-md-3 col-sm-3">
                 <div className="clearfix">
                     <ul className="menu-purches clearfix">
-                        <li className="favorite-btn">
-                            <Link to="/wishlist"><i
-                                className="icon-heart icons"></i><span>{this.props.wishlistCount}</span></Link>
+                        <li style={{fontSize: 20,color: '#13bfad'}}>
+                       <Icon   name="heart" onClick={this.wishlist.bind(this)}></Icon><span>{this.props.wishlistCount}</span>
                         </li>
-                        <li className="cart-purches-btn">
-                            <Link to="/cart"><i className="icon-basket icons"></i><span>{this.state.count}</span></Link>
+                        <li  style={{fontSize: 20,color: '#13bfad'}}>
+                           <Icon name="plus cart"  onClick={this.gotocart.bind(this)} ></Icon><span>{this.state.count}</span>
                         </li>
                     </ul>
                 </div>
@@ -221,7 +241,7 @@ class Header extends Component {
                 <div class="container">
 
                     <div class="hb-right clearfix" style={{ position: 'relative', left: '20%', width: '58%' }}>
-                        <a href="#" class="btn-design">design your room</a>
+                        <a href="#" class="btn-design" style={{width: '54%'}}>design your room</a>
                         <a href="#menu" class="hamburger is-closed">
                             <span class="hamb-top"></span>
                             <span class="hamb-middle"></span>
@@ -269,8 +289,10 @@ class Header extends Component {
     }
     handleClick(id, title) {
         console.log(id)
-        this.props.getcatagorysitms(id, title)
+       
        this.closeNav();
+        this.props.categoryItems(id)
+        //this.props.getcatagorysitms(id,title)
     }
    
     handlechange(e, data) {
@@ -377,4 +399,4 @@ const styles = {
         borderRadius: 3, padding: '1 5 0', lineHeight: 20
     }
 }
-export default connect(mapStateToProps, { fetchWishlistItemCount, getItemsOfCart, getcatagorys, getcatagorysitms, getProducts, aftersearsh })(Header);
+export default connect(mapStateToProps,{categoryItems,fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,getProducts,aftersearsh})(Header);

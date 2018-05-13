@@ -8,11 +8,11 @@ import { getsorteditems } from '../actions/filterMenue'
 import { Slide } from 'react-slideshow-image';
 import Sidemenue from './sidemenue'
 import Products from './products'
+import { getProducts } from "../actions/shopActions";
+import Test from './testSlider'
+import NewArivals from '../pages/newarrivals'
 import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button, Dropdown } from 'semantic-ui-react'
 var slideIndex = 1;
-
-
-
 class Home extends React.Component {
 	constructor() {
 		super();
@@ -21,7 +21,10 @@ class Home extends React.Component {
 		}
 
 	}
-
+	componentDidMount(){
+		//this.props.getsorteditems('modified_date')
+		this.props.getProducts()
+	  }
 	render() {
 
 		const images = [
@@ -35,7 +38,7 @@ class Home extends React.Component {
       dots: true,
       infinite: true,
       speed: 500,
-      slidesToShow: 1,
+      slidesToShow: 2,
       slidesToScroll: 1
     };
 		return (
@@ -54,7 +57,8 @@ class Home extends React.Component {
 								<h2 class="sec-title f-left">new arrivals</h2>
 								<a href="#" class="more-page f-right">more <i class="icon-arrow-right icons"></i></a>
 							</div> */}
-							<Products title="  NEW ARIVALS"/>
+							<NewArivals/>
+							
 						{/* </Grid.Column> */}
 
 					{/* </Grid> */}
@@ -67,7 +71,10 @@ class Home extends React.Component {
 			backgroundPosition: 'center'}}>
 					<div class="sec-head clearfix" style={{display:'table',margin:'auto'}}>
 						<h2 class="sec-title">RECENT VIEW</h2>
+
 					</div>
+                           
+					<Test/>
 
 				</div>
 <div>
@@ -90,7 +97,6 @@ class Home extends React.Component {
 			</div>
 		</section>
 </div>
-
 			</div>
 		)
 
@@ -99,7 +105,9 @@ class Home extends React.Component {
 }
 const mapStateToProps = (state, Props) => {
 	console.log(state)
-	return
+	return {
+
+	}
 
 }
 var styles = {
@@ -119,4 +127,4 @@ var styles = {
 	}
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps,{getProducts})(Home);

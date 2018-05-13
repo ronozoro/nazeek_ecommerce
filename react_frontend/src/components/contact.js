@@ -275,4 +275,8 @@ class contact extends Component {
 	  </div>)}
 }
 
-export default contact;
+function mapStateToProps(state) {
+    return {}
+}
+
+export default connect(mapStateToProps)(contact);

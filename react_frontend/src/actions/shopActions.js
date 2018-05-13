@@ -1,6 +1,7 @@
 import axios from "axios";
 import {ShopTypes} from "../constants/actionTypes";
 import {ShopUrls} from "../constants/urls";
+import history from "../utils/historyUtils";
 
  function setProducts(payload) {
     return {
@@ -9,9 +10,7 @@ import {ShopUrls} from "../constants/urls";
     };
 }
 
-export function getProducts() {
-    console.log("jhjkhkljlkjdlzkcjlxkzcjlzxkcjxlzkcj");
-    
+export function getProducts() {    
     return function (dispatch) {
         axios.get(ShopUrls.PRODUCTS, { }).then(response => {
             console.log({shop:response.data});
@@ -74,4 +73,28 @@ export function getProdDetails(product) {
     dispatch({type:ShopTypes.GETDETAILS,product})
         
     };
+}
+
+export  function categoryItems(id){
+    console.log(id);
+        return function(dispatch){
+        const catItems =  axios.get(ShopUrls.CATEGORIES+'/'+id+"/?format=json")
+        catItems.then(items=>{
+            console.log(items.data);
+             dispatch(setProducts(items.data.product_set))
+             history.push('/shop')
+        })
+    }
+}
+export function getsorteditems(filter) {
+    let url=ShopUrls.ORDER+'?ordering='+filter
+    return function (dispatch) {
+        axios.get(url, {}).then(response => {
+            console.log(response.data)
+            dispatch(setProducts(response.data))            
+        }).catch((error) => {
+           alert(error)
+        });
+    };
+
 }

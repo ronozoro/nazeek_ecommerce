@@ -2,34 +2,40 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import {getUserProfile} from '../actions/authActions'
 import { Rating, Menu, Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader, Dropdown, Table, TableBody, TableCell } from 'semantic-ui-react'
-
+require('./cart/style.css')
 class Sidemenue extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            //     data:this.props.data
+                user:props.user
         }
     }
     static propTypes = {
         //     get: PropTypes.func.isRequired,
     };
-    componentWillRecivePrpos() {
-        //     this.setState({data:newprops.data})
+    componentDidMount(){
+        this.props.getUserProfile()
     }
-    render() {
-        return <div style={{margin:10}} class="col-lg-3 col-md-4 col-sm-5">
-            <div class="box-profile-side" style={{width: 261}}>
+    componentWillReceiveProps(nextProps) {
+            this.setState({user:nextProps.user})
+    }
+    render() {       
+        console.log(this.props.user);
+         
+        return <div style={{margin:10}} >
+            <div class="box-profile-side" >
                 <div class="bps-head clearfix">
-                    <img src="images/av.png" alt="" class="avatar-img"/>
+                    <img src="../../src/styles/images/av.png" alt="" class="avatar-img"/>
                         <div class="prof-txt">
-                            <h2>Username</h2>
-                            <a href="#" class="logout-link">Logout</a>
+                            <h2>{this.state.user.username}</h2>
+                            <Link to="/logout" class="logout-link">Logout</Link>
                         </div>
                 </div>
-                    <div class="bps-body">
-                        <ul>
-                            <li class="active">
+                    <div class="bps-body" >
+                        <ul style={{width:203}}>
+                            <li >
                             <Link to="/profile"><span><i class="icon-grid icons"></i></span>Account Home</Link>
                             </li>
                             <li>
@@ -41,9 +47,9 @@ class Sidemenue extends React.Component {
                             <li>
                             <Link to="/addressbook"><span><i class="icon-notebook icons"></i></span>Address book</Link>
                             </li>
-                            {/* <li>
-                                <a href="payment.html"><span><i class="icon-credit-card icons"></i></span>Way of Payments</a>
-                            </li> */}
+                            <li>
+                                <Link to="/payment" ><span><i class="icon-credit-card icons"></i></span>Way of Payments</Link>
+                            </li>
                             <li >
                             <Link to="/wishlist"><span><i class="icon-heart icons"></i></span>Wishlist</Link>
                             </li>
@@ -68,5 +74,10 @@ class Sidemenue extends React.Component {
 
     }
 }
+const mapStateToProps=(state,props)=>{
+    return{
+        user:state.auth.user
 
-export default Sidemenue;
+    }
+}
+export default connect(mapStateToProps, { getUserProfile })(Sidemenue);

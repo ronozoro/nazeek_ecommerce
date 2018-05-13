@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Sidemenue from '../sidemenue'
+import {getProducts} from '../../actions/shopActions'
 import { setToCart } from '../../actions/cart'
 import { getWishListItems, deleteWishlistItem } from '../../actions/WishlistListActions'
 import { Container, Divider, Rating, Menu, Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader, Dropdown, Table, TableBody, TableCell } from 'semantic-ui-react'
@@ -21,7 +22,8 @@ class wishlist extends React.Component {
     this.setState({ products: nextProps.products, })
   }
   componentDidMount() {
-    this.props.getWishListItems()
+    this.props.getWishListItems(),
+    this.props.getProducts()
 
   }
   handleDelete(item) {
@@ -84,7 +86,7 @@ class wishlist extends React.Component {
                             if (item.product === prod.id) {
                               return <Table.Cell >
                                 {/* 'data:image/png;base64, ' + */}
-                                <div ><Image width={150} src={ prod.image}  /></div>
+                                <div ><Image width={150} src={ 'data:image/png;base64, ' + prod.image}  /></div>
                                 {/* <div style={styles.contentImg}>Middle; <br /> fAligned</div> */}
                               </Table.Cell>
                             }
@@ -243,5 +245,5 @@ var styles = {
   }
 }
 
-export default connect(mapStateToProps, { getWishListItems, deleteWishlistItem, setToCart })(wishlist);
+export default connect(mapStateToProps, { getWishListItems, deleteWishlistItem, setToCart ,getProducts})(wishlist);
     // export default wishlist

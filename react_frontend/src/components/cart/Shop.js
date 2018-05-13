@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
 import { getProducts } from "../../actions/shopActions";
-import { getProdDetails } from '../../actions/shopActions';
+import { getProdDetails ,getsorteditems} from '../../actions/shopActions';
 import { setToCart } from '../../actions/cart'
 import { getItemsOfCart } from '../../actions/cart'
 import {addToWishList} from '../../actions/WishlistListActions'
 import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
 import { Button, Checkbox, Icon, Grid } from 'semantic-ui-react'
+import Filtermenue from '../filtermenue'
 
 class ShopData extends Component {
     constructor(props){
@@ -18,6 +19,7 @@ class ShopData extends Component {
             maxRating:0,
             products:props.products||[]
         }
+        this.change=this.change.bind(this)
     }
     static propTypes = {
         getProducts: PropTypes.func.isRequired,
@@ -79,7 +81,7 @@ class ShopData extends Component {
                                         <div>
                                             <input data-image={product.image} name={product.title}
                                                 value={product.price} checked="" type="radio" />
-                                            <label onClick={(e) => { thos.handleChange(e, { prod: object, varId: product }) }} style={style}>
+                                            <label class="highlight" onClick={(e) => { thos.handleChange(e, { prod: object, varId: product }) }} style={style}>
                                                 <span>
                                                 </span>
                                             </label>
@@ -120,20 +122,29 @@ class ShopData extends Component {
             </div>
         )
     }
+    change(event) {
+        console.log(event.target.value);
+        this.props.getsorteditems(event.target.value)
 
+  }
     renderSortBy() {
+        
         return (
             <div className="sec-head marg-b0 col-left-right clearfix">
-                {/*<h2 className="sec-title f-left">Living Room</h2>*/}
+                <h2 className="sec-title f-left">Products </h2>
                 <div className="col--right clearfix">
                     <div className="filter-sortrg">
                         <i className="zmdi zmdi-unfold-more"></i>
-                        <select className="form-control sort-s" >
-                            <option >Sort by</option>
-                            <option>Sort</option>
-                            <option>Sort</option>
-                            <option>Sort</option>
-                        </select>
+                        <select className="form-control sort-s" id="lang" onChange={this.change} defaultValue={this.state.value}>
+                                                      <option >Sort by</option>
+                                                      <option value="title">title_ascending</option>
+                                                      <option value="-title">title_descending</option>
+                                                      <option value="id">id_ascending</option>
+                                                      <option value="-id">id_descending</option>
+                                                      <option value="price">price</option>
+
+
+                                                </select>
                     </div>
                 </div>
             </div>
@@ -141,24 +152,18 @@ class ShopData extends Component {
     }
 
     renderShop() {
-        const products = this.props.products;
+        const products = this.state.products;
         if (products) {
             return (
                 <div className="container">
-                    <div className="row">
+                    <div className="row" style={{marginTop: 71}}>
                         <div className="col-lg-3 col-md-4">
-                            <div className="side-filter">
-                                <h2>Filter</h2>
-                                <div className="filter-block-content">
-
-                                    {/* {this.renderFilters()} */}
-                                </div>
-                            </div>
+                              <Filtermenue />
                         </div>
                         <div className="col-lg-9 col-md-8">
                             {this.renderSortBy()}
                             <div className="sec-warpper">
-                                {/*<p className="p-results">23 Results</p>*/}
+                                <p className="p-results">{products.length} Results</p>
                                 <div className="product-result-list">
                                     <div className="row">
                                         {products.map((object, i) => this.renderProducts({ object }))}
@@ -191,4 +196,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getProducts, setToCart, getItemsOfCart,addToWishList,getProdDetails })(ShopData);
+export default connect(mapStateToProps, { getProducts,getsorteditems, setToCart, getItemsOfCart,addToWishList,getProdDetails })(ShopData);
