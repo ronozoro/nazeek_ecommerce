@@ -10,11 +10,11 @@ class Footer extends Component {
                         <div className="row">
                             <div className="col-md-3 col-sm-6 col-xs-6">
                                 <div className="f-box">
-                                    <h2>Contact Us</h2>
+                                    <h2 ><a style={{color: 'white'}} href="/contact">Contact Us</a></h2>
                                     <ul className="f-menu">
-                                        <li><a href="contact.html#Customer-Care">Customer Care</a></li>
-                                        <li><a href="contact.html#Preducer-Designer">Producer/Designer</a></li>
-                                        <li><a href="contact.html#Career">Career</a></li>
+                                        <li><a href="/contact#Customer-Care">Customer Care</a></li>
+                                        <li><a href="/contact#Preducer-Designer">Producer/Designer</a></li>
+                                        <li><a href="/contact#Career">Career</a></li>
                                     </ul>
                                 </div>
                             </div>

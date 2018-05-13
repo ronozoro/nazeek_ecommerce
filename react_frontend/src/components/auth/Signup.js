@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import {reduxForm, Field, propTypes} from "redux-form";
-import {required} from "redux-form-validators"
-import {renderField, renderError} from "../../utils/renderUtils";
-import {signupUser} from "../../actions/authActions";
+import { reduxForm, Field, propTypes } from "redux-form";
+import { required } from "redux-form-validators"
+import { renderField, renderError,rendercheckpox } from "../../utils/renderUtils";
+import { signupUser } from "../../actions/authActions";
 
 class Signup extends Component {
 
@@ -13,7 +13,7 @@ class Signup extends Component {
 
 
     render() {
-        const {handleSubmit, error} = this.props;
+        const { handleSubmit, error } = this.props;
         var divStyle = {
             color: 'blue',
         };
@@ -36,62 +36,63 @@ class Signup extends Component {
                             </ul>
                         </div>
                         <div class="signOr"><span>OR</span></div>
-                            <form horizontal
-                                className="form-st1"
-                                onSubmit={handleSubmit}>
-                                <h4 className="text-md-center">Sign Up</h4>
-                                <hr/>
-                                <fieldset className="form-group">
-                                    <Field name="username" label="Username" component={renderField}
-                                           type="text" validate={[required({message: "This field is required."})]}/>
-                                </fieldset>
+                        <form horizontal
+                            className="form-st1"
+                            onSubmit={handleSubmit}>
+                            <h4 className="text-md-center">Sign Up</h4>
+                            <hr />
+                            <fieldset className="form-group">
+                                <Field name="username" label="Username" component={renderField}
+                                    type="text" validate={[required({ message: "This field is required." })]} />
+                            </fieldset>
 
-                                <fieldset className="form-group">
-                                    <Field name="full_name" label="Full Name" component={renderField}
-                                           type="text" validate={[required({message: "This field is required."})]}
-                                    />
-                                </fieldset>
-                                <fieldset className="form-group">
-                                    <Field name="password1" label="Password" component={renderField}
-                                           type="password" validate={[required({message: "This field is required."})]}
-                                    />
-                                </fieldset>
+                            <fieldset className="form-group">
+                                <Field name="full_name" label="Full Name" component={renderField}
+                                    type="text" validate={[required({ message: "This field is required." })]}
+                                />
+                            </fieldset>
+                            <fieldset className="form-group">
+                                <Field name="password1" label="Password" component={renderField}
+                                    type="password" validate={[required({ message: "This field is required." })]}
+                                />
+                            </fieldset>
 
-                                <fieldset className="form-group">
-                                    <Field name="password2" label="Confirm Password" component={renderField}
-                                           type="password" validate={[required({message: "This field is required."})]}
-                                    />
-                                </fieldset>
+                            <fieldset className="form-group">
+                                <Field name="password2" label="Confirm Password" component={renderField}
+                                    type="password" validate={[required({ message: "This field is required." })]}
+                                />
+                            </fieldset>
 
-                                <fieldset className="form-group">
-                                    <Field name="email" label="Email" component={renderField}
-                                           type="text"/>
-                                </fieldset>
-                                <fieldset className="form-group">
-                                    <Field name="mobile" label="Mobile" component={renderField}
-                                           type="text"/>
-                                </fieldset>
+                            <fieldset className="form-group">
+                                <Field name="email" label="Email" component={renderField}
+                                    type="text" />
+                            </fieldset>
+                            <fieldset className="form-group">
+                                <Field name="mobile" label="Mobile" component={renderField}
+                                    type="text" />
+                            </fieldset>
 
-                                <fieldset className="form-check">
-                                    <Field name="terms_conditions" label="Accept of term of use&policy"
-                                           component={renderField}
+                            <fieldset className="form-check">
+                                <Field name="terms_conditions" label="Accept of term of use&policy"
+                                           component={rendercheckpox}
                                            type="checkbox"
                                            validate={[required({message: "You must accept the terms to signup"})]}/>
-                                    <br/>
-                                    <Field name="subscribe" label="Subscribe newsletters" component={renderField}
-                                           type="checkbox"/>
-                                </fieldset>
+                              
+                                <br />
+                                <Field name="subscribe" label="Subscribe newsletters" component={rendercheckpox}
+                                    type="checkbox" />
+                            </fieldset>
 
 
-                                <fieldset className="form-group">
-                                         {renderError(error)}
-                                    <button action="submit" className="btn btn-primary btn-submit">Sign Up</button>
-                                    	<p class="aready-p">Already have an account? <a href="login.html">login</a></p>
-                                </fieldset>
-                            </form>
-                        </div>
+                            <fieldset className="form-group">
+                                {renderError(error)}
+                                <button action="submit" className="btn btn-primary btn-submit">Sign Up</button>
+                                <p class="aready-p">Already have an account? <a href="login.html">login</a></p>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
+            </div>
         );
     }
 }
@@ -99,7 +100,7 @@ class Signup extends Component {
 // Sync field level validation for password match
 const validateForm = values => {
     const errors = {};
-    const {password1, password2} = values;
+    const { password1, password2 } = values;
     if (password1 !== password2) {
         errors.password2 = "Passwords does not match.";
         errors.password1 = "Passwords does not match.";
