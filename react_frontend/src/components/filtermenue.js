@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Checkbox} from'semantic-ui-react'
-import {getBrands,getSellers} from '../actions/shopActions'
+import {getBrands,getSellers,getsorteditems} from '../actions/shopActions'
 import {Rating, Menu,Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader,Dropdown,Table,TableBody,TableCell } from 'semantic-ui-react'
 import $ from 'jquery'
 class Filtermenue extends React.Component {
@@ -25,9 +25,7 @@ class Filtermenue extends React.Component {
         }
         handleCheck(e,data){
             console.log(data);
-            
-console.log(data.value);
-
+            this.props.getsorteditems('price')
         }
         render(){
               return <div> 
@@ -35,8 +33,8 @@ console.log(data.value);
               <h2>Filter</h2>
               <div class="filter-block-content">
                   <div class="filter-block">
-                      <h3 >sellers</h3>
-                        {this.props.sellers.map(seller=>{
+                      <h3 style={styles.h3}>sellers</h3>
+                        {this.props.products.map(seller=>{
                             
                             return  <div className="ui_checkbox">
                             {/* <input type="checkbox"  value={seller.seller_name}  onClick={this.handleCheck} />
@@ -46,11 +44,10 @@ console.log(data.value);
                         })
                     }
 
-                     <h3 class="f-title-sm">brands</h3>
-                        {this.props.brands.map(brand=>{
+                     <h3  style={styles.h3} class="f-title-sm">brands</h3>
+                        {this.props.products.map(brand=>{
                             return  <div class="ui_checkbox">
-                            <input type="checkbox" name={brand.brand_name||""} />
-                            <label>test</label>
+                            <Checkbox  label={brand.brand_name}  value={brand.brand_name}  onClick={this.handleCheck}/>
                         </div>
                         })
                     }
@@ -69,8 +66,20 @@ console.log(data.value);
       }
 const mapStateToProps =(state,props)=>{
     return {
-        brands:state.shop.brands||[{brand_name:'test'}],
-        sellers:[{seller_name:'brand'}]
+        brands:[{brand_name:'test'}],
+        sellers:[{seller_name:'brand'}],
+        // state.shop.brands||
+        products:state.shop.products
     }
 }
-      export default connect(mapStateToProps,{getBrands,getSellers})(Filtermenue);
+var styles={
+    h3:{
+        background: '#13bfad',
+        fontSize: 20,
+        borderRadius: 11,
+        border: 'none',
+        color: 'white',
+        padding: 5
+    }
+}
+      export default connect(mapStateToProps,{getBrands,getSellers,getsorteditems})(Filtermenue);

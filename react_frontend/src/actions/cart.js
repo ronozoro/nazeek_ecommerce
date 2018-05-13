@@ -11,52 +11,75 @@ function creatCart() {
     });
 }
 
-function checkItemsOfCart(items, id, varId,count) {
-    var found=0;
+function checkItemsOfCart(items, id, varId, count) {
+    console.log(count,items,id,varId);
+return function(dispatch){
+    var found = 0;
     if (items && items.length) {
-        for(var i=0;i<items.length;i++){
-            if(items[i].product===id){
-                if(items[i].item===varId){
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].product === id) {
+                console.log('equalproduct');
+                
+                if (items[i].item === varId) {
                     var qun = (items[i].quantity + count)
-                  addItem(varId, qun)
-                  found=1
-                  console.log(found);
+                    found = 1
+                    dispatch(addItem(varId, qun))
 
-                }               
-            }          
+                    console.log(found);
+
+                }
+            }
         }
-        if(found===0){
+        if (found === 0) {
             console.log("found:0");
-                        console.log(count);
-                        
-            addItem(varId, count)
+            console.log(count);
+
+            dispatch(addItem(varId, count))
 
         }
     }
     else {
         console.log("empty cart");
-        addItem(varId, count)
+        dispatch(addItem(varId, count))
     }
 }
+}
 function addItem(varId, count) {
+    return function (dispatch){
     console.log("add");
     var cart_user_token;
-    if(localStorage.getItem('token')){
-        cart_user_token=localStorage.getItem('token')
+    if (localStorage.getItem('token')) {
+        cart_user_token = localStorage.getItem('token')
     }
     else
-    cart_user_token=""
-    return axios.get(CartUrls.cart+'?token="' + localStorage.getItem('cart_token') + '&item=' + varId + '&qty=' + count + '&cart_user_token='+cart_user_token +'')
+        cart_user_token = ""
+    return axios.get(CartUrls.cart + '?token="' + localStorage.getItem('cart_token') + '&item=' + varId + '&qty=' + count + '&cart_user_token=' + cart_user_token + '')
         .then(response => {
-            console.log(response.data);
-            dispatch({
-                type: cartTypes.SET_TO_CART,
-                items: response.data.items,
-                count: response.count,                
-            })
-        }).catch((error) => {
-        });
+            console.log({add:response.data});
+            setTimeout(() => {
+                var newItems = getItemsOfCart()
+                newItems(response => {
 
+                    console.log({ newItemsafteradd: response });
+                    dispatch({
+                        type: cartTypes.SET_TO_CART,
+                        items: response.items,
+                        count: response.count,
+                        //product: product.prod,
+                        //variation: product.varId
+                    })
+                })
+            }, 200);
+            return response
+        })
+
+
+
+        .catch((error) => {
+            console.log(error);
+alert(error)
+        });
+    }
 }
 export function setToCart(product) {
     console.log(product.prod, product.varId)
@@ -66,27 +89,17 @@ export function setToCart(product) {
         }
         var items = getItemsOfCart()
         items(response => {
-            console.log({itemsofCart:response});
-            if(product.count)
-              checkItemsOfCart(response.items, product.prod.object.id, product.varId.id,product.count)
-              else
-              checkItemsOfCart(response.items, product.prod.object.id, product.varId.id,1)
+            console.log({ itemsofCart: response });
+            if (product.count) {
+                console.log("withcount");
 
+                dispatch(checkItemsOfCart(response.items, product.prod.object.id, product.varId.id, product.count))
+            } else {
+                console.log('withoutcount');
+
+                dispatch(checkItemsOfCart(response.items, product.prod.object.id, product.varId.id, 1))
+            }
         })
-        setTimeout(() => {
-            var newItems = getItemsOfCart()
-            newItems(response => {
-                    console.log({newItems:response});
-                dispatch({
-                    type: cartTypes.SET_TO_CART,
-                    items: response.items,
-                    count: response.count,
-                    //product: product.prod,
-                    //variation: product.varId
-                })
-            })
-        }, 4000);
-       
     };
 }
 
@@ -102,7 +115,7 @@ export function changeQuantity(data) {
                         if (item.product == data.prodId) {
                             if (item.item == data.id) {
                                 var qun = data.quantity
-                                addItem(data.id, qun)
+                                dispatch(addItem(data.id, qun))
                             }
                         }
                     }
@@ -113,17 +126,17 @@ export function changeQuantity(data) {
 
             var newItems = getItemsOfCart()
             newItems(response => {
-                console.log({changeQuantity:response});
+                console.log({ changeQuantity: response });
                 dispatch({
                     type: cartTypes.SET_TO_CART,
                     items: response.items,
                     count: response.count,
                 })
-    
+
             })
-    
+
         }, 2000);
-      
+
         // axios.get('http://127.0.0.1:8000/api/cart/?token="' + localStorage.getItem('cart_token'))
         // .then(response =>{
         //     console.log({respons:response.data});
@@ -162,12 +175,15 @@ export function changeQuantity(data) {
 }
 export function getItemsOfCart() {
     return function (dispatch) {
-        return axios.get(CartUrls.cart+'?token="' + localStorage.getItem('cart_token'))
+        return axios.get(CartUrls.cart + '?token="' + localStorage.getItem('cart_token'))
+
             .then(response => {
-                  dispatch({
+                console.log({ newItemsafteradd3: response });
+
+                dispatch({
                     type: cartTypes.CARTITEMS,
                     items: response.data.items,
-                     count: response.data.count,
+                    count: response.data.count,
 
                 })
                 return response

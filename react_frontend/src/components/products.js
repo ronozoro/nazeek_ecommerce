@@ -62,13 +62,6 @@ this.setState({Quantity:e.target.value})
                         <Grid.Column width={4}>
                               <Filtermenue />
 
-                              <div class="quantity">
-                                    <input type="text" name="count-quat1" class="count-quat" value={this.state.Quantity?this.state.Quantity.toString():1}  onChange={this.handleChage}  />
-                                          <div class="btn button-count inc jsQuantityIncrease" ><i class="fa fa-plus" aria-hidden="true" onClick={this.handleclick}></i></div>
-                                          <div class="btn button-count dec jsQuantityDecrease disabled" minimum="1"><i class="fa fa-minus" aria-hidden="true"></i></div>
-				                        </div>
-
-
                         </Grid.Column >
                         <Grid.Column width={12}>
                               <div class="sec-head clearfix" style={{ marginBottom: '3%' }}>

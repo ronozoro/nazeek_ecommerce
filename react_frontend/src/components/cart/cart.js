@@ -5,7 +5,7 @@ import { changeQuantity } from "../../actions/cart";
 import { checkout } from '../../actions/checkout'
 import { Link } from 'react-router-dom'
 import { Input, Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
-import { Button, Checkbox, Image, Icon, Grid,Dimmer,Loader } from 'semantic-ui-react'
+import { Button, Checkbox, Image, Icon, Grid, Dimmer, Loader } from 'semantic-ui-react'
 import $ from 'jquery'
 import Slider from "react-slick";
 require('../slideStyle.css')
@@ -30,7 +30,7 @@ export class Cart extends React.Component {
         this.props.checkout()
     }
     item(object) {
-        return <div className="like-product-item clearfix">
+        return <div className="like-product-item clearfix" style={{marginLeft:54,width:303}}>
             <a href="#" class="lp-thumb">
                 <img src={'data:image/png;base64, ' + object.image} alt="" />
             </a>
@@ -39,7 +39,7 @@ export class Cart extends React.Component {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
         </p>
                 <div className="star-rating">
-                    <span style={{width:'60%'}}><strong class="rating">3</strong> out of 5</span>
+                    <span style={{ width: '60%' }}><strong class="rating">3</strong> out of 5</span>
                 </div>
                 <span className="pr-sa">{object.price}</span>
             </div>
@@ -64,7 +64,7 @@ export class Cart extends React.Component {
 
         ]
         var settings = {
-            dots: true,
+            dots: false,
             arrows: true,
             infinite: true,
             slidesToScroll: 2,
@@ -75,12 +75,10 @@ export class Cart extends React.Component {
         if (this.state.cartItems && this.state.cartItems.length && this.props.products && this.props.products.length)
             return (
                 <div>
-                    <Container textAlign='justified' style={{marginTop:50}}>
+                    <Container textAlign='justified' style={{ marginTop: 50 }}>
                         {/* <b style={{ fontSize: 23 }}>SHOPING CART</b>
                     <Divider /> */}
-                    <Dimmer active={this.props.cart}>
-                    <Loader/>
-                </Dimmer>
+                       
                         <div className="sec-head clearfix">
                             <h2 className="sec-title ">Shoping cart</h2>
                             <div className="col--right">
@@ -98,10 +96,10 @@ export class Cart extends React.Component {
                             <Table.Header>
                                 <Table.Row>
                                     {columnsName.map((coulm, index) => {
-                                        if(coulm.id=="product")
-                                        return <Table.HeaderCell  width={5}>{coulm.title}</Table.HeaderCell>
-                                        else 
-                                        return <Table.HeaderCell >{coulm.title}</Table.HeaderCell>
+                                        if (coulm.id == "product")
+                                            return <Table.HeaderCell width={5}>{coulm.title}</Table.HeaderCell>
+                                        else
+                                            return <Table.HeaderCell >{coulm.title}</Table.HeaderCell>
 
                                     })
                                     }
@@ -119,7 +117,7 @@ export class Cart extends React.Component {
                                                         //    return prod.productimage_set.map(I=>{
                                                         //        console.log({I});                                           
                                                         //         if(I.product==item.product){
-                                                        return <Table.Cell  textAlign="center" title={[
+                                                        return <Table.Cell textAlign="center" title={[
                                                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore',
                                                             'et dolore magna aliqua.',
                                                         ].join(' ')}>
@@ -196,9 +194,9 @@ export class Cart extends React.Component {
                                                 })
 
                                             }
-                                            if(coulm.id=='actions'){
+                                            if (coulm.id == 'actions') {
                                                 return <Table.Cell>
-                                                    <Icon name="delete"  onClick={()=>{ this.handleChange(0, item.item, item.product) }}/>
+                                                    <Icon name="delete" onClick={() => { this.handleChange(0, item.item, item.product) }} />
                                                 </Table.Cell>
                                             }
                                         })
@@ -228,15 +226,15 @@ export class Cart extends React.Component {
                         </div>
                         {/* may be you like this */}
                         <div className="sec-head clearfix">
-						<h2 className="sec-title">may be you like this</h2>
-					</div>
+                            <h2 className="sec-title">may be you like this</h2>
+                        </div>
                         <div>
                             <Slider {...settings} >
-                           { this.props.products.map(prod=>{
-                               return <div>
-                                   {this.item(prod)}
-                               </div>
-                            })}
+                                {this.props.products.map(prod => {
+                                    return <div style={{marginLeft:45,width:303}}>
+                                        {this.item(prod)}
+                                    </div>
+                                })}
                             </Slider>
                         </div>
 

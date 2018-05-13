@@ -48,7 +48,7 @@ class NewArivals extends React.Component {
       <div className="proTxt">
         <p className="re-salary"><span class="sa-new">{object.price} DK</span></p>
         <p className="desc-p">Lorem ipsum dolor sit amet, consectetur</p>
-        <a href="#" className="addCart" onClick={this.handleClick.bind(this, { prod: object, varId: { id: 1 } })}>Add To Cart</a>
+        <a href="#" className="addCart" onClick={this.handleClick.bind(this, { prod: object, varId:object.variation_set[0] })}>Add To Cart</a>
       </div>
       <a href="#" className="favorite-pro-btn"><i class="icon-heart icons" onClick={this.wishListClisk.bind(this, { object: object })}></i></a>
     </div>

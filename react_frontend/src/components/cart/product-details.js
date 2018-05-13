@@ -182,9 +182,6 @@ handleInputChange(e){
 
 
                                     </div>
-                                  
-
-
                                     <div className="bottom-slide-pro clearfix">
                                         <ul className="share-pro clearfix">
                                             <li className="sh-share"><i className="icon-share icons"></i></li>
@@ -226,7 +223,7 @@ handleInputChange(e){
 
                                                     return <div>
                                                         <input data-image="color1" type="radio" id="color1" name="color" value="color1" checked="" />
-                                                        <label for="color1" onClick={(e) => { thos.handleChange(e, { prod: { object: thos.props.product }, varId: product }) }} style={style}>
+                                                        <label for="color1" className="highlight" onClick={(e) => { thos.handleChange(e, { prod: { object: thos.props.product }, varId: product }) }} style={style}>
                                                             <span>
 
                                                             </span>
@@ -242,9 +239,6 @@ handleInputChange(e){
                                             <div className="quantity">
 
                                                 <input type="number" name="count-quat1" className="count-quat" defaultValue="1" onChange={this.handleInputChange}/>
-                                                {/* onChange={(e)=>{thos.handleChangeQuantity(e.targrt.value,1,thos.props.product.id)}} */}
-                                                {/* <div className="btn button-count inc jsQuantityIncrease"><i className="fa fa-plus" aria-hidden="true"></i></div> */}
-                                                {/* <div className="btn button-count dec jsQuantityDecrease" minimum="1"><i className="fa fa-minus" aria-hidden="true"></i></div> */}
                                             </div>
                                         </div>
                                         <div className="pdp-ro">
@@ -261,7 +255,7 @@ handleInputChange(e){
                                         </div>
                                     </div>
                                     <div className="pdp--action clearfix">
-                                        <a href="#" className="addCart"> <i className="icon-basket icons" onClick={this.handleClick.bind(this, { prod: { object: this.props.product }, varId: { id: 1 },count:this.state.value })} /></a >
+                                        <a href="#" className="addCart"> <i className="icon-basket icons" onClick={this.handleClick.bind(this, { prod: { object: this.props.product }, varId: this.props.product.variation_set[0],count:this.state.value })} /></a >
                                         <a href="#" className="favorite-pro-btn"><i className="icon-heart icons" onClick={this.wishListClisk.bind(this, { object: this.props.product })}></i></a>
                                     </div>
                                 </div>

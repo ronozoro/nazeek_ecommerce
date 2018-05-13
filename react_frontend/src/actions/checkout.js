@@ -10,14 +10,7 @@ import history from "../utils/historyUtils";
 import { AuthUrls } from '../constants/urls'
 import { getUserProfile } from '../actions/authActions'
 import { cartTypes } from "../constants/actionTypes";
-// function getUserCheckOutToken() {
-//     console.log("get");
-//     axios.get(CartUrls.checkout, {}).then(response => {
-//         console.log({get:response});        
-//         //localStorage.setItem('user_checkout_token', response.data.token)
-//     }).catch((error) => {
-//     });
-// }
+
 function setUserCheckoutToken(email) {
     console.log("set");
     var token = localStorage.getItem('token')
@@ -55,43 +48,7 @@ export function checkout() {
             console.log(response.payload.email);
             setUserCheckoutToken(response.payload.email)
         })
-        // var getcheckoutToken=getUserCheckOutToken();
-        var user_id=0, address
-        var b_id=0, s_id=0
-       
-        var userId = getuserId()
-        userId(response => {
-            console.log("id",response.id);
-            dispatch({
-                type: USER_ID,
-                id: response.id
-            })
-            
-            user_id = response.id
-        })
-
-            var getAdd = getAddress()
-            getAdd(response => {
-                console.log({ add: response });
-                address.map(add => {
-                    console.log(user_id,"jjjjjj");                    
-                    if (add.user === user_id) {
-                        if (add.type === "billing")
-                            {
-                                console.log("wq");
-                                b_id = add.id
-                            }
-                        else
-                            s_id = add.id
-                    }
-                })
-                dispatch({ 
-                    type:CHECKOUT_ADDRESS,
-                    addresses:response.addresses
-                })
-                address = response.addresses
-            })
-           
+        
         setTimeout(() => {
             history.push("/checkout")
         }, 1000);

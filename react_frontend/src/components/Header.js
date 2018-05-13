@@ -338,6 +338,8 @@ else{
 
     }
     componentWillReceiveProps(nextProps) {
+        console.log({nextPropsfomheader:nextProps});
+        
         this.setState({ count: nextProps.count, catagorys: nextProps.catagorys, })
     }
     render() {

@@ -69,7 +69,7 @@ handleProdDetails(product){
   }
   
 item(object){
-return <div className="recent-item clearfix" style={{width: 500}}>
+return <div className="recent-item clearfix" style={{width: 480,margin:'5px 5px 25px 50px'}}>
                 <Link to="/productDetails" className="recThumb">
                 <img alt="" className="img-responsive Thumb-main" src={'data:image/png;base64, ' + object.image}
                        onClick={this.handleProdDetails.bind(this,object)}/>
@@ -86,7 +86,7 @@ return <div className="recent-item clearfix" style={{width: 500}}>
 									<div className="star-rating">
                                         <span style={{width:60}}><strong class="rating">3</strong> out of 5</span>
                                     </div>
-									<a href="#" className="addCart" onClick={this.handleClick.bind(this,{prod:object,varId:{id:1}})}>Add To Cart</a>
+									<a href="#" className="addCart" onClick={this.handleClick.bind(this,{prod:object,varId:object.variation_set[0]})}>Add To Cart</a>
 									<div className="label-xs">offers</div>
 								</div>
 								<a href="#" className="favorite-pro-btn"><i className="icon-heart icons" onClick={this.wishListClisk.bind(this,{object:object})}></i></a>
@@ -131,7 +131,7 @@ return <div className="recent-item clearfix" style={{width: 500}}>
             </div>
           </div>
           <div>
-        <div className="item" >
+        <div className="item" style={styles.itm}>
                 {this.props.products[6]?this.item(this.props.products[6]):null}
                 {this.props.products[7]?this.item(this.props.products[7]):null}
             </div>
@@ -162,6 +162,9 @@ var styles= {
     position: 'absolute',
     fontSize: 17,
     fontWeight: 'bold',
+  },
+  itm:{
+
   }
 }
 

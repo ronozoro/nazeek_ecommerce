@@ -81,7 +81,7 @@ class ShopData extends Component {
                                         <div>
                                             <input data-image={product.image} name={product.title}
                                                 value={product.price} checked="" type="radio" />
-                                            <label class="highlight" onClick={(e) => { thos.handleChange(e, { prod: object, varId: product }) }} style={style}>
+                                            <label className="highlight" onClick={(e) => { thos.handleChange(e, { prod: object, varId: product }) }} style={style}>
                                                 <span>
                                                 </span>
                                             </label>
@@ -103,7 +103,7 @@ class ShopData extends Component {
                                 </li>
                                 <li>
                                     <a href="#" className="basket-btn">
-                                        <i className="icon-basket icons" onClick={this.handleClick.bind(this,{prod:object,varId:{id:1}})} />
+                                        <i className="icon-basket icons" onClick={this.handleClick.bind(this,{prod:object,varId:object.object.variation_set[0]})} />
                                     </a>
                                 </li>
 
