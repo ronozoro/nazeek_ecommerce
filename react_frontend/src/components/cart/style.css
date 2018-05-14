@@ -9,6 +9,10 @@
 .highlight:hover{
 opacity: .5;
 }
+.newaddress:hover{
+  background: #0ea392;
+  color: white,
+}
 /* Hide the images by default */
 .mySlides {
     display: none;

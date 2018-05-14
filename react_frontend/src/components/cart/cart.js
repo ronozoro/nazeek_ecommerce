@@ -82,7 +82,7 @@ export class Cart extends React.Component {
                         <div className="sec-head clearfix">
                             <h2 className="sec-title ">Shoping cart</h2>
                             <div className="col--right">
-                                <Link to="/shop" class="btn-primary-cus">Continue Shopping <i class="glyphicon glyphicon-share-alt"></i></Link>
+                                <Link to="/shop" className="btn-primary-cus">Continue Shopping <i class="glyphicon glyphicon-share-alt"></i></Link>
                             </div>
                         </div>
                         <Table

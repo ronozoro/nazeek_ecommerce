@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {Grid,GridRow,GridColumn,Icon,Loader,Dimmer} from 'semantic-ui-react'
-import {connect} from "react-redux";
-import {Input} from 'semantic-ui-react'
-import {getItemsOfCart} from '../actions/cart'
-import {fetchWishlistItemCount} from '../actions/WishlistListActions'
-import {getcatagorysitms} from '../actions/filterMenue'
-import {categoryItems} from '../actions/shopActions'
-import {getcatagorys} from '../actions/filterMenue'
-import {getProducts} from '../actions/shopActions'
+import { Link } from "react-router-dom";
+import { Grid, GridRow, GridColumn, Icon, Loader, Dimmer } from 'semantic-ui-react'
+import { connect } from "react-redux";
+import { Input } from 'semantic-ui-react'
+import { getItemsOfCart } from '../actions/cart'
+import { fetchWishlistItemCount } from '../actions/WishlistListActions'
+import { getcatagorysitms } from '../actions/filterMenue'
+import { categoryItems, getitemsbyFilter } from '../actions/shopActions'
+import { getcatagorys } from '../actions/filterMenue'
+import { getProducts } from '../actions/shopActions'
 import history from "../utils/historyUtils";
-
-// import {aftersearsh} '../actions/header'
 import { aftersearsh } from '../actions/filterMenue'
 require('jquery')
 require('./cart/style.css')
@@ -44,11 +42,6 @@ class Header extends Component {
         this.handleResize();
         window.addEventListener('resize', this.handleResize)
     }
-
-
-    //   componentWillUnmount() {
-    //     window.removeEventListener('resize', this.handleResize)
-    //   }
     openNav() {
         console.log("khgjgdf");
         var elment = document.getElementById("mySidenav")
@@ -63,41 +56,39 @@ class Header extends Component {
     closeNav() {
         console.log("khgjgdf");
         var elment = document.getElementById("mySidenav")
-       if(elment){ console.log(elment);
+        if (elment) {
+            console.log(elment);
 
-        elment.style.width = "0";
-       }
+            elment.style.width = "0";
+        }
     }
-    // renderCart() {
-    //     fetchWishlistItemCount:PropTypes.func.isRequired,
-    //     getItemsOfCart:PropTypes.func.isRequired,
-    // };
-   wishlist(){
-if(localStorage.getItem('token')==null){
-    history.push("/login")
-}   
-else{
-    history.push("/wishlist")
-}  
-   }
-   gotocart(){
-    if(localStorage.getItem('token')==null){
-        history.push("/login")
-    }   
-    else{
-        history.push("/cart")
-    } 
-   }
-     renderCart() {
+
+    wishlist() {
+        if (localStorage.getItem('token') == null) {
+            history.push("/login")
+        }
+        else {
+            history.push("/wishlist")
+        }
+    }
+    gotocart() {
+        if (localStorage.getItem('token') == null) {
+            history.push("/login")
+        }
+        else {
+            history.push("/cart")
+        }
+    }
+    renderCart() {
         return (
             <div className="col-md-3 col-sm-3">
                 <div className="clearfix">
                     <ul className="menu-purches clearfix">
-                        <li style={{fontSize: 20,color: '#13bfad'}}>
-                       <Icon   name="heart" onClick={this.wishlist.bind(this)}></Icon><span>{this.props.wishlistCount}</span>
+                        <li style={{ fontSize: 20, color: '#13bfad' }}>
+                            <Icon name="heart" onClick={this.wishlist.bind(this)}></Icon><span>{this.props.wishlistCount}</span>
                         </li>
-                        <li  style={{fontSize: 20,color: '#13bfad'}}>
-                           <Icon name="plus cart"  onClick={this.gotocart.bind(this)} ></Icon><span>{this.state.count}</span>
+                        <li style={{ fontSize: 20, color: '#13bfad' }}>
+                            <Icon name="plus cart" onClick={this.gotocart.bind(this)} ></Icon><span>{this.state.count}</span>
                         </li>
                     </ul>
                 </div>
@@ -180,59 +171,143 @@ else{
         );
 
     }
+    MenuSearchBy(item, sub) {
+        console.log(item, sub);
+        this.props.getitemsbyFilter()
 
+    }
+    renderCategory(category) {
+        let id = category.id
+        return <li className="dropdown" data-toggle="dropdown" id={index + 1} key={index} onClick={this.handleClick.bind(this, id, catagory.title)}>
+            <a style={{ color: 'white' }} > {catagory.title}</a>
+            {categoryitm.map(catitm => {
+                console.log(catagory.title.toLowerCase(), catitm);
+
+                if (catagory.title.toLowerCase() == catitm.id) {
+                    return <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        {catitm.sub.map(subitm => {
+                            return <li >
+                                <a tabindex="-1" href="/shop">{subitm}</a>
+
+                            </li>
+                        })
+                        }
+
+
+                    </ul>
+                }
+
+            })}
+
+        </li>
+    }
     //style={{position: 'absolute',top: 0,left: 11,height: 48}}
     renderHeaderBottom() {
+        var searchby = [
+            { id: 'Rooms', sub: ['All', 'Bedroom', 'Livingroom', 'Kids room', 'Kitchen', 'Bathroom', 'Dinning room'] },
+            { id: 'Brands', sub: ['All', 'M square', 'Hellooo', 'Artistic circle', 'Frills', 'Just Paint', 'New', 'Best Seller'] },
+            { id: 'Styles', sub: ['All', 'Contemporary', 'Modern', 'Classic', 'Arabic/Islamic'] },
+            { id: 'Occasions', sub: ['All', 'Eid', 'Ramadan', 'Gifts', 'mothers Day'] }
+        ]
+        var categoryitm = [
+            { id: 'outdoor ', sub: ['Duwwa/Burner', 'Tabels', 'Seating', 'Decoration', 'New', 'Best Sellers'] },
+            { id: 'furniture', sub: ['All', 'Sofas', 'Tables', 'Chairs', 'TV units', 'New', 'BestSellers'] },
+            { id: 'homedecore', sub: ['All', 'Decorative pillows', 'Throws', 'Wall arts', 'Wall accessories', 'Carpets/rugs', 'New', 'Best Seller'] },
+            { id: 'sevewhere', sub: ['Trays', 'Tables', 'Tea/Coffee', 'Boxes', 'Others', 'New', 'Best Sellers'] },
+            { id: 'outdoor ', sub: ['Duwwa/Burner', 'Tabels', 'Seating', 'Decoration', 'New', 'Best Sellers'] },
+            { id: 'offers', sub: ['shop1Name', 'shop1Name'] },
+            { id: 'newarrivals', sub: ['shop1Name', 'shop1Name'] }
+        ]
+
+
+
         console.log(this.state.windowWidth)
-        if (982 < this.state.windowWidth || this.state.windowWidth >= 1280) {
+        if (982 > this.state.windowWidth || this.state.windowWidth >= 1280) {
             return (
 
-                <div class="header-bottom">
-                <Dimmer active={this.props.catagorys===null}>
-                    <Loader/>
-                </Dimmer>
-                    <div class="container">
+                <div className="header-bottom">
 
-                        <div class="hb-right clearfix">
-                            <a href="#" class="btn-design">design your room</a>
-                            <a href="#menu" class="hamburger is-closed">
-                                <span class="hamb-top"></span>
-                                <span class="hamb-middle"></span>
-                                <span class="hamb-bottom"></span>
-                            </a>
+                    <div className="container">
+
+                        <div className="hb-right clearfix">
+                            <a href="#" className="btn-design">design your room</a>
+                            {/* <a href="#menu" className="hamburger is-closed">
+                                <span className="hamb-top"></span>
+                                <span className="hamb-middle"></span>
+                                <span className="hamb-bottom"></span>
+                            </a> */}
                         </div>
 
-                        <div class="hb-left clearfix" style={{ position: 'absolute', top: 0, left: 11, height: 48 }}>
-                            <ul class="menu-st search-by clearfix">
+                        <div className="hb-left clearfix" style={{ position: 'absolute', top: 0, left: 11, height: 48 }}>
+                            <ul className="menu-st search-by clearfix">
+
                                 <li class="dropdown">
-                                    <a href="/offers" data-toggle="dropdown"><i class="icon-magnifier icons" aria-hidden="true"></i> search by<span class="m-arrow"><i class="icon-arrow-down icons"></i></span></a>
+                                    <a href="/shop" data-toggle="dropdown"><i class="icon-magnifier icons" aria-hidden="true"></i> search by<span class="m-arrow"><i class="icon-arrow-down icons"></i></span></a>
 
+                                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                        {searchby.map(item => {
+                                            return <li class="dropdown-submenu">
+                                                <Link to="/shop" tabindex="-1" >{item.id}</Link>
+                                                <div class="dropdown-menu">
+                                                    <h3 style={{ background: '#f2f2f2' }}>{item.id}</h3>
+                                                    <ul>
+                                                        {item.sub.map(subitem => {
+                                                            return <li onClick={this.MenuSearchBy.bind(this, item.id, subitem)}><a href="#" >{subitem}</a></li>
 
+                                                        })}
+
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        })}
+
+                                    </ul>
 
                                 </li>
+
+
+
                             </ul>
-                            <ul class="menu-st main-menu clearfix">
-                                <li class="dropdown">
-                                    <a href="/offers" data-toggle="dropdown">Furniture</a>
+                            <ul className="menu-st main-menu clearfix">
 
-                                </li>
                                 {this.state.catagorys.map((catagory, index) => {
-                                    //  console.log(catagory);
+                                    console.log(catagory);
+//                                   var result=categoryitm.filter( item => item.id==catagory.title.toLowerCase())
+// console.log(result);
 
                                     let id = catagory.id
-                                    //  console.log(id);
+                                    return <li className="dropdown" data-toggle="dropdown" id={index + 1} key={index} onClick={this.handleClick.bind(this, id, catagory.title)}>
+                                        <a style={{ color: 'white' }} > {catagory.title}</a>
+                                        
+                                        {categoryitm.map(catitm => {
+                                            // console.log(catagory.title.toLowerCase(), catitm);
 
-                                    return <li class="dropdown" id={index + 1} key={index} onClick={this.handleClick.bind(this, id, catagory.title)}>
-                                        <a style={{color:'white'}} > {catagory.title}</a>
+
+
+                                            if (catagory.title.toLowerCase() == catitm.id) {
+                                                return <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                                    {catitm.sub.map(subitm => {
+                                                        return <li >
+                                                            <a tabindex="-1" href="/shop">{subitm}</a>
+
+                                                        </li>
+                                                    })
+                                                    }
+
+
+                                                </ul>
+                                            }
+
+                                        })}
 
                                     </li>
                                 })}
-                     
-                           
-                                <li class="new-m">
+
+
+                                <li className="new-m">
                                     <a href="/offers"><span>new</span> arrivals</a>
                                 </li>
-                                <li class="offers-m">
+                                <li className="offers-m">
                                     <a href="/offers"><span>offers</span></a>
                                 </li>
                             </ul>
@@ -242,20 +317,20 @@ else{
             );
         }
         else {
-            return (<div class="header-bottom">
-                <div class="container">
+            return (<div className="header-bottom">
+                <div className="container">
 
-                    <div class="hb-right clearfix" style={{ position: 'relative', left: '20%', width: '58%' }}>
-                        <a href="#" class="btn-design" style={{width: '54%'}}>design your room</a>
-                        <a href="#menu" class="hamburger is-closed">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </a>
+                    <div className="hb-right clearfix" style={{ position: 'relative', left: '20%', width: '58%' }}>
+                        <a href="#" className="btn-design" style={{ width: '54%' }}>design your room</a>
+                        {/* <a href="#menu" className="hamburger is-closed">cjnkdjcnkdjcnkdj
+                            <span className="hamb-top"></span>
+                            <span className="hamb-middle"></span>
+                            <span className="hamb-bottom"></span>
+                        </a> */}
                     </div>
                     <div>
-                        <div id="mySidenav" class="sidenav">
-                            <a href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>&times;</a>
+                        <div id="mySidenav" className="sidenav">
+                            <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                             <ul style={{ listStyleType: 'none' }}>
                                 <li onClick={this.closeNav}>
                                     <a href="/Offers" >search by</a>
@@ -276,7 +351,7 @@ else{
                                     </li>
                                 })}
 
-                                <li class="offers-m" onClick={this.closeNav}>
+                                <li className="offers-m" onClick={this.closeNav}>
                                     <a href="/offers"><span>offers</span></a>
                                 </li>
                             </ul>
@@ -294,12 +369,12 @@ else{
     }
     handleClick(id, title) {
         console.log(id)
-       
-       this.closeNav();
+
+        this.closeNav();
         this.props.categoryItems(id)
         //this.props.getcatagorysitms(id,title)
     }
-   
+
     handlechange(e, data) {
         console.log(e)
         console.log(data.value);
@@ -338,8 +413,8 @@ else{
 
     }
     componentWillReceiveProps(nextProps) {
-        console.log({nextPropsfomheader:nextProps});
-        
+        console.log({ nextPropsfomheader: nextProps });
+
         this.setState({ count: nextProps.count, catagorys: nextProps.catagorys, })
     }
     render() {
@@ -406,4 +481,4 @@ const styles = {
         borderRadius: 3, padding: '1 5 0', lineHeight: 20
     }
 }
-export default connect(mapStateToProps,{categoryItems,fetchWishlistItemCount,getItemsOfCart,getcatagorys,getcatagorysitms,getProducts,aftersearsh})(Header);
+export default connect(mapStateToProps, { getitemsbyFilter, categoryItems, fetchWishlistItemCount, getItemsOfCart, getcatagorys, getcatagorysitms, getProducts, aftersearsh })(Header);

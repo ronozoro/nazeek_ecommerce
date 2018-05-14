@@ -8,6 +8,7 @@ import { Button, Header, Modal } from 'semantic-ui-react'
 import { addAdress } from '../../actions/checkout'
 import { Input, Icon, Container, Segment, Divider, Label, Table, Form, Dropdown } from 'semantic-ui-react'
 import { Checkbox, Image, Grid } from 'semantic-ui-react'
+require('./style.css')
 export class AddAddress extends React.Component {
     constructor(props) {
         super(props)
@@ -71,11 +72,11 @@ handleSelectAreaChange(e){
         return (
           <div>
 
-               <button type="button" style={styles.btnAdd} class="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
-                        <Icon name="plus circle" /> Add New Adress
+               <button type="button" style={styles.btnAdd} className=" add-newAddress " data-backdrop="static"  data-toggle="modal" data-target="#exampleModal">
+               <i class="icon-plus icons"></i> Add New Adress
                     </button>
 
-                    <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade modal-st1 in " id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="dialog" style={{ marginTop: 250 }}>
                             <div class="modal-content">
                                 <div style={{ margin: 10 }}>
@@ -120,7 +121,7 @@ handleSelectAreaChange(e){
                                                 <label style={styles.label}>Extra directions</label><Input style={styles.input} type="text" value={this.state.directions} name="directions" onChange={this.handleChange.bind(this)} />
                                             </Grid.Column>
                                             <Grid.Column style={{ marginLeft: 160 }}>
-                                                <Button content="ADD" primary type="submit" onClick={this.handleSubmit} style={styles.btn} />
+                                                <Button content="ADD" primary type="submit" onClick={this.handleSubmit.bind(this)} data-dismiss="modal" style={styles.btn} />
                                                 <Button content="CANCEL" primary type="button" style={styles.btn} class="close" data-dismiss="modal" aria-label="Close" />
 
                                             </Grid.Column>
