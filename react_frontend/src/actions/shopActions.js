@@ -131,3 +131,18 @@ export function getsorteditems(filter) {
     };
 
 }
+
+export function getitemsbyFilter(filter) {
+    return function(dispatch){
+        // const filterItems =  axios.get(ShopUrls.CATEGORIES+'/'+filter.id+"/?format=json")
+        // filterItems.then(items=>{
+        //     console.log(items.data);
+        //      //dispatch(setProducts(items.data.product_set))
+        //      //history.push('/shop')
+        // }).catch(error=>{
+        // console.log(error);
+
+        // })
+    }
+
+}

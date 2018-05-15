@@ -143,7 +143,7 @@ export class Checkout extends React.Component {
                                             }}>
                                             <p style={{display:'inline-block',width:275}}><Icon name='marker' style={styles.icon} />
                                             {item.city} {item.street}</p>
-                                            <div><Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
+                                            <div style={{display:'inline-block'}}><Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeShipping(data.checked, item) }} />
 </div>
                                         </Table.Cell>
                                         <Table.Cell collapsing
@@ -183,7 +183,7 @@ export class Checkout extends React.Component {
                                            <p style={{display:'inline-block',width:275}}> <Icon name='marker' style={styles.icon} />
                                             {item.city}
                                             {item.street}</p>
-                                            <div><Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} /></div>
+                                            <div style={{display:'inline-block'}}><Checkbox style={styles.checkbox} onChange={(e, data) => { this.handleChangeBilling(data.checked, item) }} /></div>
                                         </Table.Cell>
                                         <Table.Cell collapsing
                                             style={{
@@ -198,7 +198,8 @@ export class Checkout extends React.Component {
                             }
                         </Table.Body>
                     </Table>
-                    <button type="button" style={styles.btnAdd} className="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+                    <AddAddress/>
+                    {/* <button type="button" style={styles.btnAdd} className="btn btn-info btn-lg" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
                         <Icon name="plus circle" /> Add New Adress
                     </button>
 
@@ -257,7 +258,7 @@ export class Checkout extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div style={this.state.open?{display:'block'}:{display:'none'}}>
                       <AddAddress/>
                     </div> */}
