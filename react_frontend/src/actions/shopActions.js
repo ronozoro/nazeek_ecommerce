@@ -31,7 +31,7 @@ function setCategories(payload) {
 export function getCategories() {
     return function (dispatch) {
         axios.get(ShopUrls.CATEGORIES, {}).then(response => {
-            dispatch(setCategories(response.data))
+            dispatch(setCategories(response.data.results))
         }).catch((error) => {
         });
     };

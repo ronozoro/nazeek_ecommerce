@@ -23,7 +23,6 @@ export class Cart extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         console.log({ nextPropsCart: nextProps });
-
         this.setState({ cartItems: nextProps.cart })
     }
     handlClick() {

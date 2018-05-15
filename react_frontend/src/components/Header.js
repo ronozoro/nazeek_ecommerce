@@ -6,9 +6,10 @@ import { connect } from "react-redux";
 import { Input } from 'semantic-ui-react'
 import { getItemsOfCart } from '../actions/cart'
 import { fetchWishlistItemCount } from '../actions/WishlistListActions'
-import { getcatagorysitms } from '../actions/filterMenue'
+//import { getcatagorysitms } from '../actions/filterMenue'
 import { categoryItems, getitemsbyFilter } from '../actions/shopActions'
-import { getcatagorys } from '../actions/filterMenue'
+//import { getcatagorys } from '../actions/filterMenue'
+import { getCategories } from "../actions/shopActions";
 import { getProducts } from '../actions/shopActions'
 import history from "../utils/historyUtils";
 import { aftersearsh } from '../actions/filterMenue'
@@ -176,31 +177,7 @@ class Header extends Component {
         this.props.getitemsbyFilter()
 
     }
-    renderCategory(category) {
-        let id = category.id
-        return <li className="dropdown" data-toggle="dropdown" id={index + 1} key={index} onClick={this.handleClick.bind(this, id, catagory.title)}>
-            <a style={{ color: 'white' }} > {catagory.title}</a>
-            {categoryitm.map(catitm => {
-                console.log(catagory.title.toLowerCase(), catitm);
-
-                if (catagory.title.toLowerCase() == catitm.id) {
-                    return <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        {catitm.sub.map(subitm => {
-                            return <li >
-                                <a tabindex="-1" href="/shop">{subitm}</a>
-
-                            </li>
-                        })
-                        }
-
-
-                    </ul>
-                }
-
-            })}
-
-        </li>
-    }
+   
     //style={{position: 'absolute',top: 0,left: 11,height: 48}}
     renderHeaderBottom() {
         var searchby = [
@@ -210,17 +187,17 @@ class Header extends Component {
             { id: 'Occasions', sub: ['All', 'Eid', 'Ramadan', 'Gifts', 'mothers Day'] }
         ]
         var categoryitm = [
-            { id: 'outdoor ', sub: ['Duwwa/Burner', 'Tabels', 'Seating', 'Decoration', 'New', 'Best Sellers'] },
             { id: 'furniture', sub: ['All', 'Sofas', 'Tables', 'Chairs', 'TV units', 'New', 'BestSellers'] },
             { id: 'homedecore', sub: ['All', 'Decorative pillows', 'Throws', 'Wall arts', 'Wall accessories', 'Carpets/rugs', 'New', 'Best Seller'] },
             { id: 'sevewhere', sub: ['Trays', 'Tables', 'Tea/Coffee', 'Boxes', 'Others', 'New', 'Best Sellers'] },
-            { id: 'outdoor ', sub: ['Duwwa/Burner', 'Tabels', 'Seating', 'Decoration', 'New', 'Best Sellers'] },
             { id: 'offers', sub: ['shop1Name', 'shop1Name'] },
-            { id: 'newarrivals', sub: ['shop1Name', 'shop1Name'] }
+            { id: 'newarrivals', sub: ['shop1Name', 'shop1Name'] },
+            { id: 'outdoor', sub: ['Duwwa/Burner', 'Tabels', 'Seating', 'Decoration', 'New', 'Best Sellers'] },
+
         ]
 
 
-
+var thos=this
         console.log(this.state.windowWidth)
         if (982 > this.state.windowWidth || this.state.windowWidth >= 1280) {
             return (
@@ -270,24 +247,19 @@ class Header extends Component {
                             </ul>
                             <ul className="menu-st main-menu clearfix">
 
-                                {this.state.catagorys.map((catagory, index) => {
-                                    console.log(catagory);
-//                                   var result=categoryitm.filter( item => item.id==catagory.title.toLowerCase())
-// console.log(result);
-
+                                {thos.state.catagorys.map((catagory, index) => {
+                                    // console.log(catagory);
                                     let id = catagory.id
                                     return <li className="dropdown" data-toggle="dropdown" id={index + 1} key={index} onClick={this.handleClick.bind(this, id, catagory.title)}>
                                         <a style={{ color: 'white' }} > {catagory.title}</a>
                                         
                                         {categoryitm.map(catitm => {
-                                            // console.log(catagory.title.toLowerCase(), catitm);
-
-
-
-                                            if (catagory.title.toLowerCase() == catitm.id) {
+                                            if (catagory.title.toLowerCase() === catitm.id) {
+                                                console.log('equal',catagory.title.toLowerCase(), catitm.id);
+                                                
                                                 return <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                                                     {catitm.sub.map(subitm => {
-                                                        return <li >
+                                                        return <li onClick={this.MenuSearchBy.bind(this, catagory, subitm)}>
                                                             <a tabindex="-1" href="/shop">{subitm}</a>
 
                                                         </li>
@@ -408,13 +380,12 @@ class Header extends Component {
 
         this.props.fetchWishlistItemCount()
         this.props.getItemsOfCart()
-        this.props.getcatagorys();
+        this.props.getCategories();
         this.props.getProducts()
 
     }
     componentWillReceiveProps(nextProps) {
         console.log({ nextPropsfomheader: nextProps });
-
         this.setState({ count: nextProps.count, catagorys: nextProps.catagorys, })
     }
     render() {
@@ -438,7 +409,7 @@ function mapStateToProps(state) {
         authenticated: state.auth.authenticated,
         count: state.cart.count,
         wishlistCount: state.wishList.count,
-        catagorys: state.filterMenu.catagorys,
+        catagorys: state.shop.categories,
         products: state.shop.products
     }
 }
@@ -481,4 +452,4 @@ const styles = {
         borderRadius: 3, padding: '1 5 0', lineHeight: 20
     }
 }
-export default connect(mapStateToProps, { getitemsbyFilter, categoryItems, fetchWishlistItemCount, getItemsOfCart, getcatagorys, getcatagorysitms, getProducts, aftersearsh })(Header);
+export default connect(mapStateToProps, { getitemsbyFilter, categoryItems, fetchWishlistItemCount, getItemsOfCart, getCategories, getProducts, aftersearsh })(Header);
