@@ -45,6 +45,9 @@ import setProducts from './shopActions'
             const data=[{image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"},
             {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK"}]
                dispatch(set(data))
           });
