@@ -33,6 +33,7 @@ import Home from '../components/home'
 import products from '../components/products'
 import Contact from '../components/contact'
 import Payment from '../components/payment'
+import MyTemplate from '../pages/print'
 const MainContent = () => (
     <div >
         <Switch>
@@ -41,7 +42,7 @@ const MainContent = () => (
             <Route path="/home" component={Home}/>
             <Route path="/contact" component={Contact}/>
             <Route path="/payment" component={Payment}/>
-
+             <Route path="/MyTemplate" component={MyTemplate}/>
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={Signup}/>
             <Route path="/shop" component={Shop}/>

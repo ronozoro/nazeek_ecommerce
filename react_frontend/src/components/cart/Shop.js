@@ -7,8 +7,8 @@ import { getProdDetails ,getsorteditems} from '../../actions/shopActions';
 import { setToCart } from '../../actions/cart'
 import { getItemsOfCart } from '../../actions/cart'
 import {addToWishList} from '../../actions/WishlistListActions'
-import { Container, Divider, Table, Rating, Header } from 'semantic-ui-react'
-import { Button, Checkbox, Icon, Grid ,Dimmer,Loader} from 'semantic-ui-react'
+import { Container, Divider, Table, Rating, Header ,Pagination} from 'semantic-ui-react'
+import { Button, Checkbox,Menu,Item, Icon, Grid ,Dimmer,Loader} from 'semantic-ui-react'
 import Filtermenue from '../filtermenue'
 
 class ShopData extends Component {
@@ -17,9 +17,17 @@ class ShopData extends Component {
         this.state={
             rating:0,
             maxRating:0,
-            products:props.products
+            products:props.products,
+            currentPage: 1,
+            itemsPerPage: 3,
+            currentitems:[],
+            firstItem:0,
+            lastItem:null
         }
-        this.change=this.change.bind(this)
+        this.change=this.change.bind(this),
+        this.nextPage=this.nextPage.bind(this),
+        this.prevPage=this.prevPage.bind(this),
+        this.handleClick=this.handleClick.bind(this)
     }
     static propTypes = {
         getProducts: PropTypes.func.isRequired,
@@ -30,11 +38,13 @@ class ShopData extends Component {
 
     componentDidMount() {
         this.props.getProducts();
+       
+
 
     }
   
  
-    handleClick(product) {
+    handleClick1(product) {
         // console.log(product);
         
         this.props.setToCart(product)
@@ -45,6 +55,23 @@ class ShopData extends Component {
 
 
     }
+    handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+      nextPage(){
+        var items = this.state.products.slice(firstItem, this.state.itemsPerPage)
+        this.setState({currentPage:this.state.currentPage+1,currentitems:items})
+        console.log(this.state.currentPage);
+        
+      }
+      prevPage(){
+        this.setState({currentPage:this.state.currentPage-1})
+        console.log(this.state.currentPage);
+        
+    
+      }
   
 
     wishListClisk(product){
@@ -58,6 +85,12 @@ class ShopData extends Component {
     }
     componentWillReceiveProps(nextPros){
       this.setState({products:nextPros.products})
+      if(this.state.products){
+        var items = this.state.products.slice(firstItem, this.state.itemsPerPage)
+        this.setState({currentitems:items,firstItem:this.state.itemsPerPage})
+        console.log(this.state.currentitems);
+        
+        }
     }
     renderProducts(object) {
         var thos = this
@@ -103,7 +136,7 @@ class ShopData extends Component {
                                 </li>
                                 <li>
                                     <a href="#" className="basket-btn">
-                                        <i className="icon-basket icons" onClick={this.handleClick.bind(this,{prod:object,varId:object.object.variation_set[0]})} />
+                                        <i className="icon-basket icons" onClick={this.handleClick1.bind(this,{prod:object,varId:object.object.variation_set[0]})} />
                                     </a>
                                 </li>
 
@@ -153,6 +186,22 @@ class ShopData extends Component {
 
     renderShop() {
         const products = this.state.products;
+        const current=this.state.currentitems;
+
+        const { data,currentPage,itemsPerPage,filteredDataList } = this.state;
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(products.length / itemsPerPage); i++) {
+          pageNumbers.push(i);
+        }
+        const renderPageNumbers = pageNumbers.map(number => {
+              return (
+                <Menu.Item as='a'
+                  key={number}
+                  id={number}
+                  onClick={this.handleClick}>{number}</Menu.Item>       
+              );
+            });
         if (products) {
             return (
                 <div className="container">
@@ -163,15 +212,23 @@ class ShopData extends Component {
                         <div className="col-lg-9 col-md-8">
                             {this.renderSortBy()}
                             <div className="sec-warpper">
-                                <p className="p-results">{products.length} Results</p>
+                                <p className="p-results">{current.length} Results</p>
                                 <div className="product-result-list">
                                     <div className="row">
-                                        {products.map((object, i) => this.renderProducts({ object }))}
+                                        {current.map((object, i) => this.renderProducts({ object }))}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <Menu floated='right'  pagination>
+            <Menu.Item as='a' onClick={this. prevPage} icon>
+              <Icon name='chevron left' />
+            </Menu.Item>
+               {renderPageNumbers}           
+            <Menu.Item as='a' icon>
+              <Icon name='chevron right' onClick={this.nextPage} />
+            </Menu.Item>
+          </Menu>
                     </div>
                 </div>
             )
@@ -179,6 +236,7 @@ class ShopData extends Component {
     }
 
     render() {
+       
         //  localStorage.clear('cart_token')
         if(!this.props.products){
           return  <Dimmer >
@@ -190,7 +248,15 @@ class ShopData extends Component {
             <div>
                
                 {this.renderShop()}
-
+                {/* <Pagination
+    defaultActivePage={1}
+    firstItem={this.props.products[0]}
+    lastItem={this.props.products[3]}
+    pointing
+    secondary
+    totalPages={this.props.products.length/2}
+  /> */}
+    
             </div>
         );
     }

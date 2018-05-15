@@ -18,6 +18,39 @@ export function getProducts() {
             dispatch(setProducts(response.data))
         }).catch((error) => {
             console.log(error);
+            const data=[{image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:1},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:2},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:3},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:4},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:5},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:6},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:1},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:2},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:3},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:4},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:5},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:6},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:1},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:2},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:3},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:4},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:5},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:6},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:1},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:2},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:3},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:4},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:5},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:6},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:1},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:2},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:3},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:4},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:5},
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:6},
+           
+            {image:'https://image.shutterstock.com/image-photo/gray-color-armchair-small-chair-260nw-582285019.jpg',title:"Item Name",Shop_Name:"Shop Name",price:"345 DK",variation_set:[],ID:7}]
+            dispatch(setProducts(data))
             
         });
     };
