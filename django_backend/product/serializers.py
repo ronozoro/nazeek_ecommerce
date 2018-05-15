@@ -3,7 +3,7 @@ import base64
 from django.core.files import File
 from rest_framework import serializers
 
-from .models import Category, Product, ProductImage, Variation
+from .models import Category, Product, ProductImage, Variation,ProductBrand,ProductSeller
 
 
 class VariationSerializer(serializers.ModelSerializer):
@@ -145,17 +145,17 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = ProductBrand
         fields = [
-            "url",
+            "title",
             "id",
         ]
 
 
 class SellerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = ProductSeller
         fields = [
-            "url",
+            "title",
             "id",
         ]
