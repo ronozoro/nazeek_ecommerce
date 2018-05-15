@@ -25,8 +25,8 @@ class ShopData extends Component {
             lastItem:null
         }
         this.change=this.change.bind(this),
-        this.nextPage=this.nextPage.bind(this),
-        this.prevPage=this.prevPage.bind(this),
+        // this.nextPage=this.nextPage.bind(this),
+        // this.prevPage=this.prevPage.bind(this),
         this.handleClick=this.handleClick.bind(this)
     }
     static propTypes = {
@@ -38,9 +38,6 @@ class ShopData extends Component {
 
     componentDidMount() {
         this.props.getProducts();
-       
-
-
     }
   
  
@@ -60,37 +57,34 @@ class ShopData extends Component {
           currentPage: Number(event.target.id)
         });
       }
-      nextPage(){
-        var items = this.state.products.slice(firstItem, this.state.itemsPerPage)
-        this.setState({currentPage:this.state.currentPage+1,currentitems:items})
-        console.log(this.state.currentPage);
+    //   nextPage(){
+    //     var items = this.state.products.slice(this.state.firstItem, this.state.itemsPerPage)
+    //     this.setState({currentPage:this.state.currentPage+1,currentitems:items})
+    //     console.log(this.state.currentPage);
         
-      }
-      prevPage(){
-        this.setState({currentPage:this.state.currentPage-1})
-        console.log(this.state.currentPage);
+    //   }
+    //   prevPage(){
+    //     this.setState({currentPage:this.state.currentPage-1})
+    //     console.log(this.state.currentPage);
         
     
-      }
+    //   }
   
 
-    wishListClisk(product){
-        // console.log(product);
-        
+    wishListClisk(product){        
      this.props.addToWishList(product)
     }
     handleProdDetails(product){
-    //   console.log(product);
       this.props.getProdDetails(product.object)
     }
     componentWillReceiveProps(nextPros){
       this.setState({products:nextPros.products})
-      if(this.state.products){
-        var items = this.state.products.slice(firstItem, this.state.itemsPerPage)
-        this.setState({currentitems:items,firstItem:this.state.itemsPerPage})
-        console.log(this.state.currentitems);
+    //   if(this.state.products){
+    //     var items = this.state.products.slice(this.state.firstItem, this.state.itemsPerPage)
+    //     this.setState({currentitems:items,firstItem:this.state.itemsPerPage})
+    //     console.log(this.state.currentitems);
         
-        }
+    //     }
     }
     renderProducts(object) {
         var thos = this
@@ -186,6 +180,8 @@ class ShopData extends Component {
 
     renderShop() {
         const products = this.state.products;
+        console.log(products);
+        
         const current=this.state.currentitems;
 
         const { data,currentPage,itemsPerPage,filteredDataList } = this.state;
@@ -212,15 +208,15 @@ class ShopData extends Component {
                         <div className="col-lg-9 col-md-8">
                             {this.renderSortBy()}
                             <div className="sec-warpper">
-                                <p className="p-results">{current.length} Results</p>
+                                <p className="p-results">{products.length} Results</p>
                                 <div className="product-result-list">
                                     <div className="row">
-                                        {current.map((object, i) => this.renderProducts({ object }))}
+                                        {products.map((object, i) => this.renderProducts({ object }))}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <Menu floated='right'  pagination>
+                        {/* <Menu floated='right'  pagination>
             <Menu.Item as='a' onClick={this. prevPage} icon>
               <Icon name='chevron left' />
             </Menu.Item>
@@ -228,7 +224,7 @@ class ShopData extends Component {
             <Menu.Item as='a' icon>
               <Icon name='chevron right' onClick={this.nextPage} />
             </Menu.Item>
-          </Menu>
+          </Menu> */}
                     </div>
                 </div>
             )

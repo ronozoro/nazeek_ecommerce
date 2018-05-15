@@ -131,6 +131,49 @@ export function getsorteditems(filter) {
     };
 
 }
+export function getitemsbysellers(filter) {
+    let url=ShopUrls.ORDER
+    return function (dispatch) {
+        axios.get(url, {}).then(response => {
+            console.log(response.data)
+            var newProduct=[]
+            response.data.map(prod=>{
+                filter.map(sellerId=>{
+                    if(prod.seller_id==sellerId){
+                   newProduct.push(prod)
+                    }
+                })
+            })
+            dispatch(setProducts(newProduct))
+                       
+        }).catch((error) => {
+           alert(error)
+        });
+    };
+
+}
+export function getitemsbybrands(filter) {
+    console.log(filter);
+    
+    let url=ShopUrls.ORDER
+    return function (dispatch) {
+        axios.get(url, {}).then(response => {
+            console.log(response.data)
+            var newProduct=[]
+            response.data.map(prod=>{
+                filter.map(brandId=>{
+                    if(prod.brand_id==brandId){
+                   newProduct.push(prod)
+                    }
+                })
+            })
+            dispatch(setProducts(newProduct))            
+        }).catch((error) => {
+           alert(error)
+        });
+    };
+
+}
 
 export function getitemsbyFilter(filter) {
     return function(dispatch){

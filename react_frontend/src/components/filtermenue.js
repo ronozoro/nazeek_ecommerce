@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Checkbox} from'semantic-ui-react'
-import {getBrands,getSellers,getsorteditems} from '../actions/shopActions'
+import {getBrands,getSellers,getitemsbybrands,getitemsbysellers} from '../actions/shopActions'
 import {Rating, Menu,Header, MenuItem, Icon, Sidebar, Segment, Dimmer, Loader,Dropdown,Table,TableBody,TableCell } from 'semantic-ui-react'
 import $ from 'jquery'
 class Filtermenue extends React.Component {
       constructor(props){
         super(props);
         this.state={
+            sellerCheck:[],
+            brandChek:[]
         }
-        this.handleCheck=this.handleCheck.bind(this)
+        this.handleCheckbrands=this.handleCheckbrands.bind(this)
+        this.handleCheckSellers=this.handleCheckSellers.bind(this)
       }
         static propTypes = {
         };
@@ -23,9 +26,26 @@ class Filtermenue extends React.Component {
         componentWillReceiveProps(nextProps){
 
         }
-        handleCheck(e,data){
+        handleCheckSellers(e,data){
             console.log(data);
-            this.props.getsorteditems('price')
+            if(data.checked==true){
+                this.setState({sellerCheck:this.state.sellerCheck.concat(data.value)})
+            }
+            setTimeout(() => {
+                this.props.getitemsbysellers(this.state.sellerCheck)
+
+            }, 200);
+        }
+        handleCheckbrands(e,data){
+            console.log(data);
+            if(data.checked==true)
+               {
+                   this.setState({brandChek:this.state.brandChek.concat(data.value)})
+                   
+                }
+                setTimeout(() => {
+                    this.props.getitemsbybrands(this.state.brandChek)
+                   }, 200);
         }
         render(){
               return <div> 
@@ -34,20 +54,20 @@ class Filtermenue extends React.Component {
               <div class="filter-block-content">
                   <div class="filter-block">
                       <h3 style={styles.h3}>sellers</h3>
-                        {this.props.products.map(seller=>{
+                        {this.props.sellers.map(seller=>{
                             
                             return  <div className="ui_checkbox">
                             {/* <input type="checkbox"  value={seller.seller_name}  onClick={this.handleCheck} />
                             <label>Chair</label> */}
-                            <Checkbox label={seller.seller_name} value={seller.seller_name} onClick={this.handleCheck}/>
+                            <Checkbox label={seller.title} value={seller.id} onClick={this.handleCheckSellers}/>
                         </div>
                         })
                     }
 
                      <h3  style={styles.h3} class="f-title-sm">brands</h3>
-                        {this.props.products.map(brand=>{
+                        {this.props.brands.map(brand=>{
                             return  <div class="ui_checkbox">
-                            <Checkbox  label={brand.brand_name}  value={brand.brand_name}  onClick={this.handleCheck}/>
+                            <Checkbox  label={brand.title}  value={brand.id}  onClick={this.handleCheckbrands}/>
                         </div>
                         })
                     }
@@ -66,8 +86,8 @@ class Filtermenue extends React.Component {
       }
 const mapStateToProps =(state,props)=>{
     return {
-        brands:[{brand_name:'test'}],
-        sellers:[{seller_name:'brand'}],
+        brands:state.shop.brands,
+        sellers:state.shop.sellers,
         // state.shop.brands||
         products:state.shop.products
     }
@@ -82,4 +102,4 @@ var styles={
         padding: 5
     }
 }
-      export default connect(mapStateToProps,{getBrands,getSellers,getsorteditems})(Filtermenue);
+      export default connect(mapStateToProps,{getBrands,getSellers,getitemsbybrands,getitemsbysellers})(Filtermenue);

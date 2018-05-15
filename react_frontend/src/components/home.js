@@ -11,6 +11,7 @@ import Products from './products'
 import { getProducts } from "../actions/shopActions";
 import Test from './testSlider'
 import NewArivals from '../pages/newarrivals'
+import Slider from 'react-slick'
 import { Menu, MenuItem, Divider, Sidebar, Segment, Image, Loader, Grid, GridColumn, GridRow, Button, Dropdown } from 'semantic-ui-react'
 var slideIndex = 1;
 class Home extends React.Component {
@@ -40,22 +41,92 @@ class Home extends React.Component {
       speed: 500,
       slidesToShow: 2,
       slidesToScroll: 1
-    };
+	};
+	var homesettings={
+		dots:false,
+		arrows:true,
+		infinite: true,
+		autoplay:true,
+		slickNext:<button>next</button>,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+	}
 		return (
 			<div>
-				<div>	<Slide
+				<div>	
+					<Slider {... homesettings}>
+					<div>
+					<div className="item">
+					<div className="item-slide" style={{backgroundImage: `url('../../src/styles/images/img-slide.jpg')`}}>
+						<div className="container">
+							<div className="row">
+								<div className="col-md-6 col-sm-8 margin-auto">
+									<div className="slide-txt to-animate fadeInUp animated" data-wow-duration="1s" data-wow-delay="0.2s">
+										<h2>Lorem ipsum dolor sit amet, 
+										consectetur adipisicing elit, sed do</h2>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+										<a href="#" className="btn-link">Start Here <i className="icon-action-redo icons"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+					<div>
+					<div className="item">
+					<div className="item-slide" style={{backgroundImage: `url('../../src/styles/images/img-slide.jpg')`}}>
+						<div className="container">
+							<div className="row">
+								<div className="col-md-6 col-sm-8 margin-auto">
+									<div className="slide-txt to-animate fadeInUp animated" data-wow-duration="1s" data-wow-delay="0.2s">
+										<h2>Lorem ipsum dolor sit amet, 
+										consectetur adipisicing elit, sed do</h2>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+										<a href="#" className="btn-link">Start Here <i className="icon-action-redo icons"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+
+
+	<div>
+					<div className="item">
+					<div className="item-slide" style={{backgroundImage: `url('../../src/styles/images/img-slide.jpg')`}}>
+						<div className="container">
+							<div className="row">
+								<div className="col-md-6 col-sm-8 margin-auto">
+									<div className="slide-txt to-animate fadeInUp animated" data-wow-duration="1s" data-wow-delay="0.2s">
+										<h2>Lorem ipsum dolor sit amet, 
+										consectetur adipisicing elit, sed do</h2>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+										<a href="#" className="btn-link">Start Here <i className="icon-action-redo icons"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+					</Slider>
+				{/* <Slide
 					images={images}
 					duration={5000}
 					transitionDuration={1000}
-				/></div>
+				/> */}
+				</div>
 				<br />
 				<div >
 					{/* <Grid columns={2}> */}
 						
 						{/* <Grid.Column width={10}> */}
-							{/* <div class="sec-head clearfix">
-								<h2 class="sec-title f-left">new arrivals</h2>
-								<a href="#" class="more-page f-right">more <i class="icon-arrow-right icons"></i></a>
+							{/* <div className="sec-head clearfix">
+								<h2 className="sec-title f-left">new arrivals</h2>
+								<a href="#" className="more-page f-right">more <i className="icon-arrow-right icons"></i></a>
 							</div> */}
 							<NewArivals/>
 							
@@ -63,14 +134,14 @@ class Home extends React.Component {
 
 					{/* </Grid> */}
 				</div>
-				<div class="recent" style={{
+				<div className="recent" style={{
 			position: 'relative',
 			padding: '80px 0px 70px',
 			backgroundAttachment: 'fixed',
 			backgroundSize: 'cover',
 			backgroundPosition: 'center'}}>
-					<div class="sec-head clearfix" style={{display:'table',margin:'auto'}}>
-						<h2 class="sec-title">RECENT VIEW</h2>
+					<div className="sec-head clearfix" style={{display:'table',margin:'auto'}}>
+						<h2 className="sec-title">RECENT VIEW</h2>
 
 					</div>
                            
@@ -78,19 +149,19 @@ class Home extends React.Component {
 
 				</div>
 <div>
-<section class="section-subscribe">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-5 col-sm-6">
-						<div class="scribe-txt">
+<section className="section-subscribe">
+			<div className="container">
+				<div className="row">
+					<div className="col-md-5 col-sm-6">
+						<div className="scribe-txt">
 							<img src="images/email.png" alt=""/>
 							<p>Subscrib For Mailing List</p>
 						</div>
 					</div>
-					<div class="col-md-offset-2 col-md-5 col-sm-6" style={{marginLeft:163}}>
-						<form class="scribe-form" action="#">
-							<input type="email" class="form-control" placeholder="Enter Your Mail"/>
-							<button type="submit" class="btn btn-scribe"><i class="icon-paper-plane icons"></i></button>
+					<div className="col-md-offset-2 col-md-5 col-sm-6" style={{marginLeft:163}}>
+						<form className="scribe-form" action="#">
+							<input type="email" className="form-control" placeholder="Enter Your Mail"/>
+							<button type="submit" className="btn btn-scribe"><i className="icon-paper-plane icons"></i></button>
 						</form>
 					</div>
 				</div>

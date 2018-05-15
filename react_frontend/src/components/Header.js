@@ -174,7 +174,7 @@ class Header extends Component {
     }
     MenuSearchBy(item, sub) {
         console.log(item, sub);
-        this.props.getitemsbyFilter()
+        //this.props.getitemsbyFilter()
 
     }
    
@@ -191,11 +191,12 @@ class Header extends Component {
             { id: 'homedecore', sub: ['All', 'Decorative pillows', 'Throws', 'Wall arts', 'Wall accessories', 'Carpets/rugs', 'New', 'Best Seller'] },
             { id: 'sevewhere', sub: ['Trays', 'Tables', 'Tea/Coffee', 'Boxes', 'Others', 'New', 'Best Sellers'] },
             { id: 'offers', sub: ['shop1Name', 'shop1Name'] },
-            { id: 'newarrivals', sub: ['shop1Name', 'shop1Name'] },
+            
             { id: 'outdoor', sub: ['Duwwa/Burner', 'Tabels', 'Seating', 'Decoration', 'New', 'Best Sellers'] },
 
         ]
-
+var newarrivals=[{ id: 'newarrivals', sub: ['shop1Name', 'shop1Name'] }]
+var offers=[{ id: 'offers', sub: ['shop1Name', 'shop1Name'] },]
 
 var thos=this
         console.log(this.state.windowWidth)
@@ -208,11 +209,7 @@ var thos=this
 
                         <div className="hb-right clearfix">
                             <a href="#" className="btn-design">design your room</a>
-                            {/* <a href="#menu" className="hamburger is-closed">
-                                <span className="hamb-top"></span>
-                                <span className="hamb-middle"></span>
-                                <span className="hamb-bottom"></span>
-                            </a> */}
+                         
                         </div>
 
                         <div className="hb-left clearfix" style={{ position: 'absolute', top: 0, left: 11, height: 48 }}>
@@ -259,8 +256,8 @@ var thos=this
                                                 
                                                 return <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                                                     {catitm.sub.map(subitm => {
-                                                        return <li onClick={this.MenuSearchBy.bind(this, catagory, subitm)}>
-                                                            <a tabindex="-1" href="/shop">{subitm}</a>
+                                                        return <li onClick={this.MenuSearchBy.bind(this, catagory.title, subitm)}>
+                                                          <a href=""> {subitm}</a>
 
                                                         </li>
                                                     })
@@ -276,11 +273,39 @@ var thos=this
                                 })}
 
 
-                                <li className="new-m">
-                                    <a href="/offers"><span>new</span> arrivals</a>
+                                <li className=" dropdown new-m" data-toggle="dropdown">
+                                    <a href="#"><span>new</span> arrivals</a>
+                                    {newarrivals.map(catitm => {
+                                                return <ul className="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                                    {catitm.sub.map(subitm => {
+                                                        console.log("mmmmmm");
+                                                        
+                                                        return <li onClick={this.MenuSearchBy.bind(this, catitm.id, subitm)}>
+                                                            <a tabindex="-1" href="/shop">{subitm}</a>
+                                                        </li>
+                                                    })
+                                                    }
+                                                </ul>
+                                            }
+                                        )}
+
+                                       
                                 </li>
-                                <li className="offers-m">
-                                    <a href="/offers"><span>offers</span></a>
+                                <li className="dropdown  offers-m" data-toggle="dropdown">
+                                    <a href=""><span>offers</span></a>
+                                    {offers.map(catitm => {
+                                           
+                                                return <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                                    {catitm.sub.map(subitm => {
+                                                        return <li onClick={this.MenuSearchBy.bind(this, catitm.id, subitm)}>
+                                                            <a tabindex="-1" href="/shop">{subitm}</a>
+                                                        </li>
+                                                    })
+                                                    }
+                                                </ul>
+                                            
+
+                                        })}
                                 </li>
                             </ul>
                         </div>
@@ -294,11 +319,7 @@ var thos=this
 
                     <div className="hb-right clearfix" style={{ position: 'relative', left: '20%', width: '58%' }}>
                         <a href="#" className="btn-design" style={{ width: '54%' }}>design your room</a>
-                        {/* <a href="#menu" className="hamburger is-closed">cjnkdjcnkdjcnkdj
-                            <span className="hamb-top"></span>
-                            <span className="hamb-middle"></span>
-                            <span className="hamb-bottom"></span>
-                        </a> */}
+                       
                     </div>
                     <div>
                         <div id="mySidenav" className="sidenav">
@@ -341,8 +362,10 @@ var thos=this
     }
     handleClick(id, title) {
         console.log(id)
-
+        var elment = document.getElementById("mySidenav")
+        if (elment) {
         this.closeNav();
+        }
         this.props.categoryItems(id)
         //this.props.getcatagorysitms(id,title)
     }

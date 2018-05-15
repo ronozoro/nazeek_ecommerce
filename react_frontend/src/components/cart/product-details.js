@@ -8,7 +8,7 @@ import { changeQuantity } from "../../actions/cart";
 import { addToWishList } from '../../actions/WishlistListActions'
 import Reviews from './reviewForm'
 import { Container, Divider, Table, Rating, Header, Tab } from 'semantic-ui-react'
-import { Button, Checkbox, Icon, Grid,Dimmer,Loader } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Grid, Dimmer, Loader } from 'semantic-ui-react'
 import $ from 'jquery'
 import Slider from 'react-slick'
 // import ZoomableImage from 'react-zoomable-image';
@@ -19,9 +19,13 @@ class ProductDetails extends Component {
         super(props);
         this.state = {
             product: {},
-            value:1
+            value: 1,
+
+            nav1: null,
+            nav2: null
+
         }
-        this.handleInputChange=this.handleInputChange.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
     }
     static propTypes = {
         setToCart: PropTypes.func.isRequired
@@ -31,6 +35,10 @@ class ProductDetails extends Component {
     }
     componentDidMount() {
         this.props.getReviewForProduct(this.props.product.id)
+        this.setState({
+            nav1: this.slider1,
+            nav2: this.slider2
+        });
     }
     handleClick(product) {
         console.log(product);
@@ -50,11 +58,11 @@ class ProductDetails extends Component {
     // handleChangeQuantity(quantity, id, prodId) {
     //     this.props.changeQuantity({ quantity: quantity, id: id, prodId: prodId })
     // }
-handleInputChange(e){
-    console.log(e.target.value);
-    
-    this.setState({value:e.target.value})
-}
+    handleInputChange(e) {
+        console.log(e.target.value);
+
+        this.setState({ value: e.target.value })
+    }
     render() {
         //  localStorage.clear('cart_token')
         // responsive: [
@@ -72,7 +80,7 @@ handleInputChange(e){
         //     }
         //   ]
         var settings = {
-            dots:true,
+            dots: true,
             slidesToShow: 3,
             slidesToScroll: 1,
             arrows: true,
@@ -83,10 +91,15 @@ handleInputChange(e){
             slidesToScroll: 1,
             vertical: true,
             dots: true,
-            arrows:false,
+            dotsClass: "slick-dots slick-thumb",
+
+            arrows: false,
             infinite: true,
             speed: 500,
-           
+            autoplay: false,
+            swipeToSlide: true,
+            focusOnSelect: true
+
         }
         console.log(this.props.product);
         const propsss = {
@@ -117,67 +130,71 @@ handleInputChange(e){
         var thos = this
         return (
             <div class="content-innerPage">
-            <Dimmer active={this.props.product===null}>
-                    <Loader/>
+                <Dimmer active={this.props.product === null}>
+                    <Loader />
                 </Dimmer>
                 <div class="container">
                     <div class="product-detail-primary">
                         <div class="row">
                             <div class="col-md-7">
-                                <div class="block-product-slide">
-
-                                    <div class="slider slider-for" style={{ marginLeft: 30 }}>
-
-                                        {/* <ReactImageZoom {...propsss} /> */}
-                                        {/* <ZoomableImage displayMap={false}
-        baseImage={{
-          alt: 'An image',
-          src:'data:image/png;base64, ' + this.props.product.image ,
-          width: 350,
-          height: 550
-        }}
-        largeImage={{
-          alt: 'A large image',
-          src:'data:image/png;base64, ' + this.props.product.image ,
-          width: 450,
-          height: 707
-        }}
-        thumbnailImage={{
-          alt: 'A small image',
-          src:'../../src/styles/images/large/image1.jpg' ,
-        }}
-      /> */}
-
-                                        <div  class="pro--Thumb slider-for__item ex1" data-src={'data:image/png;base64, ' + this.props.product.image}>
-                                                <img data-image={this.props.product.id}   class="img-rounded zoom" 
-                                                    src={'data:image/png;base64, ' + this.props.product.image} 
-                                                   alt={this.props.product.name} />
-                                            </div>
-
-
+                                <div  style={{width:'85%'}}>
+                                    <Slider
+                                        asNavFor={this.state.nav2}
+                                        ref={slider => (this.slider1 = slider)}
+                                        autoplay={true}
+                                        arrows={false}>
+                            <div  style={{height:'100%'}} class="pro--Thumb slider-for__item ex1" data-src={'data:image/png;base64, ' + this.props.product.image}>
+                                <img data-image={this.props.product.id} class="img-rounded zoom"
+                                    src={'data:image/png;base64, ' + this.props.product.image}
+                                    alt={this.props.product.name} />
+                            </div>
+                       
+                        {this.props.product.variation_set.map(product => {
+                            return thos.props.product.productimage_set.map(prod => {
+                                if (product.id === prod.product) {
+                                    return <div class="pro--Thumb slider-for__item ex1"  style={{border :'1px solid red'}}data-src={'data:image/png;base64, ' + product.image}>
+                                        <img data-image={prod.product} className="active"
+                                            src={'data:image/png;base64, ' + prod.image}
+                                            alt={product.name} />
                                     </div>
+                                }
+                            })
+                        })}
+                                    </Slider>
 
                                     <div class="slider slider-nav clearfix slick-initialized slick-slider slick-vertical" style={{
-                                            width: '32%',
-                                            /* margin-right: 30px; */
-                                            marginLeft: -28
+                                        width: '35%',
+                                        marginLeft: -132
                                     }}>
-                                        <Slider {...settingsNav}  >
-                                            {this.props.product.variation_set.map(product => {
+                                        <Slider
+                                            asNavFor={this.state.nav1}
+                                            ref={slider => (this.slider2 = slider)}
+                                            slidesToShow={2}
+                                            swipeToSlide={true}
+                                            focusOnSelect={true}
+                                            vertical={true}
+                                            arrows={false}
+                                            autoplay={true}
+                                            >
 
-                                                return thos.props.product.productimage_set.map(prod => {
-                                                    if (product.id === prod.product) {
-                                                        return <div  style={{    
-                                                            
-                                                        
-                                                            }}>
-                                                            <img data-image={prod.product} className="active"
-                                                                src={'data:image/png;base64, ' + prod.image}
-                                                                alt={product.name} />
-                                                        </div>
-                                                    }
-                                                })
-                                            })}
+                                           <div style={{ marginLeft: 30 }}>
+                            <div  data-src={'data:image/png;base64, ' + this.props.product.image}>
+                                <img data-image={this.props.product.id} 
+                                    src={'data:image/png;base64, ' + this.props.product.image}
+                                    alt={this.props.product.name} />
+                            </div>
+                        </div>
+                        {this.props.product.variation_set.map(product => {
+                            return thos.props.product.productimage_set.map(prod => {
+                                if (product.id === prod.product) {
+                                    return <div  data-src={'data:image/png;base64, ' + product.image}>
+                                        <img data-image={prod.product} 
+                                            src={'data:image/png;base64, ' + prod.image}
+                                            alt={product.name} />
+                                    </div>
+                                }
+                            })
+                        })}
                                         </Slider>
 
 
@@ -205,7 +222,7 @@ handleInputChange(e){
                             </div>
                             <div className="col-md-5">
                                 <div className="pdp-right" >
-                                    <h3>Shop Name<a href="#" style={{background:'#13bfa',color:'white'}}><i className="fa fa-youtube-play" aria-hidden="true"></i> {this.props.product.seller_name}</a></h3>
+                                    <h3 style={{ background: 'white' }}>Shop Name<a href="#" style={{ background: '#13bfa', color: 'black' }}><i className="fa fa-youtube-play" aria-hidden="true"></i> {this.props.product.seller_name}</a></h3>
                                     <div className="sec-head marg-b0 clearfix">
                                         <h2 className="sec-title">{this.props.product.title}</h2>
                                     </div>
@@ -238,7 +255,7 @@ handleInputChange(e){
                                             <p className="f-rguler">QUANTITY:</p>
                                             <div className="quantity">
 
-                                                <input type="number" name="count-quat1" className="count-quat" defaultValue="1" onChange={this.handleInputChange}/>
+                                                <input type="number" name="count-quat1" className="count-quat" defaultValue="1" onChange={this.handleInputChange} />
                                             </div>
                                         </div>
                                         <div className="pdp-ro">
@@ -255,7 +272,7 @@ handleInputChange(e){
                                         </div>
                                     </div>
                                     <div className="pdp--action clearfix">
-                                        <a href="#" className="addCart"> <i className="icon-basket icons" onClick={this.handleClick.bind(this, { prod: { object: this.props.product }, varId: this.props.product.variation_set[0],count:this.state.value })} /></a >
+                                        <a href="#" className="addCart"> <i className="icon-basket icons" onClick={this.handleClick.bind(this, { prod: { object: this.props.product }, varId: this.props.product.variation_set[0], count: this.state.value })} /></a >
                                         <a href="#" className="favorite-pro-btn"><i className="icon-heart icons" onClick={this.wishListClisk.bind(this, { object: this.props.product })}></i></a>
                                     </div>
                                 </div>
@@ -276,39 +293,39 @@ handleInputChange(e){
                                 <div className="owl-stage-outer">
                                     <div className="owl-stage" >
                                         <div className="owl-item cloned" style={{ width: 333.333, marginRight: 10 }}> */}
-<Slider {...settings}>
-                                            {this.props.product.variation_set.map(product => {
+                        <Slider {...settings}>
+                            {this.props.product.variation_set.map(product => {
 
-                                                return thos.props.product.productimage_set.map(prod => {
-                                                    if (product.id === prod.product) {
-                                                        console.log("eualllll");
+                                return thos.props.product.productimage_set.map(prod => {
+                                    if (product.id === prod.product) {
+                                        console.log("eualllll");
 
-                                                        return <div className="item">
-                                                            <div className="like-product-item clearfix">
-                                                                <a href="#" className="lp-thumb">
-                                                                    <img data-image={prod.product} className="active"
-                                                                        src={'data:image/png;base64, ' + prod.image}
-                                                                        alt={product.name} />
-                                                                </a>
-                                                                <div className="lp-txt">
-                                                                    <p className="desc-p">
-                                                                        {product.title}
-                                                                    </p>
-                                                                    <div className="star-rating">
-                                                                        <span style={{ width: '60%' }}><strong className="rating">3</strong> out of 5</span>
-                                                                    </div>
-                                                                    <span className="pr-sa">{product.price}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        return <div className="item">
+                                            <div className="like-product-item clearfix">
+                                                <a href="#" className="lp-thumb">
+                                                    <img data-image={prod.product} className="active"
+                                                        src={'data:image/png;base64, ' + prod.image}
+                                                        alt={product.name} />
+                                                </a>
+                                                <div className="lp-txt">
+                                                    <p className="desc-p">
+                                                        {product.title}
+                                                    </p>
+                                                    <div className="star-rating">
+                                                        <span style={{ width: '60%' }}><strong className="rating">3</strong> out of 5</span>
+                                                    </div>
+                                                    <span className="pr-sa">{product.price}</span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                                    }
-                                                })
+                                    }
+                                })
 
-                                            })
-                                            }
-                                            </Slider>
-                                        {/* </div>
+                            })
+                            }
+                        </Slider>
+                        {/* </div>
                                     </div>
                                 </div>
                             </div>
@@ -353,3 +370,23 @@ export default connect(mapStateToProps, { getReviewForProduct, setToCart, addToW
 
 
 
+
+{/* <ReactImageZoom {...propsss} /> */ }
+{/* <ZoomableImage displayMap={false}
+        baseImage={{
+          alt: 'An image',
+          src:'data:image/png;base64, ' + this.props.product.image ,
+          width: 350,
+          height: 550
+        }}
+        largeImage={{
+          alt: 'A large image',
+          src:'data:image/png;base64, ' + this.props.product.image ,
+          width: 450,
+          height: 707
+        }}
+        thumbnailImage={{
+          alt: 'A small image',
+          src:'../../src/styles/images/large/image1.jpg' ,
+        }}
+      /> */}

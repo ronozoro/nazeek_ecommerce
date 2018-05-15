@@ -97,17 +97,45 @@ return <div className="recent-item clearfix" style={{width: 480,margin:'5px 5px 
   render() {
 
     const products=this.props.products
-   
+   var width
  
     console.log(products);
     var settings = {
-      dots: true,
+      dots: false,
       arrows:true,
       infinite: true,
       slidesToScroll: 2,
-     
+     autoplay:true,
       speed: 500,
       slidesToShow: 2,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 2,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 2,
+            initialSlide: 2,
+            dots:true
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots:true
+          }
+        }
+      ]
     };
     return (<div style={{width: 1114,
       margin: 'auto'}}>
