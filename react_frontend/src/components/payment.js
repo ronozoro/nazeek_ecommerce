@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import { Segment, Grid, GridColumn, GridRow, Button, Select, Dropdown } from 'semantic-ui-react'
+import {Container,  Segment, Grid, GridColumn, GridRow, Button, Select, Dropdown } from 'semantic-ui-react'
 import Sidemenue from "./sidemenue";
 
 class Payment extends Component {
 render() {
 return (<div>
+    <Container style={{margin:40}}>
 <Grid columns={2}>
 <Grid.Column width={4}>
 <Sidemenue/>
@@ -24,7 +25,7 @@ return (<div>
 <tr>
 <td>
 <div class="address-title pay-row">
-<div class="add-icons"><img src="images/pay.png" alt="" class="img-responsive"/></div>
+<div class="add-icons"><img src="../../src/styles/images/pay.png" alt="" class="img-responsive"/></div>
 <div class="add-tTxt">
 <h2>Master Card</h2>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
@@ -41,7 +42,7 @@ return (<div>
 <tr>
 <td>
 <div class="address-title pay-row">
-<div class="add-icons"><img src="images/pay.png" alt="" class="img-responsive"/></div>
+<div class="add-icons"><img src="../../src/styles/images/pay.png" alt="" class="img-responsive"/></div>
 <div class="add-tTxt">
 <h2>Master Card</h2>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
@@ -64,6 +65,7 @@ return (<div>
 </div>
 </Grid.Column>
 </Grid>
+</Container>
 </div>)
 }
 }

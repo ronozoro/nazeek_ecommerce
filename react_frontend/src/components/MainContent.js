@@ -33,6 +33,7 @@ import Home from '../components/home'
 import products from '../components/products'
 import Contact from '../components/contact'
 import Payment from '../components/payment'
+import  OrderHistory from "./profile/orderhistory";
 const MainContent = () => (
     <div >
         <Switch>
@@ -55,6 +56,7 @@ const MainContent = () => (
             <Route path="/reset_password_done" component={PasswordResetDone}/>
             <Route path="/reset/:uid/:token/" component={PasswordResetConfirm}/>
             <Route path="/profile" component={Profile}/>
+            <Route path="/orderhistory" component={OrderHistory}/>
             <Route path="/userProfile" component={RequireAuth(UserProfile)}/>
             <Route path="/profile_edit" component={RequireAuth(UserProfileEdit)}/>
             <Route path="/change_password" component={RequireAuth(PasswordChange)}/>

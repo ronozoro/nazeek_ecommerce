@@ -175,6 +175,7 @@ export function changeQuantity(data) {
 }
 export function getItemsOfCart() {
     return function (dispatch) {
+        if(localStorage.getItem('cart_token'))
         return axios.get(CartUrls.cart + '?token="' + localStorage.getItem('cart_token'))
 
             .then(response => {

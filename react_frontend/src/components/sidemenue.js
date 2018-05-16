@@ -42,7 +42,7 @@ class Sidemenue extends React.Component {
                             <Link to="/userProfile"><span><i class="icon-user icons"></i></span>Personal Information</Link>
                             </li>
                             <li>
-                                <a href="profile-order.html"><span><i class="icon-doc icons"></i></span>Order History</a>
+                                <Link to="/orderhistory" ><span><i class="icon-doc icons"></i></span>Order History</Link>
                             </li>
                             <li>
                             <Link to="/addressbook"><span><i class="icon-notebook icons"></i></span>Address book</Link>

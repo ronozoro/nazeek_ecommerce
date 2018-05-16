@@ -40,11 +40,12 @@ export class Profile extends React.Component {
                                     </Link>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Card style={styles.Card} className="highlight">
+                                    <Link to="/orderhistory"><Card style={styles.Card} className="highlight">
                                         <Card.Content style={styles.header} header='Order History' />
                                         <Card.Content description='Manage your Order History' />
 
                                     </Card>
+                                    </Link>
                                 </Grid.Column>
                                 <Grid.Column>
                                     <Link to="addressbook"> < Card style={styles.Card} className="highlight">

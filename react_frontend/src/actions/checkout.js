@@ -59,6 +59,8 @@ export function payNow(checkedBilling,checkedShipping){
     var b_id, s_id
     b_id = checkedBilling[0].id
     s_id = checkedShipping[0].id
+    return function(dispatch){
+        
     console.log(b_id, s_id);
     if (b_id && s_id) {
         {
@@ -72,9 +74,10 @@ export function payNow(checkedBilling,checkedShipping){
             dispatch({
                 type:ORDER_TOKEN
             })
-            //localStorage.setItem('order_token',response.data.order_token)
+            localStorage.setItem('order_token',response.data.order_token)
             localStorage.removeItem('cart_token')
             localStorage.removeItem('user_checkout_token')
+            history.push('/shop')
         })  
 
     } 
@@ -82,7 +85,7 @@ export function payNow(checkedBilling,checkedShipping){
 else{
     alert(" you must check address billing and address shiping")
 }          
-
+    }
 }
 export function getuserId() {
     return function (dispatch) {
