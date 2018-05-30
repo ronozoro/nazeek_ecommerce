@@ -33,8 +33,7 @@ export const loginUser = (data) => (dispatch) => {
 
   fetch(AuthUrls.SIGNUP, {
     method: 'POST',
-    body: JSON.stringify(data),
-    credentials: 'include'
+    body: data
   })
     .then(handleError)
     .then((result) => dispatch(loginUserSuccess(result)))
