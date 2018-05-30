@@ -31,7 +31,7 @@ const loginUserFail = (err) => {
 export const loginUser = (data) => (dispatch) => {
   dispatch(loginUserStart())
 
-  fetch(AuthUrls.SIGNUP, {
+  fetch(AuthUrls.LOGIN, {
     method: 'POST',
     body: data
   })
