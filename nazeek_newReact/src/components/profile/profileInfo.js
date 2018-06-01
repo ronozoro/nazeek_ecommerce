@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ handleCurrentViewChange }) => {
   return (
     <div className='col-lg-9 col-md-8 col-sm-7'>
       <div className='sec-head clearfix'>
@@ -10,7 +10,7 @@ const ProfileInfo = () => {
         <div className='profile-blocks-list'>
           <div className='row'>
             <div className='col-md-6 col-sm-12'>
-              <a href='#' className='profile-block-item'>
+              <a className='profile-block-item' onClick={() => handleCurrentViewChange('presonal-info')}>
                 <div className='pbi-head'>
                   <div>Personal Information <span className='pbi-icon'><i className='icon-user icons' /></span></div>
                 </div>
@@ -20,7 +20,7 @@ const ProfileInfo = () => {
               </a>
             </div>
             <div className='col-md-6 col-sm-12'>
-              <a href='#' className='profile-block-item'>
+              <a className='profile-block-item' onClick={() => handleCurrentViewChange('order-history')}>
                 <div className='pbi-head'>
                   <div>Order History <span className='pbi-icon'><i className='icon-doc icons' /></span></div>
                 </div>
@@ -30,7 +30,7 @@ const ProfileInfo = () => {
               </a>
             </div>
             <div className='col-md-6 col-sm-12'>
-              <a href='#' className='profile-block-item'>
+              <a className='profile-block-item' onClick={() => handleCurrentViewChange('address-book')}>
                 <div className='pbi-head'>
                   <div>Address Book <span className='pbi-icon'><i className='icon-notebook icons' /></span></div>
                 </div>
@@ -40,7 +40,7 @@ const ProfileInfo = () => {
               </a>
             </div>
             <div className='col-md-6 col-sm-12'>
-              <a href='#' className='profile-block-item'>
+              <a className='profile-block-item'>
                 <div className='pbi-head'>
                   <div>Wishlist <span className='pbi-icon'><i className='icon-heart icons' /></span></div>
                 </div>
@@ -50,7 +50,7 @@ const ProfileInfo = () => {
               </a>
             </div>
             <div className='col-md-6 col-sm-12'>
-              <a href='#' className='profile-block-item'>
+              <a className='profile-block-item' onClick={() => handleCurrentViewChange('payment')}>
                 <div className='pbi-head'>
                   <div>Way of Payment <span className='pbi-icon'><i className='icon-credit-card icons' /></span></div>
                 </div>

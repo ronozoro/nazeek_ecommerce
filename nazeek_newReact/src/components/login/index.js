@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import LoginForm from '../containers/LoginForm'
 
 class Login extends Component {
   render () {
-    console.log('this.props', this.props)
+    if (this.props.authenticated) {
+      return <Redirect to='/' />
+    }
 
     return (
       <React.Fragment>

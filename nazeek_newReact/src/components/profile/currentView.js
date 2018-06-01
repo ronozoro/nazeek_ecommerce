@@ -5,10 +5,10 @@ import PresonalInfo from './personalInfo'
 import Payment from './payment'
 import OrderHistory from './orderHistory'
 
-const CurruntView = ({view}) => {
+const CurruntView = ({ view, user, handleCurrentViewChange }) => {
   switch (view) {
     case 'presonal-info':
-      return <PresonalInfo />
+      return <PresonalInfo user={user} />
     case 'address-book':
       return <AddressBook />
     case 'order-history':
@@ -16,7 +16,7 @@ const CurruntView = ({view}) => {
     case 'payment':
       return <Payment />
     default:
-      return <ProfileInfo />
+      return <ProfileInfo handleCurrentViewChange={handleCurrentViewChange} />
   }
 }
 

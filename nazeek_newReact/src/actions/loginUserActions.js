@@ -1,23 +1,16 @@
-/* global fetch */
-
+/* global localStorage */
+import axios from 'axios'
 import {
-  LOGIN_USER_START,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL
+  LOGIN_USER_FAIL,
+  LOGOUT_USER
 } from '../constant/actionsType'
 import { AuthUrls } from '../constant/urls'
-import handleError from '../helper/handleErrors'
 
-const loginUserStart = () => {
-  return {
-    type: LOGIN_USER_START
-  }
-}
-
-const loginUserSuccess = (user) => {
+const loginUserSuccess = (token) => {
   return {
     type: LOGIN_USER_SUCCESS,
-    payload: user
+    payload: token
   }
 }
 
@@ -29,13 +22,21 @@ const loginUserFail = (err) => {
 }
 
 export const loginUser = (data) => (dispatch) => {
-  dispatch(loginUserStart())
+  return axios.post(AuthUrls.LOGIN, data)
+    .then((result) => {
+      const token = result.data.key
 
-  fetch(AuthUrls.LOGIN, {
-    method: 'POST',
-    body: data
+      dispatch(loginUserSuccess(token))
+      localStorage.setItem('token', token)
+    })
+    .catch((error) => {
+      dispatch(loginUserFail(error.response.data))
+    })
+}
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem('token')
+  dispatch({
+    type: LOGOUT_USER
   })
-    .then(handleError)
-    .then((result) => dispatch(loginUserSuccess(result)))
-    .catch((err) => dispatch(loginUserFail(err)))
 }

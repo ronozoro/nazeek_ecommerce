@@ -9,8 +9,8 @@ const RecentProduct = ({product}) => {
       </a>
       <div className='recTxt'>
         <p className='re-salary'>
-          <span className='sa-new'>{product.price} DK</span>
-          <span className='sa-old'>{product.price} DK</span>
+          <span className='sa-new'>{product.price} KD</span>
+          <span className='sa-old'>{product.price} KD</span>
         </p>
         <p className='desc-p'>
           {product.description}

@@ -1,12 +1,10 @@
-/* global fetch */
-
+import axios from 'axios'
 import {
   FETCH_PRODUCTS_START,
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_FAIL
 } from '../constant/actionsType'
 import { ShopUrls } from '../constant/urls'
-import handleError from '../helper/handleErrors'
 
 const fetchProductsStart = () => {
   return {
@@ -31,8 +29,13 @@ const fetchProductsFail = (err) => {
 export const fetchProducts = () => (dispatch) => {
   dispatch(fetchProductsStart())
 
-  fetch(ShopUrls.PRODUCTS)
-    .then(handleError)
-    .then((result) => dispatch(fetchProductsSuccess(result)))
+  axios.get(ShopUrls.PRODUCTS, {})
+    .then((result) => {
+      if (result.status >= 400) {
+        throw new Error('Error!')
+      }
+
+      dispatch(fetchProductsSuccess(result.data))
+    })
     .catch((err) => dispatch(fetchProductsFail(err)))
 }

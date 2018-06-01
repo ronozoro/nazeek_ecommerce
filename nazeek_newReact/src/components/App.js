@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import RequireAuth from './RequierAuth'
 import Header from './common/header/header'
 import Subscribe from './common/subscribe'
 import Footer from './common/footer'
 import Home from './containers/Home'
 import Register from './register'
-import Login from './login'
+import Login from './containers/Login'
 import ContactUs from './contact_us'
-import Profile from './profile'
+import Profile from './containers/userProfile'
 
 import 'owl.carousel/dist/assets/owl.carousel.css'
 import 'owl.carousel/dist/assets/owl.theme.default.css'
+import 'redux-notifications/lib/styles.css'
 
 class App extends Component {
   render () {
@@ -25,7 +27,7 @@ class App extends Component {
           <Route exact path='/register' component={Register} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/contact-us' component={ContactUs} />
-          <Route exact path='/profile' component={Profile} />
+          <Route exact path='/profile' component={RequireAuth(Profile)} />
           <Redirect to='/' />
         </Switch>
         <Subscribe />

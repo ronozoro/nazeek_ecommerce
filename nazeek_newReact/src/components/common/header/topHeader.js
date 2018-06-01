@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const TopHeader = () => {
+const TopHeader = ({ authenticated }) => {
   return (
     <div className='header-top'>
       <div className='container'>
@@ -9,16 +9,28 @@ const TopHeader = () => {
           <li><i className='fa fa-mobile' aria-hidden='true' />+965-444-444-444</li>
         </ul>
         <ul className='topHmenu-right clearfix'>
-          <li>
-            <Link to='/register'>
-              <i className='icon-user-follow icons' />Register
-            </Link>
-          </li>
-          <li>
-            <Link to='/login'>
-              <i className='icon-login icons' />Sigin
-            </Link>
-          </li>
+          {
+
+            authenticated
+              ? <li>
+                <Link to='/profile'>
+                  <i className='icon-user-follow icons' />Profile
+                </Link>
+              </li>
+              : <React.Fragment>
+                <li>
+                  <Link to='/register'>
+                    <i className='icon-user-follow icons' />Register
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/login'>
+                    <i className='icon-login icons' />Sigin
+                  </Link>
+                </li>
+              </React.Fragment>
+          }
+
           <li>
             <a href='index_ar.html'><i className='icon-globe icons' />Arabic</a>
           </li>

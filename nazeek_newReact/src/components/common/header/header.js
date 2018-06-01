@@ -1,5 +1,5 @@
 import React from 'react'
-import TopHeader from './topHeader'
+import TopHeader from '../../containers/TopHeader'
 import MiddleHeader from './middleHeader'
 import BottomHeader from './bottomHeader'
 

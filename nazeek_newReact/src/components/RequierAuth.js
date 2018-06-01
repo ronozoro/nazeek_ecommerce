@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 export default function (ComposedComponent) {
@@ -18,6 +18,8 @@ export default function (ComposedComponent) {
         }
 
         checkAuthentication (props) {
+          console.log('props', props)
+
           if (!props.authenticated) {
             this.props.history.push('/login')
           }
