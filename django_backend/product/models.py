@@ -1,9 +1,12 @@
 from colorful.fields import RGBColorField
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+
+User = get_user_model()
 
 
 class ProductQuerySet(models.query.QuerySet):
@@ -27,14 +30,14 @@ class ProductManager(models.Manager):
 
 class ProductSeller(models.Model):
     title = models.CharField(max_length=180)
-
+    user_id = models.OneToOneField(User, unique=True)
     def __str__(self):
         return self.title
 
 
 class ProductBrand(models.Model):
     title = models.CharField(max_length=180)
-
+    seller_id = models.OneToOneField(ProductSeller, unique=True)
     def __str__(self):
         return self.title
 
@@ -87,7 +90,6 @@ class Variation(models.Model):
         else:
             return self.price
 
-
     def get_html_price(self):
         if self.sale_price is not None:
             html_text = "<span class='sale-price'>%s</span> <span class='og-price'>%s</span>" % (
@@ -131,12 +133,28 @@ def image_upload_to(instance, filename):
     return "products/%s/%s" % (slug, new_filename)
 
 
+def image_upload_to_featured(instance, filename):
+    title = instance.variation.title
+    slug = slugify(title)
+    basename, file_extension = filename.split(".")
+    new_filename = "%s-%s.%s" % (slug, instance.id, file_extension)
+    return "products/%s/featured/%s" % (slug, new_filename)
+
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product)
     image = models.ImageField(upload_to=image_upload_to)
 
     def __str__(self):
         return self.product.title
+
+
+class ProductVarImage(models.Model):
+    variation = models.ForeignKey(Variation)
+    image = models.ImageField(upload_to=image_upload_to_featured)
+
+    def __str__(self):
+        return self.variation.title
 
 
 # Product Category
@@ -157,11 +175,3 @@ class Category(models.Model):
 
 
 Category()
-
-
-def image_upload_to_featured(instance, filename):
-    title = instance.product.title
-    slug = slugify(title)
-    basename, file_extension = filename.split(".")
-    new_filename = "%s-%s.%s" % (slug, instance.id, file_extension)
-    return "products/%s/featured/%s" % (slug, new_filename)

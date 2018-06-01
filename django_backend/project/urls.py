@@ -1,16 +1,18 @@
+from django.conf.urls import include, url
+from django.contrib import admin
+from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+
 from cart.views import (
     CartAPIView,
     CheckoutAPIView,
     CheckoutFinalizeAPIView, CheckoutFinalView, ItemCountView
 )
-from django.conf.urls import include, url
-from django.contrib import admin
+from dummy_pages.views import DummyListAPIView
 from order.views import (OrderListAPIView, OrderRetrieveAPIView, UserAddressCreateAPIView, UserAddressListAPIView,
                          UserCheckoutAPI, UserGetID)
 from product.views import (APIHomeView, BrandListAPIView, CategoryListAPIView, CategoryRetrieveAPIView,
                            ProductListAPIView, ProductRetrieveAPIView, SellerListAPIView)
-from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from user_profile.views import UserViewSet
 
 router = routers.DefaultRouter()
@@ -30,6 +32,7 @@ urlpatterns = [
     url(r'^api/products/$', ProductListAPIView.as_view(), name='products_api'),
     url(r'^api/sellers/$', SellerListAPIView.as_view(), name='sellers_api'),
     url(r'^api/brands/$', BrandListAPIView.as_view(), name='brands_api'),
+    url(r'^api/dummy/$', DummyListAPIView.as_view(), name='dummy_api'),
     url(r'^api/categories/$', CategoryListAPIView.as_view(), name='categories_api'),
     url(r'^api/categories/(?P<pk>\d+)/$', CategoryRetrieveAPIView.as_view(), name='category_detail_api'),
     url(r'^api/products/(?P<pk>\d+)/$', ProductRetrieveAPIView.as_view(), name='products_detail_api'),

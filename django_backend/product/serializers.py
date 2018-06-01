@@ -3,10 +3,30 @@ import base64
 from django.core.files import File
 from rest_framework import serializers
 
-from .models import Category, Product, ProductImage, Variation,ProductBrand,ProductSeller
+from .models import Category, Product, ProductImage, Variation, ProductBrand, ProductSeller, ProductVarImage
+
+
+class ProductVarImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        f = open(obj.image.path, 'rb')
+        image = File(f)
+        data = base64.b64encode(image.read())
+        f.close()
+        return data
+
+    class Meta:
+        model = ProductVarImage
+        fields = [
+            "variation",
+            "image",
+        ]
 
 
 class VariationSerializer(serializers.ModelSerializer):
+    productvarimage_set = ProductVarImageSerializer(many=True)
+
     class Meta:
         model = Variation
         fields = [
@@ -14,6 +34,7 @@ class VariationSerializer(serializers.ModelSerializer):
             "title",
             "price",
             "color",
+            "productvarimage_set"
         ]
 
 
@@ -81,6 +102,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "price",
+            "sale_price",
             "brand_id",
             "seller_id",
             "image",
@@ -158,4 +180,5 @@ class SellerSerializer(serializers.ModelSerializer):
         fields = [
             "title",
             "id",
+            "user_id"
         ]

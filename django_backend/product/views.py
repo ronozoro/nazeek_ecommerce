@@ -36,6 +36,9 @@ class APIHomeView(APIView):
                 "count": ProductBrand.objects.all().count(),
                 "url": api_reverse("brands_api", request=request)
             },
+            "dummy_pages": {
+                "url": api_reverse("dummy_api", request=request)
+            },
             "categories": {
                 "count": Category.objects.all().count(),
                 "url": api_reverse("categories_api", request=request)
