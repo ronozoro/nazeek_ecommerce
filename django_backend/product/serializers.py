@@ -33,6 +33,7 @@ class VariationSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "price",
+            "sale_price",
             "color",
             "productvarimage_set"
         ]
@@ -102,7 +103,6 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "price",
-            "sale_price",
             "brand_id",
             "seller_id",
             "image",
