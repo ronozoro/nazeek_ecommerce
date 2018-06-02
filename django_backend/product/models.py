@@ -29,14 +29,14 @@ class ProductManager(models.Manager):
 
 
 class ProductSeller(models.Model):
-    title = models.CharField(max_length=180)
-    user_id = models.OneToOneField(User)
+    title = models.CharField(max_length=180,unique=True)
+    user_id = models.OneToOneField(User,unique=True)
     def __str__(self):
         return self.title
 
 
 class ProductBrand(models.Model):
-    title = models.CharField(max_length=180)
+    title = models.CharField(max_length=180,unique=True)
     seller_id = models.OneToOneField(ProductSeller)
     def __str__(self):
         return self.title
