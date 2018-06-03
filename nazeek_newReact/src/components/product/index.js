@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import LikeProduct from './likeProductsSlider'
 import ProductDetailsTab from './productDetailsTab'
 import Sliders from './sliders'
@@ -18,7 +19,7 @@ class Product extends Component {
         <div className='breadcrumb-bar'>
           <div className='container'>
             <ol className='breadcrumb'>
-              <li className='breadcrumb-item'><a href='index.html'><i className='icon-home icons' /></a></li>
+              <li className='breadcrumb-item'><Link to='/'><i className='icon-home icons' /></Link></li>
               <li className='breadcrumb-item'><a href='product-page.html'>CAtegory</a></li>
               <li className='breadcrumb-item active'>Product</li>
             </ol>
@@ -27,14 +28,16 @@ class Product extends Component {
         {error}
         {
           isFetching
-            ? <h4>Loading ...</h4>
+            ? <div id='preloader'>
+              <div className='loading' />
+            </div>
             : <div className='content-innerPage'>
               <div className='container'>
                 <div className='product-detail-primary'>
                   <div className='row'>
                     <div className='col-md-7'>
                       <div className='block-product-slide'>
-                        <Sliders />
+                        <Sliders imgs={product.productimage_set} />
                         <div className='bottom-slide-pro clearfix'>
                           <ul className='share-pro clearfix'>
                             <li className='sh-share'><i className='icon-share icons' /></li>
@@ -58,7 +61,7 @@ class Product extends Component {
                     </div>
                     <div className='col-md-5'>
                       <div className='pdp-right'>
-                        <h3>Shop Name<a href='#'><i className='fa fa-youtube-play' aria-hidden='true' /></a></h3>
+                        <h3>{product.seller_name}<a ><i className='fa fa-youtube-play' aria-hidden='true' /></a></h3>
                         <div className='sec-head marg-b0 clearfix'>
                           <h2 className='sec-title'>{product.title}</h2>
                         </div>
@@ -70,12 +73,12 @@ class Product extends Component {
                             <p className='f-rguler'>COLOR : </p>
                             <div className='color-choose'>
                               {
-                                product.variation_set.map(() => {
+                                product.variation_set.map((item) => {
                                   return (
                                     <div>
-                                      <input data-image='color1' type='radio' id='color1' name='color' value='color1' checked='' />
+                                      <input data-image='color1' type='radio' id={item.id} name='color' value={item.id} checked='' />
                                       <label htmlFor='color1'>
-                                        <span />
+                                        <span style={{backgroundColor: item.color ? item.color : '#eee'}} />
                                       </label>
                                     </div>
                                   )
@@ -86,7 +89,7 @@ class Product extends Component {
                           <div className='pdp-ro'>
                             <p className='f-rguler'>QUANTITY:</p>
                             <div className='quantity'>
-                              <input type='text' name='count-quat1' className='count-quat' value='1' />
+                              <input type='text' name='count-quat1' className='count-quat' defaultValue='1' />
                               <div className='btn button-count inc jsQuantityIncrease'><i className='fa fa-plus' aria-hidden='true' /></div>
                               <div className='btn button-count dec jsQuantityDecrease' minimum='1'><i className='fa fa-minus' aria-hidden='true' /></div>
                             </div>

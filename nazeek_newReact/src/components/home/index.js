@@ -15,8 +15,16 @@ class Home extends Component {
     return (
       <React.Fragment>
         <HomeSlider />
-        <NewArraival />
-        <RecentProducts />
+        {
+          this.props.isFetching
+            ? <div id='preloader'>
+              <div className='loading' />
+            </div>
+            : <React.Fragment>
+              <NewArraival />
+              <RecentProducts />
+            </React.Fragment>
+        }
       </React.Fragment>
     )
   }

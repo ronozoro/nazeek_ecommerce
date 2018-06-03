@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import LoginForm from '../containers/LoginForm'
 
 class Login extends Component {
@@ -13,7 +13,7 @@ class Login extends Component {
         <div className='breadcrumb-bar'>
           <div className='container'>
             <ol className='breadcrumb'>
-              <li className='breadcrumb-item'><a href='index.html'><i className='icon-home icons' /></a></li>
+              <li className='breadcrumb-item'><Link to='/'><i className='icon-home icons' /></Link></li>
               <li className='breadcrumb-item active'>Login</li>
             </ol>
           </div>

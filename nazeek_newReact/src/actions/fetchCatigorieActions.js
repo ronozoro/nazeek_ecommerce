@@ -34,8 +34,9 @@ export const fetchCategotie = (id) => (dispatch) => {
       if (result.status >= 400) {
         throw new Error('Error!')
       }
+      console.log(result)
 
-      dispatch(fetchCategotieSuccess(result.data.results))
+      dispatch(fetchCategotieSuccess(result.data))
     })
     .catch((err) => dispatch(fetchCategotieFail(err)))
 }

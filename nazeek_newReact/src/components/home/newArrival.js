@@ -15,12 +15,7 @@ const NewArraival = ({ products, isFetching, error, addToWishList }) => {
                 <a href='#' className='more-page f-right'>more <i className='icon-arrow-right icons' /></a>
               </div>
               <div className='sec-warpper'>
-                {
-                  isFetching
-                    ? <h4>Loading ...</h4>
-                    : <OffersSlider products={products} />
-                }
-
+                <OffersSlider products={products} />
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const TopHeader = ({ authenticated }) => {
+const TopHeader = ({ authenticated, logoutUser }) => {
   return (
     <div className='header-top'>
       <div className='container'>
@@ -12,11 +12,18 @@ const TopHeader = ({ authenticated }) => {
           {
 
             authenticated
-              ? <li>
-                <Link to='/profile'>
-                  <i className='icon-user-follow icons' />Profile
-                </Link>
-              </li>
+              ? <React.Fragment>
+                <li>
+                  <Link to='/' onClick={logoutUser}>
+                    <i className='icon-user-follow icons' />Logout
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/profile'>
+                    <i className='icon-user-follow icons' />Profile
+                  </Link>
+                </li>
+              </React.Fragment>
               : <React.Fragment>
                 <li>
                   <Link to='/register'>
