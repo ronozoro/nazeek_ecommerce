@@ -1,6 +1,7 @@
 import BottomHeader from '../common/header/bottomHeader'
 import { connect } from 'react-redux'
 import { fetchCategoties } from '../../actions/fetchCatigoriseActions'
+import { fetchCategotie } from '../../actions/fetchCatigorieActions'
 
 const mapStateToProps = ({categories}) => {
   const { isFetching, error, categories: Categories } = categories
@@ -13,7 +14,8 @@ const mapStateToProps = ({categories}) => {
 }
 
 const mapDispatchToProps = {
-  fetchCategoties
+  fetchCategoties,
+  fetchCategotie
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BottomHeader)

@@ -30,13 +30,14 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/register' component={Register} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/contact-us' component={ContactUs} />
-          <Route exact path='/profile' component={RequireAuth(Profile)} />
+          <Route path='/register' component={Register} />
+          <Route path='/login' component={Login} />
+          <Route path='/contact-us' component={ContactUs} />
+          <Route path='/profile' component={RequireAuth(Profile)} />
           <Route exact path='/product/:id' component={Product} />
-          <Route exact path='/categories/:id' component={Products} />
-          <Route exact path='/registeration-done' component={RegisterationDone} />
+          <Route exact path='/categories' component={Products} />
+          <Route path='/categories/:id' component={Products} />
+          <Route path='/registeration-done' component={RegisterationDone} />
           <Route exact path='/account/confirm-email/:key' component={ActivateAccont} />
           <Redirect to='/' />
         </Switch>

@@ -82,7 +82,7 @@ class BottomHeader extends Component {
                   : categories.map((categorie) => {
                     return (
                       <li className='dropdown'>
-                        <Link to={`/categories/${categorie.id}`} >{categorie.title}</Link>
+                        <Link to={`/categories/${categorie.id}`} onClick={() => this.props.fetchCategotie(categorie.id)}>{categorie.title}</Link>
                       </li>
                     )
                   })
