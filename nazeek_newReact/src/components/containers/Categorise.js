@@ -1,4 +1,4 @@
-import Categorie from '../products/products'
+import Categorie from '../categorie/categorie'
 import { connect } from 'react-redux'
 import { fetchCategotie } from '../../actions/fetchCatigorieActions'
 
