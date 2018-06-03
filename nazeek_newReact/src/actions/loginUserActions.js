@@ -6,6 +6,7 @@ import {
   LOGOUT_USER
 } from '../constant/actionsType'
 import { AuthUrls } from '../constant/urls'
+import history from '../utils/historyUtils'
 
 const loginUserSuccess = (token) => {
   return {
@@ -39,4 +40,24 @@ export const logoutUser = () => (dispatch) => {
   dispatch({
     type: LOGOUT_USER
   })
+}
+
+export const activateUserAccount = (data, Null, props) => (dispatch) => {
+  const { key } = props.match.params
+  const activateUserUrl = AuthUrls.USER_ACTIVATION
+  const formValues = Object.assign(data, { key })
+
+  return axios.post(activateUserUrl, formValues)
+    .then(response => {
+      dispatch({
+        type: 'ACTIVATE_SUCCESS'
+      })
+
+      history.push('/login')
+    }).catch((error) => {
+      dispatch({
+        type: 'ACIVATE_FAIL',
+        payload: error
+      })
+    })
 }

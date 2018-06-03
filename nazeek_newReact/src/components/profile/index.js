@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import CurrentView from './currentView'
 
 class Profile extends Component {
@@ -26,7 +27,7 @@ class Profile extends Component {
         <div className='breadcrumb-bar'>
           <div className='container'>
             <ol className='breadcrumb'>
-              <li className='breadcrumb-item'><a href='index.html'><i className='icon-home icons' /></a></li>
+              <li className='breadcrumb-item'><Link to='/'><i className='icon-home icons' /></Link></li>
               <li className='breadcrumb-item active'>Profile</li>
             </ol>
           </div>

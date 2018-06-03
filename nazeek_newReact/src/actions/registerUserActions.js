@@ -4,8 +4,10 @@ import {
   REGISTER_USER_FAIL
 } from '../constant/actionsType'
 import { AuthUrls } from '../constant/urls'
+import history from '../utils/historyUtils'
 
 const registerUserSuccess = (user) => {
+  history.push('/registeration-done')
   return {
     type: REGISTER_USER_SUCCESS
   }

@@ -7,6 +7,7 @@ import {
 const initialState = {
   isFetching: false,
   product: {
+    productimage_set: [],
     variation_set: []
   },
   error: ''

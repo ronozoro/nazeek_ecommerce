@@ -7,8 +7,8 @@ const mapStateToProps = ({categorie}) => {
 
   return {
     categorie: Categorie,
-    isFetching: isFetching,
-    error: error
+    isFetching,
+    error
   }
 }
 

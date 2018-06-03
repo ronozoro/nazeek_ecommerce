@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import CuostmerCare from './cuostmerCare'
 import ProducerDesigner from './producerDesigner'
 import Career from './career'
@@ -9,7 +10,7 @@ const Contact = () => {
       <div className='breadcrumb-bar'>
         <div className='container'>
           <ol className='breadcrumb'>
-            <li className='breadcrumb-item'><a href='index.html'><i className='icon-home icons' /></a></li>
+            <li className='breadcrumb-item'><Link to='/'><i className='icon-home icons' /></Link></li>
             <li className='breadcrumb-item active'>Contact us</li>
           </ol>
         </div>

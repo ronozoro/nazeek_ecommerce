@@ -2702,6 +2702,7 @@ li.s-instagram a{
 }
 .block-checkList.content{
   max-height: 200px;
+  overflow-y: scroll;
 }
 .block-checkList .mCSB_inside > .mCSB_container{
   margin-right: 10px;
