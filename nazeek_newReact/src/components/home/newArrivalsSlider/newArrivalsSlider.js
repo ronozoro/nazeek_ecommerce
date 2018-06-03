@@ -3,7 +3,7 @@ import chunk from 'lodash.chunk'
 import OwlCarousel from 'react-owl-carousel'
 import NewArrivalItem from './newArrivalsItem'
 
-const NewArrivalSlider = ({ products }) => {
+const NewArrivalSlider = ({ products, addToWishList }) => {
   const data = chunk(products, 2)
   return (
     <OwlCarousel
@@ -38,6 +38,7 @@ const NewArrivalSlider = ({ products }) => {
             <NewArrivalItem
               product={product}
               key={product.id}
+              addToWishList={addToWishList}
             />
           )
         })

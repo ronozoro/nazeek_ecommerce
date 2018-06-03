@@ -21,8 +21,6 @@ const registerUserFail = (err) => {
 export const registerUser = (data) => (dispatch) => {
   axios.post(AuthUrls.SIGNUP, data)
     .then((result) => {
-      console.log(result)
-
       dispatch(registerUserSuccess())
     })
     .catch((err) => {

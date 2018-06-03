@@ -40,7 +40,7 @@ const ProfileInfo = ({ handleCurrentViewChange }) => {
               </a>
             </div>
             <div className='col-md-6 col-sm-12'>
-              <a className='profile-block-item'>
+              <a className='profile-block-item' onClick={() => handleCurrentViewChange('wishlist')}>
                 <div className='pbi-head'>
                   <div>Wishlist <span className='pbi-icon'><i className='icon-heart icons' /></span></div>
                 </div>

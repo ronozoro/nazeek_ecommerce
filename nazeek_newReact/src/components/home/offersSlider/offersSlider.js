@@ -13,7 +13,7 @@ const OffersSlider = ({ products }) => {
     >
       {
         products.map((product) => {
-          return <OffersSliderItem product={product} />
+          return <OffersSliderItem key={product.id} product={product} />
         })
       }
     </OwlCarousel>

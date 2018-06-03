@@ -60,7 +60,7 @@ class Profile extends Component {
                       <li className={view === 'payment' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('payment')}>
                         <a ><span><i className='icon-credit-card icons' /></span>Way of Payments</a>
                       </li>
-                      <li>
+                      <li className={view === 'wishlist' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('wishlist')}>
                         <a ><span><i className='icon-heart icons' /></span>Wishlist</a>
                       </li>
                     </ul>

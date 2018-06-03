@@ -4,6 +4,7 @@ import AddressBook from './addressBook'
 import PresonalInfo from './personalInfo'
 import Payment from './payment'
 import OrderHistory from './orderHistory'
+import Wishlist from '../containers/Wishlist'
 
 const CurruntView = ({ view, user, handleCurrentViewChange }) => {
   switch (view) {
@@ -15,6 +16,8 @@ const CurruntView = ({ view, user, handleCurrentViewChange }) => {
       return <OrderHistory />
     case 'payment':
       return <Payment />
+    case 'wishlist':
+      return <Wishlist />
     default:
       return <ProfileInfo handleCurrentViewChange={handleCurrentViewChange} />
   }

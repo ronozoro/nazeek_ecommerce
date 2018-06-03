@@ -1,7 +1,7 @@
-/* global alert, location, localStorage */
+/* global alert */
 
-import { wishListUrl } from '../constants/urls'
-
+import { wishListUrl } from '../constant/urls'
+import history from '../utils/historyUtils'
 import axios from 'axios'
 import {
   GET_WISHLIST_COUNT,
@@ -10,77 +10,66 @@ import {
   DELETE_WISHLIST_ITEM
 } from '../constant/actionsType'
 
-const creatwishList = () => {
+export const creatwishList = () => {
   return (dispatch) => {
-    if (localStorage.getItem('token') === null) {
-      location.pathname('/login')
+    if (window.localStorage.getItem('token') === null) {
+      history.push('/login')
     }
-
-    return axios.get(wishListUrl.createList + '?token=' + localStorage.getItem('token'))
+    return axios.get(wishListUrl.createList + '?token=' + window.localStorage.getItem('token'))
       .then(response => {
-        dispatch({
-          type: GET_WISHLIST_ID,
-          id: response.data.id
-        })
+        dispatch({type: GET_WISHLIST_ID, id: response.data.whishlist_id})
         return response.data
       })
   }
 }
 
 export const addToWishList = (product) => {
-  return (dispatch) => {
-    if (localStorage.getItem('token') === null) {
-      location.pathname('/login')
+  return (dispatch, getState) => {
+    if (window.localStorage.getItem('token') === null) {
+      history.push('/login')
     }
 
-    let wishListId = null
-    let isFound = false
-    const wishlist = creatwishList()
-    wishlist(response => {
-      wishListId = response.id
-    })
+    var wishlist = creatwishList()
+    wishlist(dispatch)
+      .then(res => {
+        let isFound = false
+        const wishListId = res.whishlist_id
+        const items = getWishListItems()
+        items(dispatch)
+          .then(res => {
+            res.map(item => {
+              if (product.id === item.product) {
+                isFound = true
+              }
+            })
 
-    var items = getWishListItems()
-    items(response => {
-      response.items.map(item => {
-        if (product.object.id === item.product) {
-          isFound = true
-        }
-      })
-    })
-
-    setTimeout(() => {
-      if (isFound === false) {
-        axios.post(wishListUrl.addtoList + '?token=' + localStorage.getItem('token'), {
-          'wishlist': wishListId,
-          'product': product.object.id,
-          'quantity': 1
-        }).then(response => {
-        })
-      } else {
-        alert(' the product in wishList')
-      }
-      setTimeout(() => {
-        var count = fetchWishlistItemCount()
-        count(res => {
-          dispatch({
-            type: GET_WISHLIST_COUNT,
-            count: res.count
+            setTimeout(() => {
+              if (isFound === false) {
+                axios.post(wishListUrl.addtoList + '?token=' + window.localStorage.getItem('token'), {
+                  'wishlist': wishListId,
+                  'product': product.id,
+                  'quantity': 1
+                }).then(response => {
+                  console.log('respone', response)
+                }).catch(err => {
+                  console.log('err', err)
+                })
+              } else {
+                alert(' the product in wishList')
+              }
+            }, 2000)
           })
-        })
-      }, 300)
-    }, 2000)
+      })
   }
 }
 
 export const getWishListItems = () => {
   return (dispatch) => {
-    return axios.get(wishListUrl.getItems + '?token=' + localStorage.getItem('token'))
+    return axios.get(wishListUrl.getItems + '?token=' + window.localStorage.getItem('token'))
       .then(response => {
-        dispatch({
-          type: GET_WISHLIST_ITEMS,
-          items: response.data
-        })
+        console.log('response', response)
+
+        dispatch({type: GET_WISHLIST_ITEMS, items: response.data})
         return response.data
       })
   }
@@ -88,25 +77,28 @@ export const getWishListItems = () => {
 
 export const fetchWishlistItemCount = () => {
   return (dispatch) => {
-    return axios.get(wishListUrl.getCount + '?token=' + localStorage.getItem('token'))
-      .then(response => {
-        dispatch({
-          type: GET_WISHLIST_COUNT,
-          count: response.data.item_count
-        })
-        return response.data
-      })
+    return axios.get(wishListUrl.getCount + '?token=' + window.localStorage.getItem('token')).then(response => {
+      dispatch({type: GET_WISHLIST_COUNT, count: response.data.item_count})
+      return response.data
+    })
   }
 }
 
 export const deleteWishlistItem = (item) => {
   return (dispatch) => {
-    axios.delete(wishListUrl.deleteItem + item.wishlist + '/wishlistitems/' + item.id + '/?token=' + localStorage.getItem('token'))
-      .then(response => {
-        dispatch({
-          type: DELETE_WISHLIST_ITEM,
-          item: response.data
-        })
+    axios.delete(wishListUrl.deleteItem + item.wishlist + '/wishlistitems/' + item.id + '/?token=' + window.localStorage.getItem('token')).then(response => {
+      dispatch({type: DELETE_WISHLIST_ITEM, item: response.data})
+    })
+
+    setTimeout(() => {
+      var items = getWishListItems()
+      items(response => {
+        dispatch({type: GET_WISHLIST_ITEMS, items: response.items})
       })
+      var count = fetchWishlistItemCount()
+      count(res => {
+        dispatch({type: GET_WISHLIST_COUNT, count: res.count})
+      })
+    }, 300)
   }
 }
