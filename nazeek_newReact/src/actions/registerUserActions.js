@@ -1,23 +1,13 @@
-/* global fetch */
-
+import axios from 'axios'
 import {
-  REGISTER_USER_START,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL
 } from '../constant/actionsType'
 import { AuthUrls } from '../constant/urls'
-import handleError from '../helper/handleErrors'
-
-const registerUserStart = () => {
-  return {
-    type: REGISTER_USER_START
-  }
-}
 
 const registerUserSuccess = (user) => {
   return {
-    type: REGISTER_USER_SUCCESS,
-    payload: user
+    type: REGISTER_USER_SUCCESS
   }
 }
 
@@ -29,14 +19,11 @@ const registerUserFail = (err) => {
 }
 
 export const registerUser = (data) => (dispatch) => {
-  dispatch(registerUserStart())
-
-  fetch(AuthUrls.SIGNUP, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    credentials: 'include'
-  })
-    .then(handleError)
-    .then((result) => dispatch(registerUserSuccess(result)))
-    .catch((err) => dispatch(registerUserFail(err)))
+  axios.post(AuthUrls.SIGNUP, data)
+    .then((result) => {
+      dispatch(registerUserSuccess())
+    })
+    .catch((err) => {
+      dispatch(registerUserFail(err.response.data))
+    })
 }

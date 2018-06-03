@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import NewArrivalSlider from './newArrivalsSlider/newArrivalsSlider'
 import OffersSlider from './offersSlider/offersSlider'
 
-const NewArraival = ({ products, isFetching, error }) => {
+const NewArraival = ({ products, isFetching, error, addToWishList }) => {
   return (
     <section className='section-new-arrivals' id='new-arrivals'>
       <div className='container'>
@@ -35,6 +35,7 @@ const NewArraival = ({ products, isFetching, error }) => {
                   ? <h4>Loading ...</h4>
                   : <NewArrivalSlider
                     products={products}
+                    addToWishList={addToWishList}
                   />
               }
 

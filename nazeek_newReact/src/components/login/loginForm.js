@@ -1,15 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
+import validate from './FromValidation'
+import renderErrors from '../../utils/renderErrors'
+import renderField from '../../utils/renderField'
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = (props) => {
+  const { handleSubmit, errors, valid } = props
+  console.log('props', props)
+
   return (
     <form className='form-st1' onSubmit={handleSubmit}>
+      {renderErrors(errors)}
       <div className='form-group row'>
-        <label className='col-sm-4 control-label'>Username</label>
+        <label className='col-sm-4 control-label'>Email</label>
         <div className='col-sm-7'>
           <div className='control--group'>
-            <Field name='username' component='input' type='text' className='form-control' />
+            <Field name='email' component={renderField} type='text' />
             <span className='fc-icon'><i className='icon-user icons' /></span>
           </div>
         </div>
@@ -18,7 +25,7 @@ const LoginForm = ({ handleSubmit }) => {
         <label className='col-sm-4 control-label'>Password</label>
         <div className='col-sm-7'>
           <div className='control--group'>
-            <Field name='password' component='input' type='password' className='form-control' />
+            <Field name='password' component={renderField} type='password' />
             <span className='fc-icon'><i className='icon-lock-open icons' /></span>
           </div>
         </div>
@@ -34,13 +41,13 @@ const LoginForm = ({ handleSubmit }) => {
           </div>
         </div>
       </div>
-      <button type='submit' className='btn btn-submit'>Log in</button>
+      <button type='submit' className='btn btn-submit' disabled={!valid}>Log in</button>
       <p className='aready-p'>don't have an account? <Link to='/register'>create account</Link></p>
     </form>
-
   )
 }
 
 export default reduxForm({
-  form: 'login'
+  form: 'login',
+  validate
 })(LoginForm)

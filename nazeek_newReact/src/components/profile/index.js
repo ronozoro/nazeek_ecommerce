@@ -6,6 +6,11 @@ class Profile extends Component {
     view: ''
   }
 
+  componentDidMount () {
+    const { getUserProfile, token } = this.props
+    getUserProfile(token)
+  }
+
   handleCurrentViewChange = (view) => {
     this.setState({
       view
@@ -13,6 +18,9 @@ class Profile extends Component {
   }
 
   render () {
+    const { view } = this.state
+    const { user, logout } = this.props
+
     return (
       <React.Fragment>
         <div className='breadcrumb-bar'>
@@ -31,35 +39,39 @@ class Profile extends Component {
                   <div className='bps-head clearfix'>
                     <img src='images/av.png' alt='' className='avatar-img' />
                     <div className='prof-txt'>
-                      <h2>Username</h2>
-                      <a href='#' className='logout-link'>Logout</a>
+                      <h2>{user.username}</h2>
+                      <a onClick={logout} className='logout-link'>Logout</a>
                     </div>
                   </div>
                   <div className='bps-body'>
                     <ul>
-                      <li className='active' onClick={() => this.handleCurrentViewChange('')}>
+                      <li className={view === '' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('')}>
                         <a><span><i className='icon-grid icons' /></span>Account Home</a>
                       </li>
-                      <li onClick={() => this.handleCurrentViewChange('presonal-info')}>
+                      <li className={view === 'presonal-info' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('presonal-info')}>
                         <a ><span><i className='icon-user icons' /></span>Personal Information</a>
                       </li>
-                      <li onClick={() => this.handleCurrentViewChange('order-history')}>
+                      <li className={view === 'order-history' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('order-history')}>
                         <a ><span><i className='icon-doc icons' /></span>Order History</a>
                       </li>
-                      <li onClick={() => this.handleCurrentViewChange('address-book')}>
+                      <li className={view === 'address-book' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('address-book')}>
                         <a ><span><i className='icon-notebook icons' /></span>Address book</a>
                       </li>
-                      <li onClick={() => this.handleCurrentViewChange('payment')}>
+                      <li className={view === 'payment' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('payment')}>
                         <a ><span><i className='icon-credit-card icons' /></span>Way of Payments</a>
                       </li>
-                      <li>
+                      <li className={view === 'wishlist' ? 'active' : ''} onClick={() => this.handleCurrentViewChange('wishlist')}>
                         <a ><span><i className='icon-heart icons' /></span>Wishlist</a>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <CurrentView view={this.state.view} />
+              <CurrentView
+                view={this.state.view}
+                user={user}
+                handleCurrentViewChange={this.handleCurrentViewChange}
+              />
             </div>
           </div>
         </div>

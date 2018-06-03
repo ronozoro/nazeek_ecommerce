@@ -7,14 +7,14 @@ const OffersSliderItem = ({ product }) => {
         <div className='offer-top clearfix'>
           <div className='offer-desc'>
             <p className='re-salary'>
-              <span className='sa-new'>{product.price} DK</span>
-              <span className='sa-old'>{product.price} DK</span>
+              <span className='sa-new'>{product.price} KD</span>
+              <span className='sa-old'>{product.price} KD</span>
             </p>
             <p className='desc-p'>
               {product.description}
             </p>
           </div>
-          <div className='save-circle'><p>save<span>15: DK</span></p></div>
+          <div className='save-circle'><p>save<span>15: KD</span></p></div>
         </div>
         <div className='offer-bottom'>
           <a href='#' className='offerThumb'>

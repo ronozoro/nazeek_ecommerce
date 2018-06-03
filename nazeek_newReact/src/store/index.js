@@ -1,21 +1,26 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
+import { loadState, saveState } from './localStorage'
 import rootReducer from '../reducers'
 
-function configureStore (initialState) {
-  let createStoreWithMiddleware
+const logger = createLogger()
 
-  const logger = createLogger()
-  const middleware = applyMiddleware(thunk, logger)
+const persistedState = loadState()
 
-  createStoreWithMiddleware = compose(
-    middleware
-  )
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(rootReducer, persistedState, composeEnhancers(
+  applyMiddleware(thunk, logger)
+))
 
-  return createStoreWithMiddleware(createStore)(rootReducer, initialState)
-}
+store.dispatch({
+  type: 'RESET_ERRORS'
+})
 
-let store = configureStore()
+store.subscribe(() => {
+  saveState({
+    auth: store.getState().auth
+  })
+})
 
 export default store
