@@ -5,6 +5,24 @@ import ProductDetailsTab from './productDetailsTab'
 import Sliders from './sliders'
 
 class Product extends Component {
+  state = {
+    quantity: 1
+  }
+
+  handleQuantityIncrease = () => {
+    this.setState({
+      quantity: this.state.quantity + 1
+    })
+  }
+
+  handleQuantityDecrease = () => {
+    if (this.state.quantity > 1) {
+      this.setState({
+        quantity: this.state.quantity - 1
+      })
+    }
+  }
+
   componentDidMount () {
     const { id } = this.props.match.params
 
@@ -12,7 +30,6 @@ class Product extends Component {
   }
   render () {
     const { isFetching, product, error } = this.props
-    console.log(product)
 
     return (
       <React.Fragment>
@@ -89,9 +106,9 @@ class Product extends Component {
                           <div className='pdp-ro'>
                             <p className='f-rguler'>QUANTITY:</p>
                             <div className='quantity'>
-                              <input type='text' name='count-quat1' className='count-quat' defaultValue='1' />
-                              <div className='btn button-count inc jsQuantityIncrease'><i className='fa fa-plus' aria-hidden='true' /></div>
-                              <div className='btn button-count dec jsQuantityDecrease' minimum='1'><i className='fa fa-minus' aria-hidden='true' /></div>
+                              <input type='text' name='count-quat1' className='count-quat' value={this.state.quantity} />
+                              <div className='btn button-count inc jsQuantityIncrease' onClick={this.handleQuantityIncrease}><i className='fa fa-plus' aria-hidden='true' /></div>
+                              <div className='btn button-count dec jsQuantityDecrease' minimum='1' onClick={this.handleQuantityDecrease}><i className='fa fa-minus' aria-hidden='true' /></div>
                             </div>
                           </div>
                           <div className='pdp-ro'>

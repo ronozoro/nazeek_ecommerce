@@ -3517,6 +3517,7 @@ a.pagination-next i,a.pagination-prev i{
   position: absolute;
   top: 0;
   left: 0;
+  width: 125px;
 }
 .slider-nav .slick-list{
   padding: 0 !important;

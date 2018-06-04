@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Slider from 'react-slick'
+import ReactImageMagnify from 'react-image-magnify'
 import '../../styles/slick.css'
 
 class Sliders extends Component {
@@ -32,7 +33,8 @@ class Sliders extends Component {
     }
 
     const navSlider = {
-      slidesToShow: 4,
+      style: { width: 125 },
+      slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: false,
       asNavFor: '.slider-for',
@@ -68,7 +70,25 @@ class Sliders extends Component {
               return (
                 <div className='pro-slide-item'>
                   <div className='pro--Thumb slider-for__item ex1' >
-                    <img src={`data:image/jpg;base64, ${img.image}`} alt='' />
+                    <ReactImageMagnify {...{
+                      smallImage: {
+                        alt: 'Wristwatch by Ted Baker London',
+                        // isFluidWidth: true,
+                        width: 500,
+                        height: 507,
+                        src: `data:image/jpg;base64, ${img.image}`
+                      },
+                      largeImage: {
+                        src: `data:image/jpg;base64, ${img.image}`,
+                        width: 1000,
+                        height: 1007
+                      },
+                      lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' },
+                      isHintEnabled: true,
+                      shouldHideHintAfterFirstActivation: false,
+                      enlargedImagePosition: 'over'
+                    }}
+                    />
                   </div>
                 </div>
               )
@@ -76,7 +96,7 @@ class Sliders extends Component {
           }
         </Slider>
 
-        <div style={{ width: 125 }}>
+        <div>
           <Slider
             {...navSlider}
             className='slider slider-nav clearfix'
