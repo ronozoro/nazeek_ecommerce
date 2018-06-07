@@ -9,6 +9,8 @@ const HomeSlider = () => {
         id='homeSlider'
         className='owl-carousel owl-theme style-owl'
         loop
+        autoplay
+        autoplaySpeed={2000}
         margin={0}
         nav
         dots

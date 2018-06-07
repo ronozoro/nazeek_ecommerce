@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const OffersSliderItem = ({ product }) => {
   return (
@@ -17,9 +18,9 @@ const OffersSliderItem = ({ product }) => {
           <div className='save-circle'><p>save<span>15: KD</span></p></div>
         </div>
         <div className='offer-bottom'>
-          <a href='#' className='offerThumb'>
+          <Link to={`/products/${product.id}`} className='offerThumb'>
             <img src={`data:image/jpg;base64, ${product.image}`} alt='' className='img-responsive' />
-          </a>
+          </Link>
           <a href='#' className='favorite-pro-btn'><i className='icon-heart icons' /></a>
           <div className='add-div'>
             <a href='#' className='addCart'>Add To Cart</a>
