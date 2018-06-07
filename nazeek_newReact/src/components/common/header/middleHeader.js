@@ -22,10 +22,10 @@ const middleHeader = () => {
             <div className='clearfix'>
               <ul className='menu-purches clearfix'>
                 <li className='favorite-btn'>
-                  <a href='wishlist.html'><i className='icon-heart icons' /><span>0</span></a>
+                  <Link to='/profile'><i className='icon-heart icons' /><span>0</span></Link>
                 </li>
                 <li className='cart-purches-btn'>
-                  <a href='cart.html'><i className='icon-basket icons' /><span>23</span></a>
+                  <Link to='/cart'><i className='icon-basket icons' /><span>23</span></Link>
                 </li>
               </ul>
             </div>

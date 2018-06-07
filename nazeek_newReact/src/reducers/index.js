@@ -8,6 +8,8 @@ import categorieReducer from './caregorieReducer'
 import filterdProductsReducer from './filteredProductsReducer'
 import authReducer from './authReducer'
 import wishlistReducer from './wishListReducer'
+import dummyPages from './dummyPagesReducer'
+import addressReducer from './addressReducer'
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -17,7 +19,9 @@ const rootReducer = combineReducers({
   categorie: categorieReducer,
   filterdProducts: filterdProductsReducer,
   auth: authReducer,
-  wishlist: wishlistReducer
+  wishlist: wishlistReducer,
+  dummyPages: dummyPages,
+  address: addressReducer
 })
 
 export default rootReducer

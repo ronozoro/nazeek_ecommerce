@@ -28,6 +28,11 @@ class Product extends Component {
 
     this.props.fetchProduct(id)
   }
+
+  addItemToCart (varId, count = 1) {
+    this.props.addItemToCart(varId, count)
+  }
+
   render () {
     const { isFetching, product, error } = this.props
 
@@ -59,18 +64,18 @@ class Product extends Component {
                           <ul className='share-pro clearfix'>
                             <li className='sh-share'><i className='icon-share icons' /></li>
                             <li className='sh-instgram'>
-                              <a href='#' target='_blank'><i className='fa fa-instagram' aria-hidden='true' /></a>
+                              <a href='javascript:void(0);' target='_blank'><i className='fa fa-instagram' aria-hidden='true' /></a>
                             </li>
                             <li className='sh-face'>
-                              <a href='#' target='_blank'><i className='fa fa-facebook' aria-hidden='true' /></a>
+                              <a href='javascript:void(0);' target='_blank'><i className='fa fa-facebook' aria-hidden='true' /></a>
                             </li>
                           </ul>
                           <ul className='links-meta-left clearfix'>
                             <li>
-                              <a href='#'><i className='icon-printer icons' /></a>
+                              <a href='javascript:void(0);'><i className='icon-printer icons' /></a>
                             </li>
                             <li>
-                              <a href='#'><i className='icon-envelope icons' /></a>
+                              <a href='javascript:void(0);'><i className='icon-envelope icons' /></a>
                             </li>
                           </ul>
                         </div>
@@ -125,8 +130,8 @@ class Product extends Component {
                           </div>
                         </div>
                         <div className='pdp--action clearfix'>
-                          <a href='#' className='addCart'>Add To Cart</a>
-                          <a href='#' className='favorite-pro-btn'><i className='icon-heart icons' /></a>
+                          <a href='javascript:void(0);' onClick={() => this.addItemToCart(product.id, 1)} className='addCart'>Add To Cart</a>
+                          <a href='javascript:void(0);' className='favorite-pro-btn'><i className='icon-heart icons' /></a>
                         </div>
                       </div>
                     </div>

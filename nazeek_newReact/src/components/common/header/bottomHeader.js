@@ -6,13 +6,13 @@ class BottomHeader extends Component {
     this.props.fetchCategoties()
   }
   render () {
-    const { categories, isFetching, error } = this.props
+    const { categories, isFetching } = this.props
     return (
       <div className='header-bottom'>
         <div className='container'>
 
           <div className='hb-right clearfix'>
-            <a href='#' className='btn-design'>design your room</a>
+            <a href='javascript:void(0);' className='btn-design'>design your room</a>
             <a href='#menu' className='hamburger is-closed'>
               <span className='hamb-top' />
               <span className='hamb-middle' />
@@ -32,12 +32,12 @@ class BottomHeader extends Component {
                     <div className='dropdown-menu'>
                       <h3>rooms</h3>
                       <ul>
-                        <li><a href='#'>Bedroom</a></li>
-                        <li><a href='#'>Livingroom</a></li>
-                        <li><a href='#'>Kids room</a></li>
-                        <li><a href='#'>Kitchen</a></li>
-                        <li><a href='#'>Bathroom</a></li>
-                        <li><a href='#'>Dinning room</a></li>
+                        <li><a href='javascript:void(0);'>Bedroom</a></li>
+                        <li><a href='javascript:void(0);'>Livingroom</a></li>
+                        <li><a href='javascript:void(0);'>Kids room</a></li>
+                        <li><a href='javascript:void(0);'>Kitchen</a></li>
+                        <li><a href='javascript:void(0);'>Bathroom</a></li>
+                        <li><a href='javascript:void(0);'>Dinning room</a></li>
                       </ul>
                     </div>
                   </li>

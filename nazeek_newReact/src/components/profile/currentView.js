@@ -1,8 +1,8 @@
 import React from 'react'
 import ProfileInfo from './profileInfo'
-import AddressBook from './addressBook'
+import AddressBook from '../containers/Address'
 import PresonalInfo from './personalInfo'
-import Payment from './payment'
+import Payment from './payment/payment'
 import OrderHistory from './orderHistory'
 import Wishlist from '../containers/Wishlist'
 

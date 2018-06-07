@@ -1,6 +1,7 @@
-import Producr from '../product/index'
+import Product from '../product/index'
 import { connect } from 'react-redux'
 import { fetchProduct } from '../../actions/fetchProductActions'
+import { addItemToCart } from '../../actions/cartAcrions'
 
 const mapStateToProps = ({product}) => {
   const {product: Product, isFetching, error} = product
@@ -13,7 +14,8 @@ const mapStateToProps = ({product}) => {
 }
 
 const mapDsipatchToProps = {
-  fetchProduct
+  fetchProduct,
+  addItemToCart
 }
 
-export default connect(mapStateToProps, mapDsipatchToProps)(Producr)
+export default connect(mapStateToProps, mapDsipatchToProps)(Product)

@@ -1,6 +1,8 @@
 import React from 'react'
 
 const WishlistProduct = ({ product }) => {
+  console.log(product)
+
   return (
     <tr>
       <td>
@@ -23,10 +25,10 @@ const WishlistProduct = ({ product }) => {
       <td>#32948</td>
       <td>34</td>
       <td>
-        <a href='#' className='caart-icon'><i className='icon-basket icons' /></a>
+        <a href='javascript:void(0)' className='caart-icon'><i className='icon-basket icons' /></a>
       </td>
       <td>
-        <a href='#' className='address-remove'><i className='icon-close icons' /></a>
+        <a href='javascript:void(0)' className='address-remove'><i className='icon-close icons' /></a>
       </td>
     </tr>
   )

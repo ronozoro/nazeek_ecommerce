@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import NewArrivalSlider from './newArrivalsSlider/newArrivalsSlider'
 import OffersSlider from './offersSlider/offersSlider'
 
@@ -12,7 +13,7 @@ const NewArraival = ({ products, isFetching, error, addToWishList }) => {
             <div className='offers-box'>
               <div className='sec-head clearfix'>
                 <h2 className='sec-title f-left'>OFFERS</h2>
-                <a href='#' className='more-page f-right'>more <i className='icon-arrow-right icons' /></a>
+                <Link to='/products' className='more-page f-right'>more <i className='icon-arrow-right icons' /></Link>
               </div>
               <div className='sec-warpper'>
                 <OffersSlider products={products} />
@@ -22,7 +23,7 @@ const NewArraival = ({ products, isFetching, error, addToWishList }) => {
           <div className='col-lg-9 col-md-8 col-sm-7'>
             <div className='sec-head clearfix'>
               <h2 className='sec-title f-left'>new arrivals</h2>
-              <a href='#' className='more-page f-right'>more <i className='icon-arrow-right icons' /></a>
+              <Link to='/products' className='more-page f-right'>more <i className='icon-arrow-right icons' /></Link>
             </div>
             <div className='sec-warpper'>
               {
