@@ -21,7 +21,8 @@ class WishlistList(ListCreateAPIView):
     def list(self, request, *args, **kwargs):
         try:
             token=request.GET.get('token')
-            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+            from project.settings import PROJECT_URL
+            user_id = requests.get(PROJECT_URL+'/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
             user_record=User.objects.filter(pk=user_id.get('pk'))
             if user_record:
@@ -39,7 +40,8 @@ class WishlistList(ListCreateAPIView):
             return Response(serializer.data)
         except Wishlist.DoesNotExist:
             token = request.GET.get('token')
-            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+            from project.settings import PROJECT_URL
+            user_id = requests.get(PROJECT_URL+'/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
             user_record = User.objects.get(pk=user_id.get('pk'))
             serializer = self.get_serializer(data={
@@ -59,7 +61,8 @@ class WishlistItemList(ListCreateAPIView):
 
     def list(self, request, *args, **kwargs):
         token = request.GET.get('token')
-        user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+        from project.settings import PROJECT_URL
+        user_id = requests.get(PROJECT_URL+'/rest-auth/user/', headers={'authorization': 'Token ' + token})
         user_id = json.loads(user_id.text)
         user_record = User.objects.filter(pk=user_id.get('pk'))
         queryset = WishlistItem.objects.select_related(
@@ -74,7 +77,8 @@ class WishlistItemList(ListCreateAPIView):
         #if the wishlist for that user is already created
         try:
             token = request.GET.get('token')
-            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+            from project.settings import PROJECT_URL
+            user_id = requests.get(PROJECT_URL+'/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
             user_record = User.objects.filter(pk=user_id.get('pk'))
             queryset_wishlist = Wishlist.objects.get(user=user_record[0])
@@ -109,7 +113,8 @@ class WishlistItemList(ListCreateAPIView):
         #create it first and then add the item to his wishlist
         except Wishlist.DoesNotExist:
             token = request.GET.get('token')
-            user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+            from project.settings import PROJECT_URL
+            user_id = requests.get(PROJECT_URL+'/rest-auth/user/', headers={'authorization': 'Token ' + token})
             user_id = json.loads(user_id.text)
             user_record = User.objects.filter(pk=user_id.get('pk'))
             serializer_wishlist = WishlistSerializer(
@@ -147,8 +152,8 @@ class WishlistItemDetail(RetrieveUpdateDestroyAPIView,TokenMixin):
 def WishlistItemCount(request):
     if request.method == 'GET' and request.GET.get('token'):
         token = request.GET.get('token')
-
-        user_id = requests.get('http://localhost:8000/rest-auth/user/',headers={'authorization': 'Token ' + token})
+        from project.settings import PROJECT_URL
+        user_id = requests.get(PROJECT_URL+'/rest-auth/user/',headers={'authorization': 'Token ' + token})
         user_id=json.loads(user_id.text)
         try:
             wishlist_item_count = WishlistItem.objects.filter(

@@ -63,6 +63,9 @@ MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
 )
 
+
+PROJECT_URL='http://209.97.132.19:8000'
+
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [

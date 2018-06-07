@@ -17,7 +17,7 @@ User = get_user_model()
 from .mixins import CartTokenMixin, CartUpdateAPIMixin, TokenMixin
 from .models import Cart
 from .serializers import CartItemSerializer, CheckoutSerializer
-
+from project.settings import PROJECT_URL
 
 class CheckoutFinalizeAPIView(TokenMixin, APIView):
     def get(self, request, format=None):
@@ -123,7 +123,7 @@ class CartAPIView(CartTokenMixin, CartUpdateAPIMixin, APIView):
             cart.tax_percentage = 0.075
             token = self.request.GET.get('cart_user_token')
             if token:
-                user_id = requests.get('http://localhost:8000/rest-auth/user/', headers={'authorization': 'Token ' + token})
+                user_id = requests.get(PROJECT_URL+'/rest-auth/user/', headers={'authorization': 'Token ' + token})
                 user_id = json.loads(user_id.text)
                 user_record = User.objects.filter(pk=user_id.get('pk'))
                 if user_record:
