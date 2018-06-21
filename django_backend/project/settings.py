@@ -11,7 +11,7 @@ SECRET_KEY = '$!r)@8^pv#=wd7ksxso22sc#+=jc*e2ssyqihnh64+*lor_+-d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['test.nazzek.com','35.226.144.44 ','localhost','localhost','www.nazzek.com','nazzek.com']
+ALLOWED_HOSTS = ['test.nazzek.com','35.226.144.44','localhost','localhost','www.nazzek.com','nazzek.com']
 
 # Application definition
 
