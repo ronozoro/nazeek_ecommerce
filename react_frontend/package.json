@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-image-zoom": "^0.7.0",
