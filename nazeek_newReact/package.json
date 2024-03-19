@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "animate.css": "^3.6.1",
-    "axios": "^0.18.0",
+    "axios": "^0.28.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
     "lodash.chunk": "^4.2.0",
